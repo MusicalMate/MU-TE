@@ -3,34 +3,25 @@ package backend.musicalmate.oauth.Naver;
 import backend.musicalmate.oauth.OauthMember;
 import backend.musicalmate.oauth.OauthMemberClient;
 import backend.musicalmate.oauth.OauthServerType;
+import backend.musicalmate.oauth.kakao.KakaoMemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 @Component
 @RequiredArgsConstructor
 public class NaverMemberClient implements OauthMemberClient {
     private final NaverApiClient naverApiClient;
-    private final NaverOauthConfig naverOauthConfig;
 
     @Override
     public OauthServerType supportServer(){
         return OauthServerType.NAVER;
     }
+
     @Override
-    public OauthMember fetch(String authCode){
-        NaverToken tokenInfo = naverApiClient.fetchToken(tokenRequestParams(authCode));
-        NaverMemberResponse naverMemberResponse = naverApiClient.fetchMember("Bearer "+tokenInfo.accessToken());
+    public OauthMember fetch(String accessToken){
+        //AccessToken 가지고 회원 정보 받아오기(KakaoMemberResponse에 가서 내가 정한 형태로 받아오는 거임)
+        NaverMemberResponse naverMemberResponse = naverApiClient.fetchMember("Bearer "+accessToken);
+        //OauthMember 객체로 반환해주기
         return naverMemberResponse.toDomain();
-    }
-    private MultiValueMap<String,String> tokenRequestParams(String authCode){
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type","authorization_code");
-        params.add("client_id",naverOauthConfig.clientId());
-        params.add("client_secret",naverOauthConfig.clientSecret());
-        params.add("code",authCode);
-        params.add("state",naverOauthConfig.state());
-        return params;
     }
 }

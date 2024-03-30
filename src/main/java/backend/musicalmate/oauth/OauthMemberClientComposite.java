@@ -17,9 +17,11 @@ public class OauthMemberClientComposite {
         mapping=clients.stream()
                 .collect(toMap(OauthMemberClient::supportServer,identity()));
     }
-    public OauthMember fetch(OauthServerType oauthServerType, String authCode){
-        return getClient(oauthServerType).fetch(authCode);
+
+    public OauthMember fetch(OauthServerType oauthServerType, String accessToken){
+        return getClient(oauthServerType).fetch(accessToken);
     }
+
     private OauthMemberClient getClient(OauthServerType oauthServerType){
         return Optional.ofNullable(mapping.get(oauthServerType))
                 .orElseThrow(()-> new RuntimeException("지원하지 않는 소셜 로그인"));

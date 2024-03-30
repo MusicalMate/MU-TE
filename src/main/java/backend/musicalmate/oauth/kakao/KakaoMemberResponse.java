@@ -2,6 +2,7 @@ package backend.musicalmate.oauth.kakao;
 
 import backend.musicalmate.oauth.OauthId;
 import backend.musicalmate.oauth.OauthMember;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -29,23 +30,27 @@ public record KakaoMemberResponse(
             boolean profileNeedsAgreement,
             boolean profileNicknameNeedsAgreement,
             boolean profileImageNeedsAgreement,
+            String email,
+            String name,
             Profile profile,
             boolean nameNeedsAgreement,
-            String name,
+            //String name,
             boolean emailNeedsAgreement,
             boolean isEmailValid,
             boolean isEmailVerified,
-            String email,
+            //String email,
             LocalDateTime ciAuthenticatedAt
     ){
-    }
-    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-    public record Profile(
-            String nickname,
-            String thumbnailImageUrl,
-            String profileImageUrl,
-            boolean isDefaultImage
-    ){
+        @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+        public record Profile(
+                String nickname,
+                String thumbnailImageUrl,
+                String profileImageUrl,
+                //String profileImageUrl,
+                boolean isDefaultImage
+        ){
 
+        }
     }
+
 }

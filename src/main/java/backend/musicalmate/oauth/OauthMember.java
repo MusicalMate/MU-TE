@@ -34,6 +34,9 @@ public class OauthMember {
     private List<String> upload_video_list;
     @Column
     private List<String> upload_image_list;
+
+//    @Column
+//    private String accessToken;
     public Long user_id(){
         return user_id;
     }
