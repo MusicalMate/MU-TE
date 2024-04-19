@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:id="@+id/iv_item_home"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_item_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:maxWidth="60dp"
+        android:maxLines="1"
+        android:textSize="12sp"
+        tools:text="미스트" />
+</LinearLayout>

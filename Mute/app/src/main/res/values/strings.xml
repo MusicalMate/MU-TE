@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MUTE</string>
+    <string name="actor">배우</string>
+    <string name="mylist">마이리스트</string>
+    <string name="all">전체보기</string>
+    <string name="musical">뮤지컬</string>
 </resources>

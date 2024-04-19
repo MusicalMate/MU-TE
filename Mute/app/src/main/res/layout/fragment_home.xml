@@ -1,18 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/layout_home_top"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/tv_home_mylist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/mylist"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_home_top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/all"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_mylist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_home_mylist" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_mylist"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_mylist"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_home" />
+
+        <TextView
+            android:id="@+id/tv_home_musical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/musical"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_home_mylist" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/all"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_musical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_home_musical" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_musical"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_musical"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_home" />
+
+        <TextView
+            android:id="@+id/tv_home_actor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/actor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rv_home_musical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="@string/all"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_home_actor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_home_actor" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_home_actor"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_actor"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_home" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
