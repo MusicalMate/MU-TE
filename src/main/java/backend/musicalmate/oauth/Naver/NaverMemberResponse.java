@@ -1,7 +1,7 @@
 package backend.musicalmate.oauth.Naver;
 
 import backend.musicalmate.oauth.OauthId;
-import backend.musicalmate.oauth.OauthMember;
+import backend.musicalmate.Member.OauthMember;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

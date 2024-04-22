@@ -1,7 +1,6 @@
 package backend.musicalmate.oauth.kakao;
 
-import backend.musicalmate.controller.OauthController;
-import backend.musicalmate.oauth.OauthMember;
+import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.oauth.OauthMemberClient;
 import backend.musicalmate.oauth.OauthServerType;
 import lombok.RequiredArgsConstructor;

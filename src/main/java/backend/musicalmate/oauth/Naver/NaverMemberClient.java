@@ -1,9 +1,8 @@
 package backend.musicalmate.oauth.Naver;
 
-import backend.musicalmate.oauth.OauthMember;
+import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.oauth.OauthMemberClient;
 import backend.musicalmate.oauth.OauthServerType;
-import backend.musicalmate.oauth.kakao.KakaoMemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

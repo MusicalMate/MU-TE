@@ -1,8 +1,7 @@
 package backend.musicalmate.oauth.kakao;
 
 import backend.musicalmate.oauth.OauthId;
-import backend.musicalmate.oauth.OauthMember;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import backend.musicalmate.Member.OauthMember;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 

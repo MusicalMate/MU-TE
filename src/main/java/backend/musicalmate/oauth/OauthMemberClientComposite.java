@@ -1,5 +1,6 @@
 package backend.musicalmate.oauth;
 
+import backend.musicalmate.Member.OauthMember;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

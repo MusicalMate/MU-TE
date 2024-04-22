@@ -1,6 +1,6 @@
 package backend.musicalmate.oauth;
 
-import org.junit.jupiter.api.AfterEach;
+import backend.musicalmate.Member.OauthMember;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
