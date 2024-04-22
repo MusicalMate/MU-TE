@@ -28,6 +28,6 @@ public class UserPlayListMember {
 
     @ManyToOne
     @JoinColumn(name = "allplaylist_id")
-    private UserPlayListMember userPlayLists;
+    private AllPlayListCall userPlayLists;
 
 }

@@ -40,11 +40,5 @@ class HashTagActor{
     private ImageMember hashTagActorsForImage;
 
     @Column
-    private List<String> video_title;
-
-    @Column
-    private List<String> image_title;
-
-    @Column
-    private List<String> actor_name;
+    private String actor_name;
 }

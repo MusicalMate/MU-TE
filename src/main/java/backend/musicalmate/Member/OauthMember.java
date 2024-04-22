@@ -36,12 +36,16 @@ public class OauthMember {
     private String user_key;
     @Column
     private String email;
-    @OneToMany(mappedBy = "users")
+
+    @OneToMany(mappedBy = "upload_video_list")
     private List<VideoMember> upload_video_list;
-    @OneToMany(mappedBy = "images")
+    @OneToMany(mappedBy = "upload_image_list")
     private List<ImageMember> upload_image_list;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "upload_link_list")
+    private List<LinkMember> upload_link_list;
+
+    @OneToMany(mappedBy = "users_allPlayList")
     private List<AllPlayListCall> allPlayListCall = new ArrayList<>();
 
 //    @Column
@@ -77,7 +81,7 @@ class AllPlayListCall{
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private OauthMember users;
+    private OauthMember users_allPlayList;
 
     @OneToMany
     @JoinColumn(name = "userplaylist_id") //참조할 콜룸 이름

@@ -2,6 +2,7 @@ package backend.musicalmate.Member;
 
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -12,7 +13,10 @@ public class MusicalMember {
     private Long musical_id;
 
     @Column
-    private String video_title;
+    private String musical_title;
+
+    @Column
+    private Time musical_time;
 
     @Column
     private String musical_description;
@@ -41,11 +45,5 @@ class HashTagMusical{
     private ImageMember hashTagMusicalsForImage;
 
     @Column
-    private List<String> video_title;
-
-    @Column
-    private List<String> image_title;
-
-    @Column
-    private List<String> musical_title;
+    private String musical_title;
 }

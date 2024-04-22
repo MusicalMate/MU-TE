@@ -21,8 +21,12 @@ public class LinkMember {
     @Column(nullable = false)
     private String link;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private OauthMember upload_link_list;
+
     @OneToMany(mappedBy = "links")
-    private List<LinkUserPlayListCall> linkUserPlayListCall = new ArrayList<>();
+    private List<LinkUserPlayListCall> linkUserPlayListCalls = new ArrayList<>();
 }
 
 @Entity

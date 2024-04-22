@@ -28,7 +28,7 @@ public class VideoMember {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private OauthMember users;
+    private OauthMember upload_video_list;
 
     @OneToMany(mappedBy = "hashTagActorsForVideo")
     private List<HashTagActor> hashTagActor = new ArrayList<>();
@@ -41,7 +41,7 @@ public class VideoMember {
 class VideoUserPlayListCall{
     @Id
     @GeneratedValue
-    private  Long uvcall_id;
+    private  Long vucall_id;
 
     @ManyToOne
     @JoinColumn(name = "video_id")

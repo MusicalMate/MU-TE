@@ -23,10 +23,10 @@ public class ImageMember {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private OauthMember images;
+    private OauthMember upload_image_list;
 
     @OneToMany(mappedBy = "images")
-    private List<ImageUserPlayListCall> imageUserPlayListCall = new ArrayList<>();
+    private List<ImageUserPlayListCall> imageUserPlayListCalls = new ArrayList<>();
 
     @OneToMany(mappedBy = "hashTagActorsForImage")
     private List<HashTagActor> hashTagActor = new ArrayList<>();
