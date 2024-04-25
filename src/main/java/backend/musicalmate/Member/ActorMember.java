@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+//ch
+
 @Entity
 @Table(name = "Actors", uniqueConstraints = {@UniqueConstraint(name = "Actor_unique",columnNames = {"actor_id"}),})
 public class ActorMember {

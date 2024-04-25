@@ -5,15 +5,13 @@ import backend.musicalmate.Member.ImageMember;
 import backend.musicalmate.Member.VideoMember;
 import backend.musicalmate.oauth.OauthId;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.repository.cdi.Eager;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Builder
 @AllArgsConstructor

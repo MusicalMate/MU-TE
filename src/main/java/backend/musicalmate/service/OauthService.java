@@ -11,10 +11,10 @@ public class OauthService {
     private final OauthMemberClientComposite oauthMemberClientComposite;
     private final OauthMemberRepository oauthMemberRepository;
 
-    public Long login(OauthServerType oauthServerType, String accessToken){
+    public OauthMember login(OauthServerType oauthServerType, String accessToken){
         OauthMember oauthMember = oauthMemberClientComposite.fetch(oauthServerType,accessToken);
         OauthMember saved = oauthMemberRepository.findByemail(oauthMember.email())
                 .orElseGet(()-> oauthMemberRepository.save(oauthMember));
-        return saved.user_id();
+        return saved;
     }
 }

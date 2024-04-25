@@ -1,5 +1,6 @@
 package backend.musicalmate.controller;
 
+import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.oauth.OauthServerType;
 import backend.musicalmate.service.OauthService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class OauthController {
 
     @SneakyThrows
     @PostMapping("/api/auth/login/{oauthServerType}")
-    ResponseEntity<Map<String, Object>> login(
+    ResponseEntity<Map<String, OauthMember>> login(
             @PathVariable OauthServerType oauthServerType,
             @RequestBody Map<String,String> requestBody
             ){
@@ -31,12 +32,12 @@ public class OauthController {
         logger.info("accessToken " +accessToken);
         System.out.println("success"+accessToken);
 
-        Long login = oauthService.login(oauthServerType, accessToken);
+        OauthMember login = oauthService.login(oauthServerType, accessToken);
 
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("userId", login);
+        Map<String, OauthMember> responseBody = new HashMap<>();
+        responseBody.put("users", login);
 
-        ResponseEntity<Long> ch = ResponseEntity.ok(login);
+        //ResponseEntity<OauthMember> ch = ResponseEntity.ok(login);
 
         return ResponseEntity.ok(responseBody);
     }
