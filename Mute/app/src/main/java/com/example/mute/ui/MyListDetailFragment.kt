@@ -1,22 +1,22 @@
-package com.example.mute
+package com.example.mute.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mute.databinding.FragmentActorDetailBinding
+import com.example.mute.databinding.FragmentMyListDetailBinding
 
-class ActorDetailFragment : Fragment() {
+class MyListDetailFragment : Fragment() {
 
-    private var _binding: FragmentActorDetailBinding? = null
+    private var _binding: FragmentMyListDetailBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentActorDetailBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentMyListDetailBinding.inflate(layoutInflater, container, false)
 
         return binding.root
     }

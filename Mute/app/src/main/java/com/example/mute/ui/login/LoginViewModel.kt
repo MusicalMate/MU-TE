@@ -1,4 +1,4 @@
-package com.example.mute
+package com.example.mute.ui.login
 
 import androidx.lifecycle.ViewModel
 

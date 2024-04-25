@@ -1,4 +1,4 @@
-package com.example.mute
+package com.example.mute.ui.home
 
 data class HomeItem(
     val img: String,

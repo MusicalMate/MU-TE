@@ -1,4 +1,4 @@
-package com.example.mute
+package com.example.mute.ui.home
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

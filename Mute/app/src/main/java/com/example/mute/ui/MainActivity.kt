@@ -1,4 +1,4 @@
-package com.example.mute
+package com.example.mute.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.mute.R
 import com.example.mute.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
