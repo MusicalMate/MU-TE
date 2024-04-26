@@ -22,7 +22,7 @@ public class OauthController {
 
     @SneakyThrows
     @PostMapping("/api/auth/login/{oauthServerType}")
-    ResponseEntity<Map<String, OauthMember>> login(
+    ResponseEntity<OauthMember> login(
             @PathVariable OauthServerType oauthServerType,
             @RequestBody Map<String,String> requestBody
             ){
@@ -30,16 +30,14 @@ public class OauthController {
         String accessToken = requestBody.get("accessToken");
 
         logger.info("accessToken " +accessToken);
-        System.out.println("success"+accessToken);
 
         OauthMember login = oauthService.login(oauthServerType, accessToken);
 
-        Map<String, OauthMember> responseBody = new HashMap<>();
-        responseBody.put("users", login);
+        logger.info("email : "+login.email());
+        logger.info("nickname : "+login.nickname());
+        logger.info("user_id : "+login.user_id());
 
-        //ResponseEntity<OauthMember> ch = ResponseEntity.ok(login);
-
-        return ResponseEntity.ok(responseBody);
+        return ResponseEntity.ok(login);
     }
 
 }
