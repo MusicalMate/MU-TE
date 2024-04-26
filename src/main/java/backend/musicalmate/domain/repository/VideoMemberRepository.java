@@ -1,4 +1,4 @@
 package backend.musicalmate.domain.repository;
 
-public class VideoRepository {
+public interface VideoMemberRepository {
 }

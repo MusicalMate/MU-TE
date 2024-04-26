@@ -11,10 +11,11 @@ import java.util.List;
 public class UserPlayListMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userplaylist_id;
+    @Column(name = "userplaylist_id")
+    private Long userplaylistId;
 
-    @Column(nullable = false)
-    private String userplaylist_title;
+    @Column(name = "userplaylist_title", nullable = false)
+    private String userplaylistTitle;
 
     @OneToMany(mappedBy = "userPlayLists")
     private List<VideoUserPlayListCall> videoUserPlayListCall = new ArrayList<>();
