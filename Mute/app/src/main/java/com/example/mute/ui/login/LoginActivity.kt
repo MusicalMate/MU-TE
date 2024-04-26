@@ -15,8 +15,10 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 
@@ -33,7 +35,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setListener() {
         binding.ivLoginKakao.setOnClickListener {
-            val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+            val okHttpclient = OkHttpClient.Builder().connectTimeout(10, TimeUnit.MINUTES)
+                .readTimeout(6000, TimeUnit.SECONDS).writeTimeout(6000, TimeUnit.SECONDS).build()
+            val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpclient)
                 .addConverterFactory(GsonConverterFactory.create()).build()
             val service = retrofit.create(LoginApi::class.java)
 
