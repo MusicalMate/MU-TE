@@ -1,26 +1,34 @@
 package backend.musicalmate.Member;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import java.util.List;
 
-//ch
 
+@Getter
+@Setter
+@Data
 @Entity
 @Table(name = "Actors", uniqueConstraints = {@UniqueConstraint(name = "Actor_unique",columnNames = {"actor_id"}),})
 public class ActorMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long actor_id;
+    @Column(name = "actor_id")
+    private Long actorId;
 
-    @Column
-    private String actor_name;
+    @Column(name = "actor_name")
+    private String actorName;
 
-    @Column
-    private String actor_description;
+    @Column(name = "actor_description")
+    private String actorDescription;
 
-    @Column
-    private List<String> filmography;
+    @Column(columnDefinition = "json")
+    private String filmography;
 }
 
 @Entity
@@ -28,10 +36,11 @@ public class ActorMember {
 class HashTagActor{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hashtag_actor_id;
+    @Column(name = "hashtag_actor_id")
+    private Long hashtagActorId;
 
     @JoinColumn(name = "actor_id", nullable = false)
-    private Long actor_id;
+    private Long actorId;
 
     @ManyToOne
     @JoinColumn(name = "video_id")
@@ -41,6 +50,6 @@ class HashTagActor{
     @JoinColumn(name = "image_id")
     private ImageMember hashTagActorsForImage;
 
-    @Column
-    private String actor_name;
+    @Column(name = "actor_name")
+    private String actorName;
 }

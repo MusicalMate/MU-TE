@@ -7,13 +7,14 @@ import jakarta.persistence.*;
 public class PlayListMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long playlist_id;
+    @Column(name = "playlist_id")
+    private Long playlistId;
 
-    @Column(nullable = false)
-    private String playlist_title;
+    @Column(name = "playlist_title", nullable = false)
+    private String playlistTitle;
 
-    @Column(nullable = false)
-    private int which_playlist;
+    @Column(name = "which_playlist", nullable = false)
+    private int whichPlaylist;
 
     @ManyToOne
     @JoinColumn(name = "allplaylist_id")

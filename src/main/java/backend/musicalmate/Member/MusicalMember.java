@@ -1,28 +1,32 @@
 package backend.musicalmate.Member;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.sql.Time;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Musicals", uniqueConstraints = {@UniqueConstraint(name = "Musical_unique",columnNames = {"musical_id"}),})
 public class MusicalMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long musical_id;
+    @Column(name = "musical_id")
+    private Long musicalId;
 
-    @Column
-    private String musical_title;
+    @Column(name = "musical_title")
+    private String musicalTitle;
 
-    @Column
-    private Time musical_time;
+    @Column(name = "musical_time")
+    private String musicalTime;
 
-    @Column
-    private String musical_description;
+    @Column(name = "musical_description")
+    private String musicalDescription;
 
-    @Column
-    private List<String> actor_in_musical;
+    @Column(name = "actor_in_musical", columnDefinition = "json")
+    private String actorInMusical;
 
 }
 
@@ -31,10 +35,11 @@ public class MusicalMember {
 class HashTagMusical{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hashtag_musical_id;
+    @Column(name = "hashtag_musical_id")
+    private Long hashtagMusicalId;
 
     @JoinColumn(name = "musical_id", nullable = false)
-    private Long musical_id;
+    private Long musicalId;
 
     @ManyToOne
     @JoinColumn(name = "video_id")
@@ -44,6 +49,6 @@ class HashTagMusical{
     @JoinColumn(name = "image_id")
     private ImageMember hashTagMusicalsForImage;
 
-    @Column
-    private String musical_title;
+    @Column(name = "musical_title")
+    private String musicalTitle;
 }

@@ -33,9 +33,7 @@ public class OauthController {
 
         OauthMember login = oauthService.login(oauthServerType, accessToken);
 
-        logger.info("email : "+login.email());
-        logger.info("nickname : "+login.nickname());
-        logger.info("user_id : "+login.user_id());
+        logger.info("email : "+login.getEmail());
 
         return ResponseEntity.ok(login);
     }

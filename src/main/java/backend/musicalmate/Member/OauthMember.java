@@ -14,6 +14,8 @@ import java.util.List;
 @Data
 @Entity
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="Users",
@@ -23,69 +25,51 @@ public class OauthMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
+    @Column(name = "user_id")
+    private Long userId;
 
     @Embedded
     private OauthId oauthId;
     private String nickname;
     private String picture;
 
-    @Column
-    private String user_key;
+    @Column(name = "user_key")
+    private String userKey;
     @Column
     private String email;
 
-    @OneToMany(mappedBy = "upload_video_list")
-    private List<VideoMember> upload_video_list;
-    @OneToMany(mappedBy = "upload_image_list")
-    private List<ImageMember> upload_image_list;
+    @OneToMany(mappedBy = "uploadVideoList")
+    @Column(name = "upload_video_list")
+    private List<VideoMember> uploadVideoList;
 
-    @OneToMany(mappedBy = "upload_link_list")
-    private List<LinkMember> upload_link_list;
+    @OneToMany(mappedBy = "uploadImageList")
+    @Column(name = "upload_image_list")
+    private List<ImageMember> uploadImageList;
 
-    @OneToMany(mappedBy = "users_allPlayList")
+    @OneToMany(mappedBy = "uploadLinkList")
+    @Column(name = "upload_link_list")
+    private List<LinkMember> uploadLinkList;
+
+    @OneToMany(mappedBy = "usersAllPlayList")
     private List<AllPlayListCall> allPlayListCall = new ArrayList<>();
-
-//    @Column
-//    private String accessToken;
-    public Long user_id(){
-        return user_id;
-    }
-    public OauthId oauthId(){
-        return oauthId;
-    }
-    public String nickname(){
-        return nickname;
-    }
-    public String picture(){
-        return picture;
-    }
-    public String email(){
-        return email;
-    }
-    public List<VideoMember> upload_video_list(){
-        return upload_video_list;
-    }
-    public List<ImageMember> upload_image_list(){
-        return upload_image_list;
-    }
 
 }
 @Entity
 class AllPlayListCall{
     @Id
     @GeneratedValue
-    private  Long allplaylist_id;
+    @Column(name = "allplaylist_id")
+    private  Long allplaylistId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private OauthMember users_allPlayList;
+    private OauthMember usersAllPlayList;
 
     @OneToMany
-    @JoinColumn(name = "userplaylist_id") //참조할 콜룸 이름
-    private List<UserPlayListMember> userplaylist_id;  //이 이름이 필드 이름 => mapped by에 사용할 값
+    @JoinColumn(name = "userplaylist_id") //참조할 콜룸 이름-db에 저장된 이름 써야함
+    private List<UserPlayListMember> userplaylistId;  //이 이름이 필드 이름 => mapped by에 사용할 값
 
     @OneToMany
     @JoinColumn(name = "playlist_id")
-    private List<PlayListMember> playlist_id;
+    private List<PlayListMember> playlistId;
 }

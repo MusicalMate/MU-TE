@@ -12,23 +12,24 @@ import java.util.List;
 public class VideoMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long video_id;
+    @Column(name = "video_id")
+    private Long videoId;
 
-    @Column(nullable = false)
-    private String video_title;
+    @Column(name = "video_title", nullable = false)
+    private String videoTitle;
 
-    @Column
-    private String video_description;
+    @Column(name = "video_description")
+    private String videoDescription;
 
-    @Column
-    private int video_like;
+    @Column(name = "video_like")
+    private int videoLike;
 
     @OneToMany(mappedBy = "videos")
     private List<VideoUserPlayListCall> videoUserPlayListCalls = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private OauthMember upload_video_list;
+    private OauthMember uploadVideoList;
 
     @OneToMany(mappedBy = "hashTagActorsForVideo")
     private List<HashTagActor> hashTagActor = new ArrayList<>();
@@ -40,8 +41,9 @@ public class VideoMember {
 @Entity
 class VideoUserPlayListCall{
     @Id
-    @GeneratedValue
-    private  Long vucall_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "vucall_id")
+    private  Long vucallId;
 
     @ManyToOne
     @JoinColumn(name = "video_id")

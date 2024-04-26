@@ -10,20 +10,21 @@ import java.util.List;
 public class LinkMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long link_id;
+    @Column(name = "link_id")
+    private Long linkId;
 
-    @Column(nullable = false)
-    private String link_title;
+    @Column(name = "link_title", nullable = false)
+    private String linkTitle;
 
-    @Column
-    private String link_description;
+    @Column(name = "link_description")
+    private String linkDescription;
 
     @Column(nullable = false)
     private String link;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private OauthMember upload_link_list;
+    private OauthMember uploadLinkList;
 
     @OneToMany(mappedBy = "links")
     private List<LinkUserPlayListCall> linkUserPlayListCalls = new ArrayList<>();
@@ -33,7 +34,8 @@ public class LinkMember {
 class LinkUserPlayListCall{
     @Id
     @GeneratedValue
-    private  Long lucall_id;
+    @Column(name = "lucall_id")
+    private  Long lucallId;
 
     @ManyToOne
     @JoinColumn(name = "link_id")

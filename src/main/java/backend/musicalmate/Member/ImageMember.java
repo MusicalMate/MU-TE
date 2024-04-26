@@ -10,20 +10,21 @@ import java.util.List;
 public class ImageMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long image_id;
+    @Column(name = "image_id")
+    private Long imageId;
 
-    @Column(nullable = false)
-    private String image_title;
+    @Column(name = "image_title", nullable = false)
+    private String imageTitle;
 
-    @Column
-    private String image_description;
+    @Column(name = "image_description")
+    private String imageDescription;
 
-    @Column
-    private int image_like;
+    @Column(name = "image_like")
+    private int imageLike;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private OauthMember upload_image_list;
+    private OauthMember uploadImageList;
 
     @OneToMany(mappedBy = "images")
     private List<ImageUserPlayListCall> imageUserPlayListCalls = new ArrayList<>();
@@ -39,7 +40,8 @@ public class ImageMember {
 class ImageUserPlayListCall{
     @Id
     @GeneratedValue
-    private  Long iucall_id;
+    @Column(name = "iucall_id")
+    private  Long iucallId;
 
     @ManyToOne
     @JoinColumn(name = "image_id")

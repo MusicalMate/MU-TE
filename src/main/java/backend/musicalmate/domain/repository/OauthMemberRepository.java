@@ -1,4 +1,4 @@
-package backend.musicalmate.oauth;
+package backend.musicalmate.domain.repository;
 
 import backend.musicalmate.Member.OauthMember;
 import org.springframework.data.jpa.repository.JpaRepository;
