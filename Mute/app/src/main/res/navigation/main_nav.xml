@@ -9,7 +9,17 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mute.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_myListDetailFragment"
+            app:destination="@id/myListDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_actorDetailFragment"
+            app:destination="@id/actorDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_musicalDetailFragment"
+            app:destination="@id/musicalDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addFragment"
@@ -28,4 +38,67 @@
         android:name="com.example.mute.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page" />
+    <fragment
+        android:id="@+id/actorDetailFragment"
+        android:name="com.example.mute.ui.detail.ActorDetailFragment"
+        android:label="ActorDetailFragment" >
+        <action
+            android:id="@+id/action_actorDetailFragment_to_allVideoFragment"
+            app:destination="@id/allVideoFragment" />
+        <action
+            android:id="@+id/action_actorDetailFragment_to_allPhotoFragment"
+            app:destination="@id/allPhotoFragment" />
+        <action
+            android:id="@+id/action_actorDetailFragment_to_allLinkFragment"
+            app:destination="@id/allLinkFragment" />
+        <argument
+            android:name="actor_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicalDetailFragment"
+        android:name="com.example.mute.ui.detail.MusicalDetailFragment"
+        android:label="MusicalDetailFragment" >
+        <action
+            android:id="@+id/action_musicalDetailFragment_to_allVideoFragment"
+            app:destination="@id/allVideoFragment" />
+        <action
+            android:id="@+id/action_musicalDetailFragment_to_allPhotoFragment"
+            app:destination="@id/allPhotoFragment" />
+        <action
+            android:id="@+id/action_musicalDetailFragment_to_allLinkFragment"
+            app:destination="@id/allLinkFragment" />
+        <argument
+            android:name="musical_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myListDetailFragment"
+        android:name="com.example.mute.ui.detail.MyListDetailFragment"
+        android:label="MyListDetailFragment" >
+        <action
+            android:id="@+id/action_myListDetailFragment_to_allVideoFragment"
+            app:destination="@id/allVideoFragment" />
+        <action
+            android:id="@+id/action_myListDetailFragment_to_allPhotoFragment"
+            app:destination="@id/allPhotoFragment" />
+        <action
+            android:id="@+id/action_myListDetailFragment_to_allLinkFragment"
+            app:destination="@id/allLinkFragment" />
+        <argument
+            android:name="my_list_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/allVideoFragment"
+        android:name="com.example.mute.ui.all.AllVideoFragment"
+        android:label="AllVideoFragment" />
+    <fragment
+        android:id="@+id/allLinkFragment"
+        android:name="com.example.mute.ui.all.AllLinkFragment"
+        android:label="AllLinkFragment" />
+    <fragment
+        android:id="@+id/allPhotoFragment"
+        android:name="com.example.mute.ui.all.AllPhotoFragment"
+        android:label="AllPhotoFragment" />
 </navigation>

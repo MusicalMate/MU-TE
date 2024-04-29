@@ -5,12 +5,15 @@
 
     <data>
 
+        <variable
+            name="my_list_name"
+            type="String" />
     </data>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.MyListDetailFragment">
+        tools:context=".ui.detail.MyListDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,7 +29,9 @@
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:title="@{my_list_name}"
+                    app:titleCentered="true" />
             </com.google.android.material.appbar.AppBarLayout>
 
             <TextView

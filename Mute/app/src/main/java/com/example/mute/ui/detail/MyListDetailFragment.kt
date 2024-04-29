@@ -1,22 +1,25 @@
-package com.example.mute.ui
+package com.example.mute.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.mute.databinding.FragmentMusicalDetailBinding
+import androidx.navigation.fragment.navArgs
+import com.example.mute.databinding.FragmentMyListDetailBinding
 
-class MusicalDetailFragment : Fragment() {
+class MyListDetailFragment : Fragment() {
 
-    private var _binding: FragmentMusicalDetailBinding? = null
+    private var _binding: FragmentMyListDetailBinding? = null
     private val binding get() = _binding!!
+    private val args: MyListDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMusicalDetailBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentMyListDetailBinding.inflate(layoutInflater, container, false)
+        binding.myListName = args.myListName
 
         return binding.root
     }
