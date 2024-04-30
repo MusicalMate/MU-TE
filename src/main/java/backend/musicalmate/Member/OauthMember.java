@@ -1,12 +1,8 @@
 package backend.musicalmate.Member;
 
-import backend.musicalmate.Member.AllPlayListCall;
-import backend.musicalmate.Member.ImageMember;
-import backend.musicalmate.Member.VideoMember;
 import backend.musicalmate.oauth.OauthId;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.repository.cdi.Eager;
 
 import java.util.ArrayList;
 import java.util.List;
