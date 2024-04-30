@@ -28,11 +28,17 @@ public class ActorController {
         ActorMember actorMember = actorService.findActor(actor);
 
         Path imagePath = Paths.get("src/main/resources/static/ActorImage/"+actor+".jpeg");
-        byte[] imageBytes = Files.readAllBytes(imagePath);
 
-        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+        try{
+            byte[] imageBytes = Files.readAllBytes(imagePath);
 
-        actorMember.setImage(encodedImage);
+            String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+
+            actorMember.setImage(encodedImage);
+        }catch (Exception e){
+            actorMember.setImage(null);
+        }
+
 
         return ResponseEntity.ok(actorMember);
     }

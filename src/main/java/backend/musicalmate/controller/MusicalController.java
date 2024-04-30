@@ -33,12 +33,18 @@ public class MusicalController {
         title = title.replaceAll(" ","");
         title = title.toLowerCase(Locale.ROOT);
 
-        Path imagePath = Paths.get("src/main/resources/static/MusicalImage/"+title+".jpeg");
-        byte[] imageBytes = Files.readAllBytes(imagePath);
+        try{
+            Path imagePath = Paths.get("src/main/resources/static/MusicalImage/"+title+".jpeg");
+            byte[] imageBytes = Files.readAllBytes(imagePath);
 
-        String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+            String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
 
-        musicalMember.setImage(encodedImage);
+            musicalMember.setImage(encodedImage);
+        } catch (Exception e){
+            musicalMember.setImage(null);
+            logger.info("error : "+e);
+        }
+
 
         return ResponseEntity.ok(musicalMember);
     }
