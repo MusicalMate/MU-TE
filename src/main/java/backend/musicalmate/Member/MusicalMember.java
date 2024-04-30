@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 
 @Entity
 @Getter
@@ -27,6 +26,8 @@ public class MusicalMember {
 
     @Column(name = "actor_in_musical", columnDefinition = "json")
     private String actorInMusical;
+
+    private String image;
 
 }
 
