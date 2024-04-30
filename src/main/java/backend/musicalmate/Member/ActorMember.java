@@ -29,6 +29,8 @@ public class ActorMember {
 
     @Column(columnDefinition = "json")
     private String filmography;
+
+    private String image;
 }
 
 @Entity
