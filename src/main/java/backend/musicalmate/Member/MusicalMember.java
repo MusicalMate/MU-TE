@@ -28,6 +28,8 @@ public class MusicalMember {
     @Column(name = "actor_in_musical", columnDefinition = "json")
     private String actorInMusical;
 
+    private String image;
+
 }
 
 @Entity
