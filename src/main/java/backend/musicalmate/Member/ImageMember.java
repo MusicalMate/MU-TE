@@ -19,6 +19,9 @@ public class ImageMember {
     @Column(name = "image_description")
     private String imageDescription;
 
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
+
     @Column(name = "image_like")
     private int imageLike;
 
