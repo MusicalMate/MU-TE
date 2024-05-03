@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -30,6 +33,8 @@ public class ActorMember {
 }
 
 @Entity
+@Getter
+@Setter
 @Table(name="HashTagActors", uniqueConstraints = {@UniqueConstraint(name = "htactor_unique", columnNames = {"actor_id"}),})
 class HashTagActor{
     @Id
@@ -40,14 +45,13 @@ class HashTagActor{
     @JoinColumn(name = "actor_id", nullable = false)
     private Long actorId;
 
-    @ManyToOne
-    @JoinColumn(name = "video_id")
-    private VideoMember hashTagActorsForVideo;
-
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    private ImageMember hashTagActorsForImage;
-
     @Column(name = "actor_name")
     private String actorName;
+
+    @OneToMany(mappedBy = "videosForHashTagActor")
+    private List<VideoActorHashCall> videosForHashTagActor = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "imagesForHashTagActor")
+    private List<ImageActorHashCall> imagesForHashTagActor = new ArrayList<>();
 }

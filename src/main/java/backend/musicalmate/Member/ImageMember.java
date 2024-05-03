@@ -1,11 +1,15 @@
 package backend.musicalmate.Member;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Images", uniqueConstraints = {@UniqueConstraint(name = "Image_unique",columnNames = {"image_id"}),})
 public class ImageMember {
     @Id
@@ -33,13 +37,51 @@ public class ImageMember {
     private List<ImageUserPlayListCall> imageUserPlayListCalls = new ArrayList<>();
 
     @OneToMany(mappedBy = "hashTagActorsForImage")
-    private List<HashTagActor> hashTagActor = new ArrayList<>();
+    private List<ImageActorHashCall> hashTagActor = new ArrayList<>();
 
     @OneToMany(mappedBy = "hashTagMusicalsForImage")
-    private List<HashTagMusical> hashTagMusical = new ArrayList<>();
+    private List<ImageMusicalHashCall> hashTagMusical = new ArrayList<>();
 }
 
 @Entity
+@Getter
+@Setter
+class ImageMusicalHashCall{
+    @Id
+    @GeneratedValue
+    @Column(name = "imhcall_id")
+    private  Long imhcallId;
+
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    private ImageMember hashTagMusicalsForImage;
+
+    @ManyToOne
+    @JoinColumn(name = "hashtag_musical_id") //참조할 콜룸 이름
+    private HashTagMusical imagesForHashTagAMusical;  //이 이름이 필드 이름 => mapped by에 사용할 값
+}
+
+@Entity
+@Getter
+@Setter
+class ImageActorHashCall{
+    @Id
+    @GeneratedValue
+    @Column(name = "iahcall_id")
+    private  Long iucallId;
+
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    private ImageMember hashTagActorsForImage;
+
+    @ManyToOne
+    @JoinColumn(name = "hashtag_actor_id") //참조할 콜룸 이름
+    private HashTagActor imagesForHashTagActor;  //이 이름이 필드 이름 => mapped by에 사용할 값
+}
+
+@Entity
+@Getter
+@Setter
 class ImageUserPlayListCall{
     @Id
     @GeneratedValue
