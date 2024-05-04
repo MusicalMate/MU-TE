@@ -6,6 +6,10 @@ import backend.musicalmate.oauth.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class OauthService {
@@ -17,5 +21,15 @@ public class OauthService {
         OauthMember saved = oauthMemberRepository.findByemail(oauthMember.getEmail())
                 .orElseGet(()-> oauthMemberRepository.save(oauthMember));
         return saved;
+    }
+
+    public OauthMember findImageUploadUser(Long userId){
+        Optional<OauthMember> optionalOauthMember = oauthMemberRepository.findById(userId);
+        if (optionalOauthMember.isPresent()) {
+            OauthMember oauthMember = optionalOauthMember.get();
+            return oauthMember;
+        } else {
+            return null;
+        }
     }
 }

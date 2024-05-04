@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -32,6 +35,8 @@ public class MusicalMember {
 }
 
 @Entity
+@Getter
+@Setter
 @Table(name="HashTagMusicals", uniqueConstraints = {@UniqueConstraint(name = "htmusical_unique", columnNames = {"musical_id"}),})
 class HashTagMusical{
     @Id
@@ -42,13 +47,11 @@ class HashTagMusical{
     @JoinColumn(name = "musical_id", nullable = false)
     private Long musicalId;
 
-    @ManyToOne
-    @JoinColumn(name = "video_id")
-    private VideoMember hashTagMusicalsForVideo;
+    @OneToMany(mappedBy = "videosForHashTagMusical")
+    private List<VideoMusicalHashCall> videosForHashTagMusical = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    private ImageMember hashTagMusicalsForImage;
+    @OneToMany(mappedBy = "imagesForHashTagAMusical")
+    private List<ImageMusicalHashCall> imagesForHashTagMusical = new ArrayList<>();
 
     @Column(name = "musical_title")
     private String musicalTitle;
