@@ -1,6 +1,7 @@
 package backend.musicalmate.domain.dto;
 
 import backend.musicalmate.Member.ImageMember;
+import backend.musicalmate.Member.OauthMember;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +18,5 @@ import java.util.List;
 public class ImageUploadDto {
     private List<MultipartFile> multipartFiles = new ArrayList<>();
     private List<ImageMember> imageMembers = new ArrayList<>();
+    private OauthMember oauthMember;
 }

@@ -1,6 +1,7 @@
 package backend.musicalmate.service;
 
 import backend.musicalmate.Member.ImageMember;
+import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.repository.ImageMemberRepository;
 import com.amazonaws.services.s3.AmazonS3Client;
