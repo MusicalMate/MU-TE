@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentActorDetailBinding
 
@@ -12,6 +13,7 @@ class ActorDetailFragment : Fragment() {
 
     private var _binding: FragmentActorDetailBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ActorDetailViewModel by viewModels { ActorDetailViewModel.Factory }
     private val args: ActorDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -20,6 +22,7 @@ class ActorDetailFragment : Fragment() {
     ): View {
         _binding = FragmentActorDetailBinding.inflate(layoutInflater, container, false)
         binding.actorName = args.actorName
+        viewModel.getActorInfo(args.actorName)
 
         return binding.root
     }

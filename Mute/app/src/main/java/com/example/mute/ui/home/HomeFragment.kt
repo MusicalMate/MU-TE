@@ -67,7 +67,8 @@ class HomeFragment : Fragment() {
                 HomeItem("", "구텐버그", ItemType.MUSICAL),
                 HomeItem("", "스토리오브마이라이프", ItemType.MUSICAL),
                 HomeItem("", "해적", ItemType.MUSICAL),
-                HomeItem("", "하데스타운", ItemType.MUSICAL)
+                HomeItem("", "하데스타운", ItemType.MUSICAL),
+                HomeItem("", "Trace U", ItemType.MUSICAL)
             )
         )
 

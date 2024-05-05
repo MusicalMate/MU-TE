@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mute.BuildConfig
 import com.example.mute.LoginApi
+import com.example.mute.RetrofitInstance
 import com.example.mute.SignInRequest
 import com.example.mute.databinding.ActivityLoginBinding
 import com.kakao.sdk.auth.model.OAuthToken
@@ -35,11 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setListener() {
         binding.ivLoginKakao.setOnClickListener {
-            val okHttpclient = OkHttpClient.Builder().connectTimeout(10, TimeUnit.MINUTES)
-                .readTimeout(6000, TimeUnit.SECONDS).writeTimeout(6000, TimeUnit.SECONDS).build()
-            val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL).client(okHttpclient)
-                .addConverterFactory(GsonConverterFactory.create()).build()
-            val service = retrofit.create(LoginApi::class.java)
+            val service = RetrofitInstance.getInstance().create(LoginApi::class.java)
 
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
