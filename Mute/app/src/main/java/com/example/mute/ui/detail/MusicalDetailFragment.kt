@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMusicalDetailBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MusicalDetailFragment : Fragment() {
 
@@ -21,10 +24,24 @@ class MusicalDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMusicalDetailBinding.inflate(layoutInflater, container, false)
-        binding.musicalName = args.musicalName
-        viewModel.getMusicalInfo(args.musicalName)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        setObserver()
+        viewModel.getMusicalInfo(args.musicalName)
+    }
+
+    private fun setObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.musicalDetailInfo.collectLatest {
+                binding.musicalDetailInfo = it
+            }
+        }
     }
 
     override fun onDestroyView() {

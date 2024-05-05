@@ -1,12 +1,17 @@
 package com.example.mute
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+
 class MainRepository {
 
     private val service = RetrofitInstance.getInstance().create(MainApi::class.java)
 
-    suspend fun searchMusical(musicalTitle: String): SearchMusicalResponse =
-        service.postSearchMusical(musicalTitle)
+    fun searchMusical(musicalTitle: String): Flow<SearchMusicalResponse> = flow {
+        emit(service.postSearchMusical(musicalTitle))
+    }
 
-    suspend fun searchActor(actorName: String): SearchActorResponse =
-        service.postSearchActor(actorName)
+    fun searchActor(actorName: String): Flow<SearchActorResponse> = flow {
+        emit(service.postSearchActor(actorName))
+    }
 }

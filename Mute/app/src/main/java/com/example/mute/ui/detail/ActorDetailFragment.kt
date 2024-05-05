@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentActorDetailBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ActorDetailFragment : Fragment() {
 
@@ -21,10 +24,24 @@ class ActorDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentActorDetailBinding.inflate(layoutInflater, container, false)
-        binding.actorName = args.actorName
-        viewModel.getActorInfo(args.actorName)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        setObserver()
+        viewModel.getActorInfo(args.actorName)
+    }
+
+    private fun setObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.actorDetailInfo.collectLatest {
+                binding.actorDetailInfo = it
+            }
+        }
     }
 
     override fun onDestroyView() {

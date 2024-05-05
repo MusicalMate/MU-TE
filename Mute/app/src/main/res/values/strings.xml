@@ -9,4 +9,7 @@
     <string name="photo">사진</string>
     <string name="link">링크</string>
     <string name="add">추가</string>
+    <string name="filmography">필모그래피</string>
+    <string name="musical_time">공연 기간</string>
+    <string name="actors">출연진</string>
 </resources>

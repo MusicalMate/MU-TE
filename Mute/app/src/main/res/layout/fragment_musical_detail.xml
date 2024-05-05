@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="musical_name"
-            type="String" />
+            name="musicalDetailInfo"
+            type="com.example.mute.ui.detail.MusicalDetailInfo" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -30,7 +30,7 @@
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:title="@{musical_name}"
+                    app:title="@{musicalDetailInfo.musicalTitle}"
                     app:titleCentered="true" />
             </com.google.android.material.appbar.AppBarLayout>
 
@@ -47,12 +47,57 @@
             <TextView
                 android:id="@+id/tv_musical_detail_description"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_musical_detail_image"
+                android:gravity="start"
+                android:text="@{musicalDetailInfo.musicalDescription}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_musical_detail_image"
                 app:layout_constraintTop_toTopOf="@id/iv_musical_detail_image" />
+
+            <TextView
+                android:id="@+id/tv_musical_detail_musical_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/musical_time"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_musical_detail_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_musical_detail_description" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="start"
+                android:text="@{musicalDetailInfo.musicalTime}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_musical_detail_musical_time"
+                app:layout_constraintTop_toTopOf="@id/tv_musical_detail_musical_time" />
+
+            <TextView
+                android:id="@+id/tv_musical_detail_actors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/actors"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/iv_musical_detail_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_musical_detail_musical_time" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:text="@{musicalDetailInfo.actors}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_musical_detail_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_musical_detail_actors" />
 
             <TextView
                 android:id="@+id/tv_musical_detail_video"
