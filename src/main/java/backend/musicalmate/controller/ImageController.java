@@ -35,7 +35,7 @@ public class ImageController {
         ImageUploadDto imageUploadDto = new ImageUploadDto();
         imageUploadDto.setMultipartFiles(multipartFile);
 
-        OauthMember uploadedUser = oauthService.findImageUploadUser(userId);
+        OauthMember uploadedUser = oauthService.findUploadUser(userId);
 
         if(uploadedUser==null){
             logger.info("user not found");
@@ -50,8 +50,9 @@ public class ImageController {
         for(int i=0;i<multipartFile.size();i++){
             ImageMember imageMember = new ImageMember();
             imageMember.setUploadImageList(uploadedUser);
-            imageMember.setImageTitle("test1");
+            imageMember.setImageTitle(multipartFile.get(i).getName()+i);
             imageMembers.add(imageMember);
+
             logger.info(imageMember.getImageTitle());
         }
 

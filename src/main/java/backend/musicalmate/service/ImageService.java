@@ -19,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageService {
 
-    private String bucketName = "musicalmatemute";
+    private String bucketName = "musicalmatemute/image";
 
     private final AmazonS3Client amazonS3Client;
     private final ImageMemberRepository imageMemberRepository;

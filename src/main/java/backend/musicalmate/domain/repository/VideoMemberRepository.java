@@ -1,4 +1,8 @@
 package backend.musicalmate.domain.repository;
 
-public interface VideoMemberRepository {
+import backend.musicalmate.Member.VideoMember;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VideoMemberRepository extends JpaRepository<VideoMember, Long> {
+
 }
