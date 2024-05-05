@@ -7,11 +7,10 @@ import backend.musicalmate.service.OauthService;
 import backend.musicalmate.service.VideoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,5 +50,14 @@ public class VideoController {
         urls = videoService.uploadVideos(videoUploadDto);
 
         return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("/api/download/video")
+    public ResponseEntity<String> testDown(
+            @RequestParam("title") String title
+    )throws IOException {
+
+        videoService.downloadVideo(title);
+        return ResponseEntity.ok("testOk");
     }
 }
