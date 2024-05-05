@@ -28,6 +28,9 @@ public class VideoMember {
     @Column(name = "video_like")
     private int videoLike;
 
+    @Column(name = "video_url")
+    private String videoUrl;
+
     @OneToMany(mappedBy = "videos")
     private List<VideoUserPlayListCall> videoUserPlayListCalls = new ArrayList<>();
 

@@ -6,12 +6,14 @@ import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.repository.ImageMemberRepository;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImageService {
 
-    private String bucketName = "musicalmatemute";
+    private String bucketName = "musicalmatemute/image";
 
     private final AmazonS3Client amazonS3Client;
     private final ImageMemberRepository imageMemberRepository;
@@ -47,11 +49,13 @@ public class ImageService {
         String title = image.getImageTitle();
 
         try{
+            InputStream is = multipartFile.getInputStream();
+
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentType(multipartFile.getContentType());
-            objectMetadata.setContentLength(multipartFile.getInputStream().available());
+            objectMetadata.setContentLength(multipartFile.getSize());
 
-            amazonS3Client.putObject(bucketName, title, multipartFile.getInputStream().toString());
+            amazonS3Client.putObject(new PutObjectRequest(bucketName,title,is,objectMetadata));
 
             String accessUrl = amazonS3Client.getUrl(bucketName,title).toString();
             image.setImageUrl(accessUrl);

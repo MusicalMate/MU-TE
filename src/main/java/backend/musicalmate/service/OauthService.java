@@ -23,7 +23,7 @@ public class OauthService {
         return saved;
     }
 
-    public OauthMember findImageUploadUser(Long userId){
+    public OauthMember findUploadUser(Long userId){
         Optional<OauthMember> optionalOauthMember = oauthMemberRepository.findById(userId);
         if (optionalOauthMember.isPresent()) {
             OauthMember oauthMember = optionalOauthMember.get();
