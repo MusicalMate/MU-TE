@@ -20,6 +20,9 @@ public class ImageMember {
     @Column(name = "image_title", nullable = false)
     private String imageTitle;
 
+    @Column(name = "image_key")
+    private String imageKey;
+
     @Column(name = "image_description")
     private String imageDescription;
 
