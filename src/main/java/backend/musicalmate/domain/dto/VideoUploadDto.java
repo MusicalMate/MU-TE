@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 public class VideoUploadDto {
     private List<MultipartFile> videos = new ArrayList<>();
+    private List<MultipartFile> coverImage = new ArrayList<>();
     private List<VideoMember> videoMembers = new ArrayList<>();
     private OauthMember oauthMember;
 }
