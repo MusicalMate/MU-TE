@@ -1,6 +1,7 @@
 package backend.musicalmate.service;
 
 import backend.musicalmate.Member.ImageMember;
+import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.repository.ImageMemberRepository;
 
@@ -40,10 +41,11 @@ public class ImageService {
         List<CompletableFuture<String>> resultList = new ArrayList<>();
 
         int i=0;
-        for(MultipartFile multipartFile: imageUploadDto.getMultipartFiles()){
+        for(MultipartFile big: imageUploadDto.getMultipartFiles()){
             ImageMember image = imageUploadDto.getImageMembers().get(i);
+            MultipartFile small = imageUploadDto.getSmallImageFiles().get(i);
 
-            CompletableFuture<String> value = uploadImage(multipartFile, image);
+            CompletableFuture<String> value = uploadImage(big, small, image);
             resultList.add(value);
             i++;
         }
@@ -54,24 +56,36 @@ public class ImageService {
     //img 1개
     @Transactional
     @Async
-    public CompletableFuture<String> uploadImage(MultipartFile multipartFile, ImageMember image){
+    public CompletableFuture<String> uploadImage(MultipartFile big, MultipartFile small, ImageMember image){
         String title = image.getImageTitle();
         //key = 사용자 입력 title + 저장 시간 -> 이걸로 불러오기 때문에 중복을 피하기 위해서
         Instant now = Instant.now();
         String key = title.concat(now.toString());
         image.setImageKey(key);
 
+        String smallKey = key.concat("small");
+        image.setSmallImageKey(smallKey);
+
         try{
-            InputStream is = multipartFile.getInputStream();
+            InputStream bigImage = big.getInputStream();
+            InputStream smallImage = small.getInputStream();
 
             ObjectMetadata objectMetadata = new ObjectMetadata();
-            objectMetadata.setContentType(multipartFile.getContentType());
-            objectMetadata.setContentLength(multipartFile.getSize());
+            objectMetadata.setContentType(big.getContentType());
+            objectMetadata.setContentLength(big.getSize());
 
-            amazonS3Client.putObject(bucketName,key,is,objectMetadata);
+            ObjectMetadata objectMetadataSmall = new ObjectMetadata();
+            objectMetadataSmall.setContentType(small.getContentType());
+            objectMetadataSmall.setContentLength(small.getSize());
+
+            amazonS3Client.putObject(bucketName,key,bigImage,objectMetadata);
 
             String accessUrl = amazonS3Client.getUrl(bucketName,key).toString();
             image.setImageUrl(accessUrl);
+
+            amazonS3Client.putObject(bucketName,smallKey,smallImage,objectMetadataSmall);
+            String smallUrl = amazonS3Client.getUrl(bucketName,smallKey).toString();
+            image.setSmallImageUrl(smallUrl);
 
         } catch (IOException e){
 
@@ -85,9 +99,9 @@ public class ImageService {
 
     //db에서 꺼내서 보내주기
     @Async
-    public CompletableFuture<InputStream> sendImage(Long userId) throws IOException{
-        Long imageId = imageMemberRepository.findByUserId(userId).getImageId();
-        String imageKey = imageMemberRepository.findByUserId(userId).getImageKey();
+    public CompletableFuture<InputStream> sendRawImage(OauthMember oauthMember) throws IOException{
+        Long imageId = imageMemberRepository.findByUploadImageList(oauthMember).getImageId();
+        String imageKey = imageMemberRepository.findByUploadImageList(oauthMember).getImageKey();
 
         S3Object s3Object = amazonS3Client.getObject(bucketName, imageKey);
 

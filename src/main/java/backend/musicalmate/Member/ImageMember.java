@@ -32,6 +32,9 @@ public class ImageMember {
     @Column(name = "small_image_url")
     private String smallImageUrl;
 
+    @Column(name = "small_image_key")
+    private String smallImageKey;
+
     @Column(name = "image_like")
     private int imageLike;
 

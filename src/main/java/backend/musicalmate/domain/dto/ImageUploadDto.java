@@ -17,6 +17,7 @@ import java.util.List;
 @Setter
 public class ImageUploadDto {
     private List<MultipartFile> multipartFiles = new ArrayList<>();
+    private List<MultipartFile> smallImageFiles = new ArrayList<>();
     private List<ImageMember> imageMembers = new ArrayList<>();
     private OauthMember oauthMember;
 }

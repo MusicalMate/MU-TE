@@ -29,6 +29,7 @@ public class ImageController {
     @PostMapping("/api/upload/image")
     ResponseEntity<CompletableFuture<String>> uploadImage(
             @RequestPart("multipartFiles")List<MultipartFile> multipartFile,
+            @RequestPart("smallImageFiles") List<MultipartFile> smallImageFile,
             @RequestPart("imageMeta") String imageMeta
             ) throws IOException {
 
@@ -36,6 +37,7 @@ public class ImageController {
 
         ImageUploadDto imageUploadDto = new ImageUploadDto();
         imageUploadDto.setMultipartFiles(multipartFile);
+        imageUploadDto.setSmallImageFiles(smallImageFile);
 
         OauthMember uploadedUser = oauthService.findUploadUser(userId);
 
@@ -53,6 +55,7 @@ public class ImageController {
             ImageMember imageMember = new ImageMember();
             imageMember.setUploadImageList(uploadedUser);
             imageMember.setImageTitle(multipartFile.get(i).getName()+i);
+
             imageMembers.add(imageMember);
 
             logger.info(imageMember.getImageTitle());
@@ -69,7 +72,8 @@ public class ImageController {
     ResponseEntity<CompletableFuture<InputStream>> sendImage(
             @RequestParam("userId") Long userId
     ) throws IOException{
-        CompletableFuture<InputStream> image = imageService.sendImage(userId);
+        OauthMember oauthMember = oauthService.findUploadUser(userId);
+        CompletableFuture<InputStream> image = imageService.sendRawImage(oauthMember);
 
         return ResponseEntity.ok(image);
     }
