@@ -1,21 +1,25 @@
 package backend.musicalmate.service;
 
 import backend.musicalmate.Member.ImageMember;
-import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.repository.ImageMemberRepository;
-import com.amazonaws.services.s3.AmazonS3Client;
+
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import com.amazonaws.services.s3.AmazonS3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -24,18 +28,18 @@ public class ImageService {
     private String bucketName = "musicalmatemute/image";
 
     private final AmazonS3Client amazonS3Client;
+
     private final ImageMemberRepository imageMemberRepository;
 
     //img 여러개 처리
-    @Transactional
-    public List<String> uploadImages(ImageUploadDto imageUploadDto){
-        List<String> resultList = new ArrayList<>();
+    public List<CompletableFuture<String>> uploadImages(ImageUploadDto imageUploadDto){
+        List<CompletableFuture<String>> resultList = new ArrayList<>();
 
         int i=0;
         for(MultipartFile multipartFile: imageUploadDto.getMultipartFiles()){
             ImageMember image = imageUploadDto.getImageMembers().get(i);
 
-            String value = uploadImage(multipartFile, image);
+            CompletableFuture<String> value = uploadImage(multipartFile, image);
             resultList.add(value);
             i++;
         }
@@ -45,7 +49,8 @@ public class ImageService {
 
     //img 1개
     @Transactional
-    public String uploadImage(MultipartFile multipartFile, ImageMember image){
+    @Async
+    public CompletableFuture<String> uploadImage(MultipartFile multipartFile, ImageMember image){
         String title = image.getImageTitle();
 
         try{
@@ -55,7 +60,7 @@ public class ImageService {
             objectMetadata.setContentType(multipartFile.getContentType());
             objectMetadata.setContentLength(multipartFile.getSize());
 
-            amazonS3Client.putObject(new PutObjectRequest(bucketName,title,is,objectMetadata));
+            amazonS3Client.putObject(bucketName,title,is,objectMetadata);
 
             String accessUrl = amazonS3Client.getUrl(bucketName,title).toString();
             image.setImageUrl(accessUrl);
@@ -66,6 +71,31 @@ public class ImageService {
 
         imageMemberRepository.save(image);
 
-        return image.getImageUrl();
+        return CompletableFuture.completedFuture(image.getImageUrl());
     }
+
+
+    //db에서 꺼내서 보내주기
+//    @Async
+//    public CompletableFuture<InputStream> sendImage(Long userId) throws IOException{
+//        String imageId = imageMemberRepository.
+//
+//        S3Object s3Object = amazonS3Client.getObject(new GetObjectRequest(bucketName, title));
+//
+//        InputStream objectData = s3Object.getObjectContent();
+//
+//        File localFile = new File("C:/computer_capston/test.mp4");
+//        OutputStream outputStream = new FileOutputStream(localFile);
+//
+//        byte[] buffer = new byte[1024];
+//        int bytesRead;
+//        while ((bytesRead = objectData.read(buffer)) != -1) {
+//            outputStream.write(buffer, 0, bytesRead);
+//        }
+//
+//        objectData.close();
+//        outputStream.close();
+//
+//        return "test";
+//    }
 }
