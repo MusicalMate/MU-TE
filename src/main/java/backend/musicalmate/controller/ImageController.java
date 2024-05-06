@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,7 +26,7 @@ public class ImageController {
     private final OauthService oauthService;
 
     @PostMapping("/api/upload/image")
-    ResponseEntity<String> uploadImage(
+    ResponseEntity<CompletableFuture<String>> uploadImage(
             @RequestPart("multipartFiles")List<MultipartFile> multipartFile,
             @RequestPart("imageMeta") String imageMeta
             ) throws IOException {
@@ -58,7 +59,7 @@ public class ImageController {
 
         imageUploadDto.setImageMembers(imageMembers);
 
-        List<String> url = imageService.uploadImages(imageUploadDto);
+        List<CompletableFuture<String>> url = imageService.uploadImages(imageUploadDto);
 
         return ResponseEntity.ok(url.get(0));
     }
