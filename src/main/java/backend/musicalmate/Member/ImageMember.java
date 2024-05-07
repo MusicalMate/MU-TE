@@ -20,6 +20,9 @@ public class ImageMember {
     @Column(name = "image_title", nullable = false)
     private String imageTitle;
 
+    @Column(name = "image_key")
+    private String imageKey;
+
     @Column(name = "image_description")
     private String imageDescription;
 
@@ -28,6 +31,9 @@ public class ImageMember {
 
     @Column(name = "small_image_url")
     private String smallImageUrl;
+
+    @Column(name = "small_image_key")
+    private String smallImageKey;
 
     @Column(name = "image_like")
     private int imageLike;

@@ -34,6 +34,12 @@ public class VideoMember {
     @Column(name = "cover_image_url")
     private String coverImageUrl;
 
+    @Column(name = "video_key")
+    private String videoKey;
+
+    @Column(name = "cover_image_key")
+    private String coverImageKey;
+
     @OneToMany(mappedBy = "videos")
     private List<VideoUserPlayListCall> videoUserPlayListCalls = new ArrayList<>();
 

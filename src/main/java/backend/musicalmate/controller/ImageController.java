@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -28,6 +29,7 @@ public class ImageController {
     @PostMapping("/api/upload/image")
     ResponseEntity<CompletableFuture<String>> uploadImage(
             @RequestPart("multipartFiles")List<MultipartFile> multipartFile,
+            @RequestPart("smallImageFiles") List<MultipartFile> smallImageFile,
             @RequestPart("imageMeta") String imageMeta
             ) throws IOException {
 
@@ -35,6 +37,7 @@ public class ImageController {
 
         ImageUploadDto imageUploadDto = new ImageUploadDto();
         imageUploadDto.setMultipartFiles(multipartFile);
+        imageUploadDto.setSmallImageFiles(smallImageFile);
 
         OauthMember uploadedUser = oauthService.findUploadUser(userId);
 
@@ -52,6 +55,7 @@ public class ImageController {
             ImageMember imageMember = new ImageMember();
             imageMember.setUploadImageList(uploadedUser);
             imageMember.setImageTitle(multipartFile.get(i).getName()+i);
+
             imageMembers.add(imageMember);
 
             logger.info(imageMember.getImageTitle());
@@ -62,5 +66,15 @@ public class ImageController {
         List<CompletableFuture<String>> url = imageService.uploadImages(imageUploadDto);
 
         return ResponseEntity.ok(url.get(0));
+    }
+
+    @PostMapping("/api/douwnload/image")
+    ResponseEntity<CompletableFuture<InputStream>> sendImage(
+            @RequestParam("userId") Long userId
+    ) throws IOException{
+        OauthMember oauthMember = oauthService.findUploadUser(userId);
+        CompletableFuture<InputStream> image = imageService.sendRawImage(oauthMember);
+
+        return ResponseEntity.ok(image);
     }
 }
