@@ -38,8 +38,8 @@ class MusicalDetailFragment : Fragment() {
 
     private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.musicalDetailInfo.collectLatest {
-                binding.musicalDetailInfo = it
+            viewModel.musicalDetailInfo.collectLatest { musicalDetailInfo ->
+                binding.musicalDetailInfo = musicalDetailInfo
             }
         }
     }

@@ -38,8 +38,8 @@ class ActorDetailFragment : Fragment() {
 
     private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.actorDetailInfo.collectLatest {
-                binding.actorDetailInfo = it
+            viewModel.actorDetailInfo.collectLatest { actorDetailInfo ->
+                binding.actorDetailInfo = actorDetailInfo
             }
         }
     }
