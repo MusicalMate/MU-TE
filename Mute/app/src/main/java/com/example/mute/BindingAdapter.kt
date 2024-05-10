@@ -1,7 +1,10 @@
 package com.example.mute
 
+import android.util.Base64
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 
 @BindingAdapter("filmos")
 fun TextView.setFilmos(filmos: List<Filmography>) {
@@ -11,4 +14,11 @@ fun TextView.setFilmos(filmos: List<Filmography>) {
 @BindingAdapter("actors")
 fun TextView.setActors(actors: List<Actor>) {
     text = actors.joinToString(", ") { it.name }
+}
+
+@BindingAdapter("ActorMusicalImg")
+fun ImageView.setImage(url: String?) {
+    Glide.with(this)
+        .load(Base64.decode(url, Base64.DEFAULT))
+        .into(this)
 }

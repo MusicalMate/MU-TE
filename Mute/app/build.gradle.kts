@@ -84,4 +84,7 @@ dependencies {
     implementation(libs.v2.all)
     implementation(libs.v2.user)
 
+    //glide
+    implementation(libs.glide)
+
 }

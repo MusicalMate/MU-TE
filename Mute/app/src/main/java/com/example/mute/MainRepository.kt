@@ -1,9 +1,11 @@
 package com.example.mute
 
+import android.util.Base64
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.nio.charset.Charset
 
 class MainRepository {
 
@@ -32,7 +34,8 @@ class MainRepository {
             actorId = response.actorId,
             actorDescription = response.actorDescription,
             actorName = response.actorName,
-            filmos = gson.fromJson(response.filmo, listType)
+            filmos = gson.fromJson(response.filmo, listType),
+            actorImg = response.actorImg
         )
         emit(actorDetailInfo)
     }

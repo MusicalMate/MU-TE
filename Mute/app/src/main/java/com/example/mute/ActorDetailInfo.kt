@@ -6,7 +6,8 @@ data class ActorDetailInfo(
     val actorId: Long = 0,
     val actorDescription: String = "",
     val actorName: String = "",
-    val filmos: List<Filmography> = emptyList()
+    val filmos: List<Filmography> = emptyList(),
+    val actorImg: String? = ""
 )
 
 data class Filmography(
