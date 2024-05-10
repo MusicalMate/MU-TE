@@ -32,27 +32,11 @@ public class MusicalMember {
 
     private String image;
 
+    @OneToMany(mappedBy = "musicalImageCalling")
+    private List<ImageMusicalCall> imageMusicalMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "musicalVideoCalling")
+    private List<VideoMusicalCall> videoActorMembers = new ArrayList<>();
 }
 
-@Entity
-@Getter
-@Setter
-@Table(name="HashTagMusicals", uniqueConstraints = {@UniqueConstraint(name = "htmusical_unique", columnNames = {"musical_id"}),})
-class HashTagMusical{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hashtag_musical_id")
-    private Long hashtagMusicalId;
 
-    @JoinColumn(name = "musical_id", nullable = false)
-    private Long musicalId;
-
-    @OneToMany(mappedBy = "videosForHashTagMusical")
-    private List<VideoMusicalHashCall> videosForHashTagMusical = new ArrayList<>();
-
-    @OneToMany(mappedBy = "imagesForHashTagAMusical")
-    private List<ImageMusicalHashCall> imagesForHashTagMusical = new ArrayList<>();
-
-    @Column(name = "musical_title")
-    private String musicalTitle;
-}

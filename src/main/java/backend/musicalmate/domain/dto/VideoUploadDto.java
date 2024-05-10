@@ -18,6 +18,6 @@ import java.util.List;
 public class VideoUploadDto {
     private List<MultipartFile> videos = new ArrayList<>();
     private List<MultipartFile> coverImage = new ArrayList<>();
-    private List<VideoMember> videoMembers = new ArrayList<>();
+    private VideoMember videoMember;
     private OauthMember oauthMember;
 }

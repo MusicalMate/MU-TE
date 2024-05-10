@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -38,6 +40,9 @@ public class ImageMember {
     @Column(name = "image_like")
     private int imageLike;
 
+    @Column(name = "image_time")
+    private String imageTime;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private OauthMember uploadImageList;
@@ -45,17 +50,20 @@ public class ImageMember {
     @OneToMany(mappedBy = "images")
     private List<ImageUserPlayListCall> imageUserPlayListCalls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hashTagActorsForImage")
-    private List<ImageActorHashCall> hashTagActor = new ArrayList<>();
+    @OneToMany(mappedBy = "imageActorCalling")
+    private List<ImageActorCall> imageActorCall = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hashTagMusicalsForImage")
-    private List<ImageMusicalHashCall> hashTagMusical = new ArrayList<>();
+    @OneToMany(mappedBy = "imageMusicalCalling")
+    private List<ImageMusicalCall> imageMusicalCall = new ArrayList<>();
+
+    @OneToMany(mappedBy = "imageHashtagCalling")
+    private List<HashtagCall> hashtagCalls = new ArrayList<>();
 }
 
 @Entity
 @Getter
 @Setter
-class ImageMusicalHashCall{
+class ImageMusicalCall{
     @Id
     @GeneratedValue
     @Column(name = "imhcall_id")
@@ -63,17 +71,17 @@ class ImageMusicalHashCall{
 
     @ManyToOne
     @JoinColumn(name = "image_id")
-    private ImageMember hashTagMusicalsForImage;
+    private ImageMember imageMusicalCalling;
 
     @ManyToOne
-    @JoinColumn(name = "hashtag_musical_id") //참조할 콜룸 이름
-    private HashTagMusical imagesForHashTagAMusical;  //이 이름이 필드 이름 => mapped by에 사용할 값
+    @JoinColumn(name = "musical_id") //참조할 콜룸 이름
+    private MusicalMember musicalImageCalling;  //이 이름이 필드 이름 => mapped by에 사용할 값
 }
 
 @Entity
 @Getter
 @Setter
-class ImageActorHashCall{
+class ImageActorCall{
     @Id
     @GeneratedValue
     @Column(name = "iahcall_id")
@@ -81,11 +89,11 @@ class ImageActorHashCall{
 
     @ManyToOne
     @JoinColumn(name = "image_id")
-    private ImageMember hashTagActorsForImage;
+    private ImageMember imageActorCalling;
 
     @ManyToOne
-    @JoinColumn(name = "hashtag_actor_id") //참조할 콜룸 이름
-    private HashTagActor imagesForHashTagActor;  //이 이름이 필드 이름 => mapped by에 사용할 값
+    @JoinColumn(name = "actor_id") //참조할 콜룸 이름
+    private ActorMember actorImageCalling;  //이 이름이 필드 이름 => mapped by에 사용할 값
 }
 
 @Entity
