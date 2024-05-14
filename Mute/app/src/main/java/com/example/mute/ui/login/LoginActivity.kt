@@ -4,10 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.mute.BuildConfig
-import com.example.mute.LoginApi
-import com.example.mute.RetrofitInstance
-import com.example.mute.SignInRequest
+import com.example.mute.model.LoginApi
+import com.example.mute.model.RetrofitInstance
+import com.example.mute.model.dto.SignInRequest
 import com.example.mute.databinding.ActivityLoginBinding
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -16,10 +15,6 @@ import com.kakao.sdk.user.UserApiClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
 class LoginActivity : AppCompatActivity() {
 

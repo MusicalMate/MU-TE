@@ -1,4 +1,4 @@
-package com.example.mute
+package com.example.mute.model.dto
 
 import com.google.gson.annotations.SerializedName
 

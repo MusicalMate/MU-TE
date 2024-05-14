@@ -1,5 +1,7 @@
-package com.example.mute
+package com.example.mute.model
 
+import com.example.mute.model.dto.SearchActorResponse
+import com.example.mute.model.dto.SearchMusicalResponse
 import retrofit2.http.POST
 import retrofit2.http.Query
 
