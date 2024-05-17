@@ -33,12 +33,12 @@ public class SmallFileController {
     private final ObjectMapper objectMapper;
 
     @PostMapping("/api/upload/small/{type}")
-    ResponseEntity<CompletableFuture<String>> uploadImage(
+    ResponseEntity<CompletableFuture<String>> uploadSmallFile(
             @PathVariable String type,
             @RequestPart("bigFiles")List<MultipartFile> bigFiles,
             @RequestPart("smallFiles") List<MultipartFile> smallFiles,
             @RequestPart("fileMeta") String fileMeta,
-            @RequestPart("userId") Long userId
+            @RequestHeader("userId") Long userId
             ) throws IOException {
 
         OauthMember uploadedUser = oauthService.findUploadUser(userId);
@@ -92,7 +92,7 @@ public class SmallFileController {
     }
 
     @PostMapping("/api/douwnload/image")
-    ResponseEntity<CompletableFuture<InputStream>> sendImage(
+    ResponseEntity<CompletableFuture<InputStream>> sendSmall(
             @RequestParam("userId") Long userId
     ) throws IOException{
         OauthMember oauthMember = oauthService.findUploadUser(userId);

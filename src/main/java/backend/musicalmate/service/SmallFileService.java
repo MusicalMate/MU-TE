@@ -46,7 +46,7 @@ public class SmallFileService {
             ImageMember image = imageUploadDto.getImageMember();
             MultipartFile small = imageUploadDto.getSmallImageFiles().get(i);
 
-            CompletableFuture<String> value = uploadImage(big, small, image);
+            CompletableFuture<String> value = uploadImage(big, small, image, i);
             resultList.add(value);
             i++;
         }
@@ -61,7 +61,7 @@ public class SmallFileService {
             VideoMember video = videoUploadDto.getVideoMember();
             MultipartFile small = videoUploadDto.getCoverImage().get(i);
 
-            CompletableFuture<String> value = uploadVideo(big, small, video);
+            CompletableFuture<String> value = uploadVideo(big, small, video, i);
             resultList.add(value);
             i++;
         }
@@ -72,8 +72,8 @@ public class SmallFileService {
     //img 1개
     @Transactional
     @Async
-    public CompletableFuture<String> uploadImage(MultipartFile big, MultipartFile small, ImageMember image){
-        String title = image.getImageTitle();
+    public CompletableFuture<String> uploadImage(MultipartFile big, MultipartFile small, ImageMember image, int num){
+        String title = image.getImageTitle() + num;
         //key = 사용자 입력 title + 저장 시간 -> 이걸로 불러오기 때문에 중복을 피하기 위해서
         Instant now = Instant.now();
         String key = title.concat(now.toString());
@@ -115,8 +115,8 @@ public class SmallFileService {
 
     @Transactional
     @Async
-    public CompletableFuture<String> uploadVideo(MultipartFile big, MultipartFile small, VideoMember video){
-        String title = video.getVideoTitle();
+    public CompletableFuture<String> uploadVideo(MultipartFile big, MultipartFile small, VideoMember video, int num){
+        String title = video.getVideoTitle() + num;
         //key = 사용자 입력 title + 저장 시간 -> 이걸로 불러오기 때문에 중복을 피하기 위해서
         Instant now = Instant.now();
         String key = title.concat(now.toString());

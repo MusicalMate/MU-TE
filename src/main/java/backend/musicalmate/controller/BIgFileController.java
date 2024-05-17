@@ -1,22 +1,13 @@
 package backend.musicalmate.controller;
 
-import backend.musicalmate.Member.OauthMember;
-import backend.musicalmate.Member.VideoMember;
-import backend.musicalmate.domain.dto.VideoUploadDto;
 import backend.musicalmate.service.OauthService;
 import backend.musicalmate.service.VideoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-public class VideoController {
+public class BIgFileController {
     private final OauthService oauthService;
     private final VideoService videoService;
 //    @PostMapping("/api/upload/video")
