@@ -30,28 +30,12 @@ public class ActorMember {
     private String filmography;
 
     private String image;
+
+    @OneToMany(mappedBy = "actorImageCalling")
+    private List<ImageActorCall> imageActorMembers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "actorVideoCalling")
+    private List<VideoActorCall> videoActorMembers = new ArrayList<>();
 }
 
-@Entity
-@Getter
-@Setter
-@Table(name="HashTagActors", uniqueConstraints = {@UniqueConstraint(name = "htactor_unique", columnNames = {"actor_id"}),})
-class HashTagActor{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hashtag_actor_id")
-    private Long hashtagActorId;
 
-    @JoinColumn(name = "actor_id", nullable = false)
-    private Long actorId;
-
-    @Column(name = "actor_name")
-    private String actorName;
-
-    @OneToMany(mappedBy = "videosForHashTagActor")
-    private List<VideoActorHashCall> videosForHashTagActor = new ArrayList<>();
-
-
-    @OneToMany(mappedBy = "imagesForHashTagActor")
-    private List<ImageActorHashCall> imagesForHashTagActor = new ArrayList<>();
-}

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //제약 조건 = video_id는 중복 될 수 없음
@@ -40,6 +41,9 @@ public class VideoMember {
     @Column(name = "cover_image_key")
     private String coverImageKey;
 
+    @Column(name = "video_time")
+    private String videoTime;
+
     @OneToMany(mappedBy = "videos")
     private List<VideoUserPlayListCall> videoUserPlayListCalls = new ArrayList<>();
 
@@ -47,16 +51,20 @@ public class VideoMember {
     @JoinColumn(name = "user_id", nullable = false)
     private OauthMember uploadVideoList;
 
-    @OneToMany(mappedBy = "hashTagActorsForVideo")
-    private List<VideoActorHashCall> hashTagActor = new ArrayList<>();
+    @OneToMany(mappedBy = "videoActorCalling")
+    private List<VideoActorCall> videoActorCall = new ArrayList<>();
 
-    @OneToMany(mappedBy = "hashTagMusicalsForVideo")
-    private List<VideoMusicalHashCall> hashTagMusical = new ArrayList<>();
+    @OneToMany(mappedBy = "videoMusicalCalling")
+    private List<VideoMusicalCall> videoMusicalCall = new ArrayList<>();
+
+    @OneToMany(mappedBy = "videoHashtagCalling")
+    private List<HashtagCall> hashtagCalls = new ArrayList<>();
 }
+
 @Entity
 @Getter
 @Setter
-class VideoMusicalHashCall{
+class VideoMusicalCall{
     @Id
     @GeneratedValue
     @Column(name = "vmhcall_id")
@@ -64,17 +72,17 @@ class VideoMusicalHashCall{
 
     @ManyToOne
     @JoinColumn(name = "video_id")
-    private VideoMember hashTagMusicalsForVideo;
+    private VideoMember videoMusicalCalling;
 
     @ManyToOne
-    @JoinColumn(name = "hashtag_musical_id") //참조할 콜룸 이름
-    private HashTagMusical videosForHashTagMusical;  //이 이름이 필드 이름 => mapped by에 사용할 값
+    @JoinColumn(name = "musical_id") //참조할 콜룸 이름
+    private MusicalMember musicalVideoCalling;  //이 이름이 필드 이름 => mapped by에 사용할 값
 }
 
 @Entity
 @Getter
 @Setter
-class VideoActorHashCall{
+class VideoActorCall{
     @Id
     @GeneratedValue
     @Column(name = "vahcall_id")
@@ -82,11 +90,11 @@ class VideoActorHashCall{
 
     @ManyToOne
     @JoinColumn(name = "video_id")
-    private VideoMember hashTagActorsForVideo;
+    private VideoMember videoActorCalling;
 
     @ManyToOne
-    @JoinColumn(name = "hashtag_actor_id") //참조할 콜룸 이름
-    private HashTagActor videosForHashTagActor;  //이 이름이 필드 이름 => mapped by에 사용할 값
+    @JoinColumn(name = "actor_id") //참조할 콜룸 이름
+    private ActorMember actorVideoCalling;  //이 이름이 필드 이름 => mapped by에 사용할 값
 }
 
 @Entity
