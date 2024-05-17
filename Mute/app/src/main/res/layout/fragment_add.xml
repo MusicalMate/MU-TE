@@ -1,18 +1,293 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.add.AddFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+            name="viewModel"
+            type="com.example.mute.ui.add.AddViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.add.AddFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_add_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="@string/add_cancel"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_add_next"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:text="@string/add_next"
+                android:textColor="@color/primary2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_add_media"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="32dp"
+                android:layout_marginVertical="20dp"
+                android:contentDescription="@string/user_media"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_cancel" />
+
+            <TextView
+                android:id="@+id/tv_add_media_title"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:text="@string/title"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_add_media" />
+
+            <EditText
+                android:id="@+id/et_add_media_title"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={viewModel.mediaTitle}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_add_media_title"
+                app:layout_constraintTop_toTopOf="@id/tv_add_media_title"
+                tools:ignore="LabelFor" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/primary3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_media_title" />
+
+            <TextView
+                android:id="@+id/tv_add_description"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/description"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_media_title" />
+
+            <EditText
+                android:id="@+id/et_add_description"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={viewModel.mediaDescription}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_add_description"
+                app:layout_constraintTop_toTopOf="@id/tv_add_description"
+                tools:ignore="LabelFor" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/primary3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_description" />
+
+            <TextView
+                android:id="@+id/tv_add_title"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/performance_name"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_description" />
+
+            <EditText
+                android:id="@+id/et_add_title"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={viewModel.performanceTitle}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_add_title"
+                app:layout_constraintTop_toTopOf="@id/tv_add_title"
+                tools:ignore="LabelFor" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/primary3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_title" />
+
+            <TextView
+                android:id="@+id/tv_add_time"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/time"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_title" />
+
+            <TextView
+                android:id="@+id/et_add_time"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:text="@={viewModel.performanceTime}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@id/iv_add_calendar"
+                app:layout_constraintStart_toEndOf="@id/tv_add_time"
+                app:layout_constraintTop_toTopOf="@id/tv_add_time" />
+
+            <ImageView
+                android:id="@+id/iv_add_calendar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:contentDescription="@string/select_date_time"
+                app:layout_constraintBottom_toBottomOf="@id/tv_add_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_add_time"
+                app:layout_constraintTop_toTopOf="@id/tv_add_time" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/primary3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_time" />
+
+            <TextView
+                android:id="@+id/tv_add_actors"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/casting"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_time" />
+
+            <TextView
+                android:id="@+id/et_add_actors"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@={viewModel.performanceActors}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_add_actors"
+                app:layout_constraintTop_toTopOf="@id/tv_add_actors" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/primary3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_actors" />
+
+            <TextView
+                android:id="@+id/tv_add_hashtag"
+                android:layout_width="88dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/hashtag"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_add_actors" />
+
+            <EditText
+                android:id="@+id/et_add_hashtag"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="32dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@={viewModel.hashTag}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_add_hashtag"
+                app:layout_constraintTop_toTopOf="@id/tv_add_hashtag"
+                tools:ignore="LabelFor" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>
