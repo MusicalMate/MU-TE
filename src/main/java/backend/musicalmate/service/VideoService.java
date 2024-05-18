@@ -1,9 +1,7 @@
 package backend.musicalmate.service;
 
 import backend.musicalmate.Member.ImageMember;
-import backend.musicalmate.Member.VideoMember;
 import backend.musicalmate.domain.dto.S3UploadDto;
-import backend.musicalmate.domain.dto.VideoUploadDto;
 import backend.musicalmate.domain.dto.multipart.*;
 import backend.musicalmate.domain.repository.VideoMemberRepository;
 
@@ -11,7 +9,6 @@ import com.amazonaws.services.s3.model.GetObjectMetadataRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;

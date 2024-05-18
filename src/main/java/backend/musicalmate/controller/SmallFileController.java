@@ -8,7 +8,6 @@ import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.dto.VideoUploadDto;
 import backend.musicalmate.service.SmallFileService;
 import backend.musicalmate.service.OauthService;
-import backend.musicalmate.service.VideoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
