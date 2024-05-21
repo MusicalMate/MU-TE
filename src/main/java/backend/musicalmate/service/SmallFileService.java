@@ -7,6 +7,7 @@ import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.dto.VideoUploadDto;
 import backend.musicalmate.domain.repository.ImageMemberRepository;
 
+import backend.musicalmate.domain.repository.OauthMemberRepository;
 import backend.musicalmate.domain.repository.VideoMemberRepository;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
@@ -35,6 +36,7 @@ public class SmallFileService {
     private final AmazonS3Client amazonS3Client;
 
     private final ImageMemberRepository imageMemberRepository;
+    private final OauthMemberRepository oauthMemberRepository;
     private final VideoMemberRepository videoMemberRepository;
 
     //img 여러개 처리
@@ -108,6 +110,7 @@ public class SmallFileService {
         }
 
         imageMemberRepository.save(image);
+
 
         return CompletableFuture.completedFuture(image.getImageUrl());
     }
