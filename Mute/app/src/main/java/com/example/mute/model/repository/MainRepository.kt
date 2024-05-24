@@ -1,15 +1,18 @@
 package com.example.mute.model.repository
 
+import android.util.Log
 import com.example.mute.Actor
 import com.example.mute.ActorDetailInfo
 import com.example.mute.Filmography
 import com.example.mute.MusicalDetailInfo
 import com.example.mute.model.MainApi
 import com.example.mute.model.RetrofitInstance
+import com.example.mute.model.dto.FileMetaRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okhttp3.MultipartBody
 
 class MainRepository {
 
@@ -42,5 +45,14 @@ class MainRepository {
             actorImg = response.actorImg
         )
         emit(actorDetailInfo)
+    }
+
+    fun uploadSmallFiles(
+        bigFiles: List<MultipartBody.Part?>,
+        smallFiles: List<MultipartBody.Part?>,
+        fileMeta: FileMetaRequest
+    ): Flow<String> = flow {
+        Log.d("uploadSmallFiles_fileMeta", fileMeta.toString())
+        emit(service.postUploadSmall("image", 1, fileMeta, bigFiles, smallFiles))
     }
 }

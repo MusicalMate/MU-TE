@@ -12,7 +12,7 @@ class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddViewModel by viewModels()
+    private val viewModel: AddViewModel by viewModels { AddViewModel.Factory }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
