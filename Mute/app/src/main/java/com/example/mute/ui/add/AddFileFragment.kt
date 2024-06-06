@@ -1,17 +1,45 @@
 package com.example.mute.ui.add
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.mute.R
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.example.mute.databinding.FragmentAddFileBinding
 
 class AddFileFragment : Fragment() {
 
     private var _binding: FragmentAddFileBinding? = null
     private val binding get() = _binding!!
+
+    private val galleryImagePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            openGalleryImage()
+        } else {
+            Toast.makeText(requireContext(), "갤러리 이미지 권한이 허용되어 있지않습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val galleryVideoPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            openGalleryVideo()
+        } else {
+            Toast.makeText(requireContext(), "갤러리 동영상 권한이 허용되어 있지않습니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,8 +50,64 @@ class AddFileFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setListener()
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data = result.data
+                }
+            }
+    }
+
+    private fun setListener() {
+        binding.btnAddFileImage.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                galleryImagePermissionLauncher.launch(readImagePermission)
+            } else {
+                galleryImagePermissionLauncher.launch(readExternalPermission)
+            }
+        }
+
+        binding.btnAddFileVideo.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                galleryVideoPermissionLauncher.launch(readVideoPermission)
+            } else {
+                galleryVideoPermissionLauncher.launch(readExternalPermission)
+            }
+        }
+    }
+
+    private fun openGalleryImage() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivity(intent)
+    }
+
+    private fun openGalleryVideo() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*")
+        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivity(intent)
+    }
+
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    companion object {
+        private const val readExternalPermission = android.Manifest.permission.READ_EXTERNAL_STORAGE
+        private const val readImagePermission = android.Manifest.permission.READ_MEDIA_IMAGES
+        private const val readVideoPermission = android.Manifest.permission.READ_MEDIA_VIDEO
     }
 }
