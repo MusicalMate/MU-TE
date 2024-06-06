@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAddBinding
 
 class AddFragment : Fragment() {
@@ -13,6 +14,7 @@ class AddFragment : Fragment() {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AddViewModel by viewModels { AddViewModel.Factory }
+    private val args: AddFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +30,7 @@ class AddFragment : Fragment() {
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        viewModel.setImage(args.absolutePath)
     }
 
     override fun onDestroyView() {

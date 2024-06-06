@@ -22,3 +22,8 @@ fun ImageView.setImage(url: String?) {
         .load(Base64.decode(url, Base64.DEFAULT))
         .into(this)
 }
+
+@BindingAdapter("AddFileImg")
+fun ImageView.setFileImage(uri: String?) {
+    Glide.with(this).load(uri).fitCenter().into(this)
+}

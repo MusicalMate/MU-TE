@@ -12,8 +12,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 
 class AddViewModel(private val mainRepository: MainRepository) : ViewModel() {
+
+    private val _imagePath = MutableStateFlow("")
+    val imagePath = _imagePath.asStateFlow()
 
     val mediaTitle = MutableStateFlow("")
     val mediaDescription = MutableStateFlow("")
@@ -27,6 +31,10 @@ class AddViewModel(private val mainRepository: MainRepository) : ViewModel() {
 
     private val _performanceActors = MutableStateFlow("")
     val performanceActors = _performanceActors.asStateFlow()
+
+    fun setImage(absolutePath: String) {
+        _imagePath.value = absolutePath
+    }
 
     fun uploadFiles() {
         viewModelScope.launch {

@@ -2,6 +2,7 @@ package com.example.mute.ui.add
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.mute.databinding.FragmentAddFileBinding
 
 class AddFileFragment : Fragment() {
@@ -59,6 +61,15 @@ class AddFileFragment : Fragment() {
             { result ->
                 if (result.resultCode == RESULT_OK) {
                     val data = result.data
+                    data?.data?.let { uri ->
+                        val absolutePath = getAbsolutePath(uri)
+                        val action = AddFileFragmentDirections.actionAddFileFragmentToAddFragment(
+                            absolutePath
+                        )
+                        findNavController().navigate(action)
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "파일을 선택해주세요", Toast.LENGTH_SHORT).show()
                 }
             }
     }
@@ -87,7 +98,7 @@ class AddFileFragment : Fragment() {
         //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivity(intent)
+        activityResultLauncher.launch(intent)
     }
 
     private fun openGalleryVideo() {
@@ -96,9 +107,21 @@ class AddFileFragment : Fragment() {
         //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivity(intent)
+        activityResultLauncher.launch(intent)
     }
 
+    private fun getAbsolutePath(uri: Uri): String {
+        val cursor = requireContext().contentResolver.query(uri, null, null, null, null)
+        return if (cursor == null) {
+            uri.path!!
+        } else {
+            cursor.moveToFirst()
+            val index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            val path = cursor.getString(index)
+            cursor.close()
+            path
+        }
+    }
 
     override fun onDestroyView() {
         _binding = null

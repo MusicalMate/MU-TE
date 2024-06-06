@@ -25,7 +25,11 @@
         android:id="@+id/addFileFragment"
         android:name="com.example.mute.ui.add.AddFileFragment"
         android:label="fragment_add_file"
-        tools:layout="@layout/fragment_add_file" />
+        tools:layout="@layout/fragment_add_file" >
+        <action
+            android:id="@+id/action_addFileFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -101,4 +105,12 @@
         android:id="@+id/allPhotoFragment"
         android:name="com.example.mute.ui.all.AllPhotoFragment"
         android:label="AllPhotoFragment" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.mute.ui.add.AddFragment"
+        android:label="AddFragment" >
+        <argument
+            android:name="absolute_path"
+            app:argType="string" />
+    </fragment>
 </navigation>
