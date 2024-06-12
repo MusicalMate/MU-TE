@@ -3,7 +3,7 @@ package backend.musicalmate.controller;
 import backend.musicalmate.Member.ImageMember;
 import backend.musicalmate.Member.OauthMember;
 import backend.musicalmate.Member.VideoMember;
-import backend.musicalmate.domain.dto.SmallFileMetaDto;
+import backend.musicalmate.domain.dto.FileMetaDto;
 import backend.musicalmate.domain.dto.ImageUploadDto;
 import backend.musicalmate.domain.dto.VideoUploadDto;
 import backend.musicalmate.service.SmallFileService;
@@ -45,7 +45,7 @@ public class SmallFileController {
             logger.info("user not found");
             return ResponseEntity.badRequest().build();
         }
-        SmallFileMetaDto smallFileMetaDto = objectMapper.readValue(fileMeta, SmallFileMetaDto.class);
+        FileMetaDto fileMetaDto = objectMapper.readValue(fileMeta, FileMetaDto.class);
         List<CompletableFuture<String>> url =  new ArrayList<>();
 
         if(type.equals("image")){
@@ -57,9 +57,9 @@ public class SmallFileController {
 
             //image Member 설정
             ImageMember imageMember = new ImageMember();
-            imageMember.setImageTitle(smallFileMetaDto.getFileTitle());
-            imageMember.setImageDescription(smallFileMetaDto.getFileDescription());
-            imageMember.setImageTime(smallFileMetaDto.getFileDate());
+            imageMember.setImageTitle(fileMetaDto.getFileTitle());
+            imageMember.setImageDescription(fileMetaDto.getFileDescription());
+            imageMember.setImageTime(fileMetaDto.getFileDate());
             imageMember.setUploadImageList(uploadedUser);
 
             imageUploadDto.setImageMember(imageMember);
@@ -72,9 +72,9 @@ public class SmallFileController {
             videoUploadDto.setCoverImage(smallFiles);
 
             VideoMember videoMember = new VideoMember();
-            videoMember.setVideoTitle(smallFileMetaDto.getFileTitle());
-            videoMember.setVideoDescription(smallFileMetaDto.getFileDescription());
-            videoMember.setVideoTime(smallFileMetaDto.getFileDate());
+            videoMember.setVideoTitle(fileMetaDto.getFileTitle());
+            videoMember.setVideoDescription(fileMetaDto.getFileDescription());
+            videoMember.setVideoTime(fileMetaDto.getFileDate());
             videoMember.setUploadVideoList(uploadedUser);
 
             videoUploadDto.setVideoMember(videoMember);
@@ -82,8 +82,8 @@ public class SmallFileController {
         }
 
         //연결될 actor, musical 가져오기
-        List<Long> actorId = smallFileMetaDto.getActorId();
-        Long musicalId = smallFileMetaDto.getMusicalId();
+        List<Long> actorId = fileMetaDto.getActorId();
+        Long musicalId = fileMetaDto.getMusicalId();
 
         //actor, musical, image db update
 
