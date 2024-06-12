@@ -36,7 +36,6 @@ public class SmallFileService {
     private final AmazonS3Client amazonS3Client;
 
     private final ImageMemberRepository imageMemberRepository;
-    private final OauthMemberRepository oauthMemberRepository;
     private final VideoMemberRepository videoMemberRepository;
 
     //img 여러개 처리
