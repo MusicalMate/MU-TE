@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SmallFileMetaDto {
+public class FileMetaDto {
     private String fileTitle;
     private String fileDescription;
     private Long musicalId;
