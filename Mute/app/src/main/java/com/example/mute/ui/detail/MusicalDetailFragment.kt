@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMusicalDetailBinding
+import com.example.mute.ui.ContentItem
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,6 +35,7 @@ class MusicalDetailFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         setObserver()
+        setListener()
         viewModel.getMusicalInfo(args.musicalName)
     }
 
@@ -41,6 +44,24 @@ class MusicalDetailFragment : Fragment() {
             viewModel.musicalDetailInfo.collectLatest { musicalDetailInfo ->
                 binding.musicalDetailInfo = musicalDetailInfo
             }
+        }
+    }
+
+    private fun setListener() {
+        binding.tvMusicalDetailVideoAll.setOnClickListener {
+            val action =
+                MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllVideoFragment(
+                    listOf<ContentItem>().toTypedArray()
+                )
+            findNavController().navigate(action)
+        }
+
+        binding.tvMusicalDetailPhotoAll.setOnClickListener {
+            val action =
+                MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllPhotoFragment(
+                    listOf<ContentItem>().toTypedArray()
+                )
+            findNavController().navigate(action)
         }
     }
 

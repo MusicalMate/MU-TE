@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mute.databinding.FragmentHomeBinding
 
@@ -12,7 +13,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
+        setAllClickListener()
     }
 
     private fun initAdapter() {
@@ -46,6 +48,7 @@ class HomeFragment : Fragment() {
             }
             findNavController().navigate(action)
         }
+
         val myListAdapter = HomeAdapter(clickListener)
         binding.rvHomeMylist.adapter = myListAdapter
 
@@ -55,34 +58,35 @@ class HomeFragment : Fragment() {
         val actorAdapter = HomeAdapter(clickListener)
         binding.rvHomeActor.adapter = actorAdapter
 
-        myListAdapter.submitList(
-            listOf(
-                HomeItem("", "리스트1", ItemType.MY_LIST),
-                HomeItem("", "리스트2", ItemType.MY_LIST)
-            )
-        )
+        myListAdapter.submitList(viewModel.myList)
+        musicalAdapter.submitList(viewModel.musicalList)
+        actorAdapter.submitList(viewModel.actorList)
+    }
 
-        musicalAdapter.submitList(
-            listOf(
-                HomeItem("", "구텐버그", ItemType.MUSICAL),
-                HomeItem("", "스토리오브마이라이프", ItemType.MUSICAL),
-                HomeItem("", "해적", ItemType.MUSICAL),
-                HomeItem("", "하데스타운", ItemType.MUSICAL),
-                HomeItem("", "Trace U", ItemType.MUSICAL)
-            )
-        )
-
-        actorAdapter.submitList(
-            listOf(
-                HomeItem("", "정욱진", ItemType.ACTOR),
-                HomeItem("", "김려원", ItemType.ACTOR),
-                HomeItem("", "김이후", ItemType.ACTOR),
-                HomeItem("", "박강현", ItemType.ACTOR),
-                HomeItem("", "기세중", ItemType.ACTOR),
-                HomeItem("", "최호승", ItemType.ACTOR),
-                HomeItem("", "최수진", ItemType.ACTOR)
-            )
-        )
+    private fun setAllClickListener() {
+        binding.apply {
+            tvHomeMylistAll.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToHomeAllFragment(
+                    "마이리스트",
+                    viewModel.myList.toTypedArray()
+                )
+                findNavController().navigate(action)
+            }
+            tvHomeActorAll.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToHomeAllFragment(
+                    "배우",
+                    viewModel.actorList.toTypedArray()
+                )
+                findNavController().navigate(action)
+            }
+            tvHomeMusicalAll.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToHomeAllFragment(
+                    "뮤지컬",
+                    viewModel.musicalList.toTypedArray()
+                )
+                findNavController().navigate(action)
+            }
+        }
     }
 
     override fun onDestroyView() {

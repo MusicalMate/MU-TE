@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentActorDetailBinding
+import com.example.mute.ui.ContentItem
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,6 +35,7 @@ class ActorDetailFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         setObserver()
+        setListener()
         viewModel.getActorInfo(args.actorName)
     }
 
@@ -41,6 +44,22 @@ class ActorDetailFragment : Fragment() {
             viewModel.actorDetailInfo.collectLatest { actorDetailInfo ->
                 binding.actorDetailInfo = actorDetailInfo
             }
+        }
+    }
+
+    private fun setListener() {
+        binding.tvActorDetailVideoAll.setOnClickListener {
+            val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllVideoFragment(
+                listOf<ContentItem>().toTypedArray()
+            )
+            findNavController().navigate(action)
+        }
+
+        binding.tvActorDetailPhotoAll.setOnClickListener {
+            val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllPhotoFragment(
+                listOf<ContentItem>().toTypedArray()
+            )
+            findNavController().navigate(action)
         }
     }
 

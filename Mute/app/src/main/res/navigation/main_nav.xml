@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.mute.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_myListDetailFragment"
             app:destination="@id/myListDetailFragment" />
@@ -19,13 +19,16 @@
         <action
             android:id="@+id/action_homeFragment_to_musicalDetailFragment"
             app:destination="@id/musicalDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeAllFragment"
+            app:destination="@id/homeAllFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/addFileFragment"
         android:name="com.example.mute.ui.add.AddFileFragment"
         android:label="fragment_add_file"
-        tools:layout="@layout/fragment_add_file" >
+        tools:layout="@layout/fragment_add_file">
         <action
             android:id="@+id/action_addFileFragment_to_addFragment"
             app:destination="@id/addFragment" />
@@ -45,7 +48,7 @@
     <fragment
         android:id="@+id/actorDetailFragment"
         android:name="com.example.mute.ui.detail.ActorDetailFragment"
-        android:label="ActorDetailFragment" >
+        android:label="ActorDetailFragment">
         <action
             android:id="@+id/action_actorDetailFragment_to_allVideoFragment"
             app:destination="@id/allVideoFragment" />
@@ -62,7 +65,7 @@
     <fragment
         android:id="@+id/musicalDetailFragment"
         android:name="com.example.mute.ui.detail.MusicalDetailFragment"
-        android:label="MusicalDetailFragment" >
+        android:label="MusicalDetailFragment">
         <action
             android:id="@+id/action_musicalDetailFragment_to_allVideoFragment"
             app:destination="@id/allVideoFragment" />
@@ -79,7 +82,7 @@
     <fragment
         android:id="@+id/myListDetailFragment"
         android:name="com.example.mute.ui.detail.MyListDetailFragment"
-        android:label="MyListDetailFragment" >
+        android:label="MyListDetailFragment">
         <action
             android:id="@+id/action_myListDetailFragment_to_allVideoFragment"
             app:destination="@id/allVideoFragment" />
@@ -96,7 +99,11 @@
     <fragment
         android:id="@+id/allVideoFragment"
         android:name="com.example.mute.ui.all.AllVideoFragment"
-        android:label="AllVideoFragment" />
+        android:label="AllVideoFragment" >
+        <argument
+            android:name="video_items"
+            app:argType="com.example.mute.ui.ContentItem[]" />
+    </fragment>
     <fragment
         android:id="@+id/allLinkFragment"
         android:name="com.example.mute.ui.all.AllLinkFragment"
@@ -104,13 +111,37 @@
     <fragment
         android:id="@+id/allPhotoFragment"
         android:name="com.example.mute.ui.all.AllPhotoFragment"
-        android:label="AllPhotoFragment" />
+        android:label="AllPhotoFragment" >
+        <argument
+            android:name="photo_items"
+            app:argType="com.example.mute.ui.ContentItem[]" />
+    </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.mute.ui.add.AddFragment"
-        android:label="AddFragment" >
+        android:label="AddFragment">
         <argument
             android:name="absolute_path"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeAllFragment"
+        android:name="com.example.mute.ui.home.HomeAllFragment"
+        android:label="HomeAllFragment">
+        <action
+            android:id="@+id/action_homeAllFragment_to_myListDetailFragment"
+            app:destination="@id/myListDetailFragment" />
+        <action
+            android:id="@+id/action_homeAllFragment_to_actorDetailFragment"
+            app:destination="@id/actorDetailFragment" />
+        <action
+            android:id="@+id/action_homeAllFragment_to_musicalDetailFragment"
+            app:destination="@id/musicalDetailFragment" />
+        <argument
+            android:name="item_type"
+            app:argType="string" />
+        <argument
+            android:name="Home_Items"
+            app:argType="com.example.mute.ui.home.HomeItem[]" />
     </fragment>
 </navigation>
