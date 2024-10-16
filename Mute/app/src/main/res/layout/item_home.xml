@@ -18,9 +18,12 @@
 
         <ImageView
             android:id="@+id/iv_item_home"
+            ActorMusicalImg="@{homeItem.img}"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_round"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
         <TextView

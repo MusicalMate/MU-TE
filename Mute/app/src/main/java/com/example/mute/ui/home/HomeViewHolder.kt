@@ -8,7 +8,7 @@ import com.example.mute.databinding.ItemHomeBinding
 class HomeViewHolder(private val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(homeItem: HomeItem, onClickListener: HomeItemClickListener) {
-        // TODO - binding.ivItemHome
+        binding.ivItemHome.clipToOutline = true
         binding.homeItem = homeItem
         binding.ivItemHome.setOnClickListener { onClickListener.onClick(homeItem) }
     }
