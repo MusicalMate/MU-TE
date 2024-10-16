@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAllVideoBinding
 import com.example.mute.ui.ContentAdapter
+import com.example.mute.ui.ContentItem
 import com.example.mute.ui.ContentItemClickListener
 import com.example.mute.ui.ContentType
 
@@ -34,7 +36,8 @@ class AllVideoFragment : Fragment() {
 
     private fun initAdapter() {
         val clickListener = ContentItemClickListener { contentItem ->
-            // TODO - 동영상 재생 화면으로 이동
+            val action = AllVideoFragmentDirections.actionAllVideoFragmentToVideoPlayFragment()
+            findNavController().navigate(action)
         }
 
         val allVideoAdapter = ContentAdapter(ContentType.VIDEO, clickListener)

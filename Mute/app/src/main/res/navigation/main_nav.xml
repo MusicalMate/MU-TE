@@ -61,6 +61,9 @@
         <argument
             android:name="actor_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_actorDetailFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicalDetailFragment"
@@ -78,6 +81,9 @@
         <argument
             android:name="musical_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_musicalDetailFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/myListDetailFragment"
@@ -95,6 +101,9 @@
         <argument
             android:name="my_list_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_myListDetailFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/allVideoFragment"
@@ -103,6 +112,9 @@
         <argument
             android:name="video_items"
             app:argType="com.example.mute.ui.ContentItem[]" />
+        <action
+            android:id="@+id/action_allVideoFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
     </fragment>
     <fragment
         android:id="@+id/allLinkFragment"
@@ -144,4 +156,8 @@
             android:name="Home_Items"
             app:argType="com.example.mute.ui.home.HomeItem[]" />
     </fragment>
+    <fragment
+        android:id="@+id/videoPlayFragment"
+        android:name="com.example.mute.ui.VideoPlayFragment"
+        android:label="VideoPlayFragment" />
 </navigation>
