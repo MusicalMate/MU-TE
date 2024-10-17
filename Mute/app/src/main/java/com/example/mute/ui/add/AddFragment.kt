@@ -8,12 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAddBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddViewModel by viewModels { AddViewModel.Factory }
+    private val viewModel: AddViewModel by viewModels()
     private val args: AddFragmentArgs by navArgs()
 
     override fun onCreateView(

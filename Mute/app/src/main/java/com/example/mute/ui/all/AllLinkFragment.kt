@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.mute.databinding.FragmentAllLinkBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllLinkFragment : Fragment() {
 
     private var _binding: FragmentAllLinkBinding? = null

@@ -9,10 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAllVideoBinding
 import com.example.mute.ui.ContentAdapter
-import com.example.mute.ui.ContentItem
 import com.example.mute.ui.ContentItemClickListener
 import com.example.mute.ui.ContentType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AllVideoFragment : Fragment() {
 
     private var _binding: FragmentAllVideoBinding? = null

@@ -11,14 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMusicalDetailBinding
 import com.example.mute.ui.ContentItem
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MusicalDetailFragment : Fragment() {
 
     private var _binding: FragmentMusicalDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MusicalDetailViewModel by viewModels { MusicalDetailViewModel.Factory }
+    private val viewModel: MusicalDetailViewModel by viewModels()
     private val args: MusicalDetailFragmentArgs by navArgs()
 
     override fun onCreateView(

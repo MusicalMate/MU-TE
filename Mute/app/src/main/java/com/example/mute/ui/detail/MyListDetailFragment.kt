@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMyListDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyListDetailFragment : Fragment() {
 
     private var _binding: FragmentMyListDetailBinding? = null

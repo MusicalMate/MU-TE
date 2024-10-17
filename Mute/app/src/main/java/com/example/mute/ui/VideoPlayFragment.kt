@@ -13,7 +13,9 @@ import androidx.media3.datasource.HttpDataSource.HttpDataSourceException
 import androidx.media3.exoplayer.ExoPlayer
 import com.example.mute.R
 import com.example.mute.databinding.FragmentVideoPlayBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VideoPlayFragment : Fragment() {
 
     private var _binding: FragmentVideoPlayBinding? = null
