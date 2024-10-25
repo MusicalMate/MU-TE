@@ -30,6 +30,7 @@ android {
 
         buildConfigField("String", "KAKAO_APP_KEY", properties.getProperty("kakaoAppKey"))
         buildConfigField("String", "BASE_URL", properties.getProperty("baseUrl"))
+        buildConfigField("String", "DATA_STORE_NAME", properties.getProperty("dataStoreName"))
     }
 
     buildTypes {
@@ -100,4 +101,7 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
 }

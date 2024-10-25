@@ -6,7 +6,6 @@ import com.example.mute.ActorDetailInfo
 import com.example.mute.Filmography
 import com.example.mute.MusicalDetailInfo
 import com.example.mute.model.MainApi
-import com.example.mute.model.RetrofitInstance
 import com.example.mute.model.dto.FileMetaRequest
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -16,7 +15,7 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class MainRepositoryImpl @Inject constructor(
-    private val mainApi : MainApi
+    private val mainApi: MainApi
 ) : MainRepository {
 
     private val gson = Gson()

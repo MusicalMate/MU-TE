@@ -5,17 +5,11 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mute.databinding.ActivityLoginBinding
-import com.example.mute.model.LoginApi
-import com.example.mute.model.RetrofitInstance
-import com.example.mute.model.dto.SignInRequest
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -33,25 +27,17 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setListener() {
         binding.ivLoginKakao.setOnClickListener {
-            val service = RetrofitInstance.getInstance().create(LoginApi::class.java)
-
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
                     Log.e("TAG_kakao_fail", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
-                    CoroutineScope(Dispatchers.Main).launch {
-                        Log.e("TAG_kakao_accessToken", token.accessToken)
-                        service.postSignInKakao(SignInRequest(token.accessToken))
-                        Log.e("TAG_kakao_success", "카카오계정으로 로그인 성공 ${token.accessToken}")
-                    }
+                    viewModel.loginWithKakao(token.accessToken)
                 }
             }
 
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
                     if (error != null) {
-                        Log.e("TAG_kakao_fai22", "카카오톡으로 로그인 실패", error)
-
                         // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                         // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
                         if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
