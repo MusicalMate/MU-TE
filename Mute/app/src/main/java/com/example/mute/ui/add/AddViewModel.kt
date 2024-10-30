@@ -3,7 +3,7 @@ package com.example.mute.ui.add
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mute.model.dto.FileMetaRequest
+import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,21 +36,6 @@ class AddViewModel @Inject constructor(private val mainRepository: MainRepositor
     }
 
     fun uploadFiles() {
-        viewModelScope.launch {
-            mainRepository.uploadSmallFiles(
-                bigFiles = emptyList(),
-                smallFiles = emptyList(),
-                fileMeta = FileMetaRequest(
-                    fileTitle = mediaTitle.value,
-                    fileDescription = mediaDescription.value,
-                    musicalId = 1,
-                    actorId = emptyList(),
-                    fileDate = performanceTime.value,
-                    hashtag = emptyList()
-                )
-            ).catch {
-                Log.d("mute_upload_file_error", "uploadFiles error ${it.message}")
-            }
-        }
+        // 파일 업로드
     }
 }
