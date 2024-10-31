@@ -7,22 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.mute.databinding.FragmentAddBinding
+import com.example.mute.databinding.FragmentAddImageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AddFragment : Fragment() {
+class AddImageFragment : Fragment() {
 
-    private var _binding: FragmentAddBinding? = null
+    private var _binding: FragmentAddImageBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: AddViewModel by viewModels()
-    private val args: AddFragmentArgs by navArgs()
+    private val viewModel: AddImageViewModel by viewModels()
+    private val args: AddImageFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAddImageBinding.inflate(layoutInflater, container, false)
 
         return binding.root
     }

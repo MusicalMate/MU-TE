@@ -19,7 +19,7 @@
     <string name="hashtag">해시태그</string>
     <string name="select_date_time">날짜 및 시간 선택</string>
     <string name="description">내용</string>
-    <string name="user_media">사진 및 동영상</string>
+    <string name="user_image">사진</string>
     <string name="add_cancel">취소</string>
     <string name="add_next">다음</string>
     <string name="upload_image">사진 업로드</string>

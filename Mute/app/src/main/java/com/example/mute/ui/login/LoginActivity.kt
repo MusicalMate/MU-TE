@@ -1,10 +1,13 @@
 package com.example.mute.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mute.databinding.ActivityLoginBinding
+import com.example.mute.ui.MainActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -32,6 +35,9 @@ class LoginActivity : AppCompatActivity() {
                     Log.e("TAG_kakao_fail", "카카오계정으로 로그인 실패", error)
                 } else if (token != null) {
                     viewModel.loginWithKakao(token.accessToken)
+                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }
 

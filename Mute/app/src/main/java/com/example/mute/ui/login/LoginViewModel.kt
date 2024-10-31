@@ -1,5 +1,6 @@
 package com.example.mute.ui.login
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mute.model.repository.LoginRepository
@@ -18,10 +19,10 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginRepository.loginWithKakao(accessToken)
                 .catch {
-
+                    Log.e("mute_login", it.message ?: "")
                 }
                 .collectLatest {
-
+                    Log.e("mute_login", it.toString())
                 }
         }
     }

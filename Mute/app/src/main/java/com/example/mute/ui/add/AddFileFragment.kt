@@ -58,22 +58,7 @@ class AddFileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setListener()
-        activityResultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val data = result.data
-                    data?.data?.let { uri ->
-                        val absolutePath = getAbsolutePath(uri)
-                        val action = AddFileFragmentDirections.actionAddFileFragmentToAddFragment(
-                            absolutePath
-                        )
-                        findNavController().navigate(action)
-                    }
-                } else {
-                    Toast.makeText(requireContext(), "파일을 선택해주세요", Toast.LENGTH_SHORT).show()
-                }
-            }
+        setActivityLauncher()
     }
 
     private fun setListener() {
@@ -92,6 +77,53 @@ class AddFileFragment : Fragment() {
                 galleryVideoPermissionLauncher.launch(readExternalPermission)
             }
         }
+    }
+
+    private fun setActivityLauncher() {
+        activityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val data = result.data
+                    data?.data?.let { uri ->
+                        requireContext().contentResolver.getType(uri)?.let { mimeType ->
+                            val fileType = when {
+                                mimeType.startsWith("image") -> "image"
+                                mimeType.startsWith("video") -> "video"
+                                else -> null
+                            }
+                            if (fileType != null) {
+                                val absolutePath = getAbsolutePath(uri)
+                                if (fileType == "image") {
+                                    val action =
+                                        AddFileFragmentDirections.actionAddFileFragmentToAddImageFragment(
+                                            absolutePath
+                                        )
+                                    findNavController().navigate(action)
+                                } else {
+                                    val action =
+                                        AddFileFragmentDirections.actionAddFileFragmentToAddVideoFragment(
+                                            absolutePath
+                                        )
+                                    findNavController().navigate(action)
+
+                                }
+                            } else {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "지원하지 않는 파일입니다",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } ?: {
+                            Toast.makeText(requireContext(), "파일을 선택해주세요", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "파일을 선택해주세요", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 
     private fun openGalleryImage() {

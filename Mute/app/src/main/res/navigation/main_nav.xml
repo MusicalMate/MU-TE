@@ -30,8 +30,11 @@
         android:label="fragment_add_file"
         tools:layout="@layout/fragment_add_file">
         <action
-            android:id="@+id/action_addFileFragment_to_addFragment"
-            app:destination="@id/addFragment" />
+            android:id="@+id/action_addFileFragment_to_addImageFragment"
+            app:destination="@id/addImageFragment" />
+        <action
+            android:id="@+id/action_addFileFragment_to_addVideoFragment"
+            app:destination="@id/addVideoFragment" />
     </fragment>
 
     <fragment
@@ -129,9 +132,9 @@
             app:argType="com.example.mute.ui.ContentItem[]" />
     </fragment>
     <fragment
-        android:id="@+id/addFragment"
-        android:name="com.example.mute.ui.add.AddFragment"
-        android:label="AddFragment">
+        android:id="@+id/addImageFragment"
+        android:name="com.example.mute.ui.add.AddImageFragment"
+        android:label="AddImageFragment">
         <argument
             android:name="absolute_path"
             app:argType="string" />
@@ -160,4 +163,13 @@
         android:id="@+id/videoPlayFragment"
         android:name="com.example.mute.ui.VideoPlayFragment"
         android:label="VideoPlayFragment" />
+    <fragment
+        android:id="@+id/addVideoFragment"
+        android:name="com.example.mute.ui.add.AddVideoFragment"
+        android:label="fragment_add_video"
+        tools:layout="@layout/fragment_add_video" >
+        <argument
+            android:name="absolute_path"
+            app:argType="string" />
+    </fragment>
 </navigation>
