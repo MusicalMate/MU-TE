@@ -15,14 +15,14 @@ class TokenInterceptor @Inject constructor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = stringPreferencesKey("token")
+        val userId = stringPreferencesKey("userId")
         val token = runBlocking {
             dataStore.data.map {
-                it[accessToken]
+                it[userId]
             }.firstOrNull() ?: ""
         }
 
-        val requestBuilder = chain.request().newBuilder().addHeader("Authorization", token)
+        val requestBuilder = chain.request().newBuilder().addHeader("userId2", token)
         return chain.proceed(requestBuilder.build())
     }
 }

@@ -20,28 +20,28 @@ import retrofit2.http.Url
 
 interface MainApi {
 
-    @GET("api/home/lists")
+    @POST("/api/home/lists")
     suspend fun getHomeList(): HomeListResponse
 
-    @GET("api/actorplaylist/{actorListId}")
+    @GET("/api/actorplaylist/{actorListId}")
     suspend fun getActorPlayList(@Path(value = "actorListId") type: String): ActorPlayListResponse
 
-    @GET("api/musicalplaylist/{musicalListId}")
+    @GET("/api/musicalplaylist/{musicalListId}")
     suspend fun getMusicalPlayList(@Path(value = "musicalListId") type: String): MusicalPlayListResponse
 
-    @POST("upload/image")
+    @POST("/api/upload/image")
     suspend fun postImageInfo(@Body fileMeta: FileMetaInfo): Response<String>
 
-    @POST("upload/video")
+    @POST("/api/upload/video")
     suspend fun postVideoInfo(@Body fileMeta: FileMetaInfo): Response<String>
 
     @Multipart
     @PUT
     suspend fun uploadFile(@Url url: String, @Part file: MultipartBody.Part): Response<String>
 
-    @POST("api/search/musical")
+    @POST("/api/search/musical")
     suspend fun postSearchMusical(@Query("title") musicalTitle: String): SearchMusicalResponse
 
-    @POST("api/search/actor")
+    @POST("/api/search/actor")
     suspend fun postSearchActor(@Query("name") actorName: String): SearchActorResponse
 }

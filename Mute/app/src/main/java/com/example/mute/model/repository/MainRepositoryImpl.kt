@@ -1,6 +1,5 @@
 package com.example.mute.model.repository
 
-import android.util.Log
 import com.example.mute.Actor
 import com.example.mute.ActorDetailInfo
 import com.example.mute.Filmography

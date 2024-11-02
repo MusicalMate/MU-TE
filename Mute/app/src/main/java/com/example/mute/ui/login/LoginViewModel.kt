@@ -22,6 +22,7 @@ class LoginViewModel @Inject constructor(
                     Log.e("mute_login", it.message ?: "")
                 }
                 .collectLatest {
+                    loginRepository.saveUserInfo(accessToken, it)
                     Log.e("mute_login", it.toString())
                 }
         }

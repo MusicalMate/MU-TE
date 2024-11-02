@@ -7,5 +7,5 @@ interface LoginRepository {
 
     fun loginWithKakao(accessToken: String): Flow<LoginResponse>
 
-    suspend fun saveToken(token: String)
+    suspend fun saveUserInfo(token: String, loginResponse: LoginResponse)
 }

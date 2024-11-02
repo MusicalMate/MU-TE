@@ -1,8 +1,16 @@
 package com.example.mute.ui.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.mute.model.repository.MainRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val mainRepository: MainRepository) : ViewModel() {
 
     val myList =
         listOf(HomeItem("", "리스트1", ItemType.MY_LIST), HomeItem("", "리스트2", ItemType.MY_LIST))
@@ -23,4 +31,13 @@ class HomeViewModel : ViewModel() {
         HomeItem("", "최수진", ItemType.ACTOR)
     )
 
+    fun getHomeInfo() {
+        viewModelScope.launch {
+            mainRepository.getHomeInfo().catch {
+                Log.d("mute_get_home_info_error", it.message.toString())
+            }.collect {
+                Log.d("mute_get_home_info", it.toString())
+            }
+        }
+    }
 }
