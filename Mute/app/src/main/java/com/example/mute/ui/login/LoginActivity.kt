@@ -36,8 +36,7 @@ class LoginActivity : AppCompatActivity() {
                 } else if (token != null) {
                     viewModel.loginWithKakao(token.accessToken)
                     Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    moveToMainActivity()
                 }
             }
 
@@ -54,6 +53,9 @@ class LoginActivity : AppCompatActivity() {
                         UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
                     } else if (token != null) {
                         Log.i("TAG_kakao_success", "카카오톡으로 로그인 성공 ${token.accessToken}")
+                        viewModel.loginWithKakao(token.accessToken)
+                        Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+                        moveToMainActivity()
                     }
                 }
             } else {
@@ -64,5 +66,14 @@ class LoginActivity : AppCompatActivity() {
         binding.ivLoginNaver.setOnClickListener {
 
         }
+    }
+
+    private fun moveToMainActivity() {
+        val intent = Intent(
+            this,
+            MainActivity::class.java
+        ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,6 +1,5 @@
 package com.example.mute
 
-import android.util.Base64
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -19,7 +18,7 @@ fun TextView.setActors(actors: List<Actor>) {
 @BindingAdapter("ActorMusicalImg")
 fun ImageView.setImage(url: String?) {
     Glide.with(this)
-        .load(Base64.decode(url, Base64.DEFAULT))
+        .load(url)
         .into(this)
 }
 

@@ -42,12 +42,11 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
         val metaInfo = FileMetaInfo(
             mediaDescription.value,
             mediaTitle.value,
-            "쿠로이",
-            "2024/10/29 20:00",
-            "정욱진"
+            "",
+            "",
+            "1"
         )
         viewModelScope.launch {
-            Log.e("이미지 업로드 viewModel", metaInfo.toString())
             mainRepository.uploadImage(file, metaInfo)
                 .catch {
                     Log.e("이미지 업로드 에러", it.toString())

@@ -14,9 +14,9 @@ interface MainRepository {
 
     fun getHomeInfo(): Flow<HomeListResponse>
 
-    fun getActorInfo(actorId: Long): Flow<ActorPlayListResponse>
+    fun getActorInfo(actorId: String): Flow<ActorPlayListResponse>
 
-    fun getMusicalInfo(musicalId: Long): Flow<MusicalPlayListResponse>
+    fun getMusicalInfo(musicalId: String): Flow<MusicalPlayListResponse>
 
     fun uploadImage(imageFile: File, fileMeta: FileMetaInfo): Flow<String>
 

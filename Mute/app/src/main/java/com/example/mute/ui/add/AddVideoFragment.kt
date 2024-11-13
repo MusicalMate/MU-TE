@@ -19,7 +19,6 @@ class AddVideoFragment : Fragment() {
     private val viewModel: AddVideoViewModel by viewModels()
     private val args: AddVideoFragmentArgs by navArgs()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
