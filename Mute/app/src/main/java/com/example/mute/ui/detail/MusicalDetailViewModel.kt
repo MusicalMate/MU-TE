@@ -3,7 +3,7 @@ package com.example.mute.ui.detail
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mute.MusicalDetailInfo
+import com.example.mute.model.MusicalDetailInfo
 import com.example.mute.model.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,11 +20,11 @@ class MusicalDetailViewModel @Inject constructor(private val mainRepository: Mai
     private val _musicalDetailInfo = MutableStateFlow(MusicalDetailInfo())
     val musicalDetailInfo: StateFlow<MusicalDetailInfo> = _musicalDetailInfo.asStateFlow()
 
-    fun getMusicalInfo(title: String) {
+    fun getMusicalInfo(musicalPlayListId: String) {
         viewModelScope.launch {
-            mainRepository.searchMusical(title)
+            mainRepository.getMusicalInfo(musicalPlayListId)
                 .catch {
-                    Log.d("mute_search_musical_error", "getMusicalInfo error ${it.message}")
+                    Log.d("mute_musical_detail_info", "getMusicalInfo error ${it.message}")
                 }.collect { musicalDetailInfo ->
                     _musicalDetailInfo.value = musicalDetailInfo
                 }

@@ -25,11 +25,11 @@ interface MainApi {
     @POST("/api/home/lists")
     suspend fun getHomeList(): List<List<Map<String, String>>>
 
-    @GET("/api/actorplaylist/{actorListId}")
-    suspend fun getActorPlayList(@Path(value = "actorListId") type: String): ActorPlayListResponse
+    @POST("/api/actorplaylist")
+    suspend fun getActorPlayList(@Query(value = "actorListId") type: Long): ActorPlayListResponse
 
-    @GET("/api/musicalplaylist/{musicalListId}")
-    suspend fun getMusicalPlayList(@Path(value = "musicalListId") type: String): MusicalPlayListResponse
+    @POST("/api/musicalplaylist")
+    suspend fun getMusicalPlayList(@Query(value = "musicalListId") type: Long): MusicalPlayListResponse
 
     @POST("/api/upload/image")
     suspend fun postImageInfo(@Body fileMeta: List<FileMetaInfo>): PostImageResponse
@@ -45,10 +45,4 @@ interface MainApi {
 
     @PUT
     suspend fun uploadFile(@Url url: String, @Body file: RequestBody): Response<ResponseBody>
-
-    @POST("/api/search/musical")
-    suspend fun postSearchMusical(@Query("title") musicalTitle: String): SearchMusicalResponse
-
-    @POST("/api/search/actor")
-    suspend fun postSearchActor(@Query("name") actorName: String): SearchActorResponse
 }

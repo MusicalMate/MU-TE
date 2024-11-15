@@ -47,15 +47,15 @@ class HomeFragment : Fragment() {
         val clickListener = HomeItemClickListener { homeItem ->
             val action = when (homeItem.itemType) {
                 ItemType.MY_LIST -> {
-                    HomeFragmentDirections.actionHomeFragmentToMyListDetailFragment(homeItem.itemId)
+                    HomeFragmentDirections.actionHomeFragmentToMyListDetailFragment(homeItem.playListId)
                 }
 
                 ItemType.MUSICAL -> {
-                    HomeFragmentDirections.actionHomeFragmentToMusicalDetailFragment(homeItem.itemId)
+                    HomeFragmentDirections.actionHomeFragmentToMusicalDetailFragment(homeItem.playListId)
                 }
 
                 ItemType.ACTOR -> {
-                    HomeFragmentDirections.actionHomeFragmentToActorDetailFragment(homeItem.itemId)
+                    HomeFragmentDirections.actionHomeFragmentToActorDetailFragment(homeItem.playListId)
                 }
             }
             findNavController().navigate(action)

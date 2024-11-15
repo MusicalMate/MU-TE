@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMusicalDetailBinding
-import com.example.mute.ui.ContentItem
+import com.example.mute.ui.ContentItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +22,9 @@ class MusicalDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MusicalDetailViewModel by viewModels()
     private val args: MusicalDetailFragmentArgs by navArgs()
+
+    private lateinit var detailPhotoAdapter: DetailAdapter
+    private lateinit var detailVideoAdapter: DetailAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +39,33 @@ class MusicalDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+
+        initAdapter()
         setObserver()
         setListener()
-        viewModel.getMusicalInfo(args.musicalName)
+        viewModel.getMusicalInfo(args.musicalId)
+    }
+
+    private fun initAdapter() {
+        val photoClickListener = ContentItemClickListener {
+            // TODO: 사진 요청
+        }
+        val videoClickListener = ContentItemClickListener {
+            // TODO: 동영상 재생 화면으로 이동
+        }
+
+        detailPhotoAdapter = DetailAdapter(photoClickListener)
+        binding.rvMusicalDetailPhoto.adapter = detailPhotoAdapter
+        detailVideoAdapter = DetailAdapter(videoClickListener)
+        binding.rvMusicalDetailVideo.adapter = detailVideoAdapter
     }
 
     private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.musicalDetailInfo.collectLatest { musicalDetailInfo ->
                 binding.musicalDetailInfo = musicalDetailInfo
+                detailPhotoAdapter.submitList(musicalDetailInfo.imageInfo)
+                detailVideoAdapter.submitList(musicalDetailInfo.videoInfo)
             }
         }
     }
@@ -53,7 +74,7 @@ class MusicalDetailFragment : Fragment() {
         binding.tvMusicalDetailVideoAll.setOnClickListener {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllVideoFragment(
-                    listOf<ContentItem>().toTypedArray()
+                    viewModel.musicalDetailInfo.value.videoInfo.toTypedArray()
                 )
             findNavController().navigate(action)
         }
@@ -61,7 +82,7 @@ class MusicalDetailFragment : Fragment() {
         binding.tvMusicalDetailPhotoAll.setOnClickListener {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllPhotoFragment(
-                    listOf<ContentItem>().toTypedArray()
+                    viewModel.musicalDetailInfo.value.imageInfo.toTypedArray()
                 )
             findNavController().navigate(action)
         }

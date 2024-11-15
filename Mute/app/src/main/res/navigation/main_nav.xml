@@ -62,7 +62,7 @@
             android:id="@+id/action_actorDetailFragment_to_allLinkFragment"
             app:destination="@id/allLinkFragment" />
         <argument
-            android:name="actor_name"
+            android:name="actor_id"
             app:argType="string" />
         <action
             android:id="@+id/action_actorDetailFragment_to_videoPlayFragment"
@@ -82,7 +82,7 @@
             android:id="@+id/action_musicalDetailFragment_to_allLinkFragment"
             app:destination="@id/allLinkFragment" />
         <argument
-            android:name="musical_name"
+            android:name="musical_id"
             app:argType="string" />
         <action
             android:id="@+id/action_musicalDetailFragment_to_videoPlayFragment"
@@ -114,7 +114,7 @@
         android:label="AllVideoFragment" >
         <argument
             android:name="video_items"
-            app:argType="com.example.mute.ui.ContentItem[]" />
+            app:argType="com.example.mute.model.ContentInfo[]" />
         <action
             android:id="@+id/action_allVideoFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
@@ -129,7 +129,7 @@
         android:label="AllPhotoFragment" >
         <argument
             android:name="photo_items"
-            app:argType="com.example.mute.ui.ContentItem[]" />
+            app:argType="com.example.mute.model.ContentInfo[]" />
     </fragment>
     <fragment
         android:id="@+id/addImageFragment"

@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAllVideoBinding
+import com.example.mute.model.ContentType
 import com.example.mute.ui.ContentAdapter
 import com.example.mute.ui.ContentItemClickListener
-import com.example.mute.ui.ContentType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

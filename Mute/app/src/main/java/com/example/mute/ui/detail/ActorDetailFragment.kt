@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentActorDetailBinding
-import com.example.mute.ui.ContentItem
+import com.example.mute.ui.ContentItemClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +22,9 @@ class ActorDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: ActorDetailViewModel by viewModels()
     private val args: ActorDetailFragmentArgs by navArgs()
+
+    private lateinit var detailPhotoAdapter: DetailAdapter
+    private lateinit var detailVideoAdapter: DetailAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +39,33 @@ class ActorDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+
+        initAdapter()
         setObserver()
         setListener()
-        viewModel.getActorInfo(args.actorName)
+        viewModel.getActorInfo(args.actorId)
+    }
+
+    private fun initAdapter() {
+        val photoClickListener = ContentItemClickListener {
+            // TODO: 사진 요청
+        }
+        val videoClickListener = ContentItemClickListener {
+            // TODO: 동영상 재생 화면으로 이동
+        }
+
+        detailPhotoAdapter = DetailAdapter(photoClickListener)
+        binding.rvActorDetailPhoto.adapter = detailPhotoAdapter
+        detailVideoAdapter = DetailAdapter(videoClickListener)
+        binding.rvActorDetailVideo.adapter = detailVideoAdapter
     }
 
     private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.actorDetailInfo.collectLatest { actorDetailInfo ->
                 binding.actorDetailInfo = actorDetailInfo
+                detailPhotoAdapter.submitList(actorDetailInfo.imageInfo)
+                detailVideoAdapter.submitList(actorDetailInfo.videoInfo)
             }
         }
     }
@@ -52,14 +73,14 @@ class ActorDetailFragment : Fragment() {
     private fun setListener() {
         binding.tvActorDetailVideoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllVideoFragment(
-                listOf<ContentItem>().toTypedArray()
+                viewModel.actorDetailInfo.value.videoInfo.toTypedArray()
             )
             findNavController().navigate(action)
         }
 
         binding.tvActorDetailPhotoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllPhotoFragment(
-                listOf<ContentItem>().toTypedArray()
+                viewModel.actorDetailInfo.value.imageInfo.toTypedArray()
             )
             findNavController().navigate(action)
         }

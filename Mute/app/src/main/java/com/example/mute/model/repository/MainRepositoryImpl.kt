@@ -1,20 +1,15 @@
 package com.example.mute.model.repository
 
-import com.example.mute.Actor
-import com.example.mute.ActorDetailInfo
-import com.example.mute.Filmography
-import com.example.mute.MusicalDetailInfo
+import com.example.mute.model.ActorDetailInfo
+import com.example.mute.model.DataParseUtil
 import com.example.mute.model.MainApi
+import com.example.mute.model.MusicalDetailInfo
 import com.example.mute.model.dto.ActorInfo
-import com.example.mute.model.dto.ActorPlayListResponse
 import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.dto.HomeListResponse
 import com.example.mute.model.dto.MusicalInfo
-import com.example.mute.model.dto.MusicalPlayListResponse
 import com.example.mute.model.dto.PostImageUploadResponse
 import com.example.mute.model.dto.PostVideoUploadResponse
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -25,8 +20,6 @@ import javax.inject.Inject
 class MainRepositoryImpl @Inject constructor(
     private val mainApi: MainApi
 ) : MainRepository {
-
-    private val gson = Gson()
 
     override fun getHomeInfo(): Flow<HomeListResponse> = flow {
         val response = mainApi.getHomeList()
@@ -54,12 +47,52 @@ class MainRepositoryImpl @Inject constructor(
         emit(HomeListResponse(actorListInfo = actorList, musicalList = musicalList))
     }
 
-    override fun getActorInfo(actorId: String): Flow<ActorPlayListResponse> = flow {
-        emit(mainApi.getActorPlayList(actorId))
+    override fun getActorInfo(actorPlayListId: String): Flow<ActorDetailInfo> = flow {
+        val response = mainApi.getActorPlayList(actorPlayListId.toLong())
+
+        val actorDetailInfo = ActorDetailInfo(
+            actorPlayListId = response.actorId,
+            actorImageUrl = response.actorUrl,
+            actorName = response.actorName,
+            actorDescription = response.actorDescribe,
+            actorFilmo = response.actorFilmo.map { it.title },
+            videoInfo = DataParseUtil.parseVideoStringsToList(
+                response.videoIds,
+                response.videoCoverUrls,
+                response.videoTitles
+            ),
+            imageInfo = DataParseUtil.parseImageStringsToList(
+                response.imageIds,
+                response.imageCoverUrls,
+                response.imageTitles
+            )
+        )
+
+        emit(actorDetailInfo)
     }
 
-    override fun getMusicalInfo(musicalId: String): Flow<MusicalPlayListResponse> = flow {
-        emit(mainApi.getMusicalPlayList(musicalId))
+    override fun getMusicalInfo(musicalPlayListId: String): Flow<MusicalDetailInfo> = flow {
+        val response = mainApi.getMusicalPlayList(musicalPlayListId.toLong())
+
+        val musicalDetailInfo = MusicalDetailInfo(
+            musicalPlayListId = response.musicalId,
+            musicalImageUrl = response.musicalUrl,
+            musicalTitle = response.musicalTitle,
+            musicalTime = response.musicalTime,
+            musicalDescription = response.musicalDescribe,
+            actors = response.actors,
+            videoInfo = DataParseUtil.parseVideoStringsToList(
+                response.videoIds,
+                response.videoCoverUrls,
+                response.videoTitles
+            ),
+            imageInfo = DataParseUtil.parseImageStringsToList(
+                response.imageIds,
+                response.imageCoverUrls,
+                response.imageTitles
+            )
+        )
+        emit(musicalDetailInfo)
     }
 
     override fun uploadImage(imageFile: File, fileMeta: FileMetaInfo): Flow<String> = flow {
@@ -77,10 +110,20 @@ class MainRepositoryImpl @Inject constructor(
         val uploadResponse = mainApi.uploadFile(url, requestBody)
 
         if (uploadResponse.isSuccessful) {
-            mainApi.postUploadImageResponse(PostImageUploadResponse("success", response.imageId))
+            val result = mainApi.postUploadImageResponse(
+                PostImageUploadResponse(
+                    "success",
+                    response.imageId
+                )
+            )
             emit("success")
         } else {
-            mainApi.postUploadImageResponse(PostImageUploadResponse("fail", response.imageId))
+            mainApi.postUploadImageResponse(
+                PostImageUploadResponse(
+                    "fail",
+                    response.imageId
+                )
+            )
             emit("fail")
         }
     }
@@ -100,39 +143,21 @@ class MainRepositoryImpl @Inject constructor(
         val uploadResponse = mainApi.uploadFile(url, requestBody)
 
         if (uploadResponse.isSuccessful) {
-            mainApi.postUploadVideoResponse(PostVideoUploadResponse("success", response.videoId))
+            mainApi.postUploadVideoResponse(
+                PostVideoUploadResponse(
+                    "success",
+                    response.videoId
+                )
+            )
             emit("success")
         } else {
-            mainApi.postUploadVideoResponse(PostVideoUploadResponse("fail", response.videoId))
+            mainApi.postUploadVideoResponse(
+                PostVideoUploadResponse(
+                    "fail",
+                    response.videoId
+                )
+            )
             emit("fail")
         }
-    }
-
-    override fun searchMusical(musicalTitle: String): Flow<MusicalDetailInfo> = flow {
-        val response = mainApi.postSearchMusical(musicalTitle)
-        val listType = object : TypeToken<List<Actor>>() {}.type
-        val musicalDetailInfo =
-            MusicalDetailInfo(
-                musicalId = response.musicalId,
-                musicalTitle = response.musicalTitle,
-                musicalTime = response.musicalTime,
-                musicalDescription = response.musicalDescription,
-                musicalImg = response.musicalImg,
-                actors = gson.fromJson(response.actors, listType)
-            )
-        emit(musicalDetailInfo)
-    }
-
-    override fun searchActor(actorName: String): Flow<ActorDetailInfo> = flow {
-        val response = mainApi.postSearchActor(actorName)
-        val listType = object : TypeToken<List<Filmography>>() {}.type
-        val actorDetailInfo = ActorDetailInfo(
-            actorId = response.actorId,
-            actorDescription = response.actorDescription,
-            actorName = response.actorName,
-            filmos = gson.fromJson(response.filmo, listType),
-            actorImg = response.actorImg
-        )
-        emit(actorDetailInfo)
     }
 }

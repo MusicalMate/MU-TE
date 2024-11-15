@@ -9,33 +9,30 @@
     </data>
 
     <LinearLayout
-        android:id="@+id/layout_item_photo"
-        android:layout_width="match_parent"
+        android:id="@+id/layout_item_detail_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="12dp"
+        android:paddingHorizontal="6dp"
         android:paddingVertical="8dp">
 
         <ImageView
-            android:id="@+id/iv_item_photo"
             ActorMusicalImg="@{contentInfo.contentCoverKey}"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" />
+            android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/tv_item_photo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:maxLines="1"
             android:text="@{contentInfo.contentTitle}"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 </layout>

@@ -4,12 +4,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mute.model.ContentInfo
+import com.example.mute.model.ContentType
 
 class ContentAdapter(
     private val contentType: ContentType,
     private val onClickListener: ContentItemClickListener
 ) :
-    ListAdapter<ContentItem, RecyclerView.ViewHolder>(diffUtil) {
+    ListAdapter<ContentInfo, RecyclerView.ViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (contentType) {
@@ -26,12 +28,12 @@ class ContentAdapter(
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<ContentItem>() {
-            override fun areContentsTheSame(oldItem: ContentItem, newItem: ContentItem): Boolean {
+        val diffUtil = object : DiffUtil.ItemCallback<ContentInfo>() {
+            override fun areContentsTheSame(oldItem: ContentInfo, newItem: ContentInfo): Boolean {
                 return oldItem == newItem
             }
 
-            override fun areItemsTheSame(oldItem: ContentItem, newItem: ContentItem): Boolean {
+            override fun areItemsTheSame(oldItem: ContentInfo, newItem: ContentInfo): Boolean {
                 return oldItem.hashCode() == newItem.hashCode()
             }
         }

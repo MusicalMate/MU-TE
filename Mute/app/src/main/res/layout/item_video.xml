@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="contentItem"
-            type="com.example.mute.ui.ContentItem" />
+            name="contentInfo"
+            type="com.example.mute.model.ContentInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
 
         <ImageView
             android:id="@+id/iv_item_video"
-            ActorMusicalImg="@{contentItem.thumbnail}"
+            ActorMusicalImg="@{contentInfo.contentCoverKey}"
             android:layout_width="120dp"
             android:layout_height="80dp"
             android:importantForAccessibility="no"
@@ -33,7 +33,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
             android:gravity="start|center_vertical"
-            android:text="@{contentItem.contentTitle}"
+            android:text="@{contentInfo.contentTitle}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_item_video"

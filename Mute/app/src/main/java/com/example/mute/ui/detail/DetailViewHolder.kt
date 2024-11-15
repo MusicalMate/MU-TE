@@ -1,23 +1,24 @@
-package com.example.mute.ui
+package com.example.mute.ui.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mute.databinding.ItemVideoBinding
+import com.example.mute.databinding.ItemDetailContentBinding
 import com.example.mute.model.ContentInfo
+import com.example.mute.ui.ContentItemClickListener
 
-class VideoViewHolder(private val binding: ItemVideoBinding) :
+class DetailViewHolder(private val binding: ItemDetailContentBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(contentInfo: ContentInfo, onClickListener: ContentItemClickListener) {
         binding.contentInfo = contentInfo
-        binding.layoutItemVideo.setOnClickListener { onClickListener.onClick(contentInfo) }
+        binding.layoutItemDetailContent.setOnClickListener { onClickListener.onClick(contentInfo) }
     }
 
     companion object {
-        fun from(parent: ViewGroup): VideoViewHolder {
-            return VideoViewHolder(
-                ItemVideoBinding.inflate(
+        fun from(parent: ViewGroup): DetailViewHolder {
+            return DetailViewHolder(
+                ItemDetailContentBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -25,5 +26,4 @@ class VideoViewHolder(private val binding: ItemVideoBinding) :
             )
         }
     }
-
 }
