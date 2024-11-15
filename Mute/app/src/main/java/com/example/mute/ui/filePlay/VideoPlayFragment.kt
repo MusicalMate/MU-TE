@@ -1,4 +1,4 @@
-package com.example.mute.ui
+package com.example.mute.ui.filePlay
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
-import androidx.media3.common.PlaybackException
-import androidx.media3.common.Player
-import androidx.media3.datasource.HttpDataSource.HttpDataSourceException
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.mute.R
 import com.example.mute.databinding.FragmentVideoPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
 

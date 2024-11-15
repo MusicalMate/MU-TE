@@ -161,7 +161,7 @@
     </fragment>
     <fragment
         android:id="@+id/videoPlayFragment"
-        android:name="com.example.mute.ui.VideoPlayFragment"
+        android:name="com.example.mute.ui.filePlay.VideoPlayFragment"
         android:label="VideoPlayFragment" />
     <fragment
         android:id="@+id/addVideoFragment"

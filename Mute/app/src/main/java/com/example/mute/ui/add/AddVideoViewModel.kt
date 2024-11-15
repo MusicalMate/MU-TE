@@ -18,6 +18,9 @@ import javax.inject.Inject
 class AddVideoViewModel @Inject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
 
+    private val _uploadStatus = MutableStateFlow(UploadStatus.READY)
+    val uploadStatus = _uploadStatus.asStateFlow()
+
     private var videoPath = ""
 
     val mediaTitle = MutableStateFlow("")
@@ -37,19 +40,22 @@ class AddVideoViewModel @Inject constructor(private val mainRepository: MainRepo
     }
 
     fun uploadFile() {
+        _uploadStatus.value = UploadStatus.IN_PROGRESS
         val file = File(videoPath)
         val metaInfo = FileMetaInfo(
             mediaDescription.value,
             mediaTitle.value,
-            "",
+            performanceTitle.value,
             "",
             ""
         )
         viewModelScope.launch {
             mainRepository.uploadVideo(file, metaInfo)
                 .catch {
+                    _uploadStatus.value = UploadStatus.FAILURE
                     Log.e("동영상 업로드 에러", it.toString())
                 }.collectLatest {
+                    _uploadStatus.value = UploadStatus.SUCCESS
                     Log.e("동영상 업로드 성공", it)
                 }
         }

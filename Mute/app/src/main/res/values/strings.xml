@@ -24,4 +24,5 @@
     <string name="add_next">다음</string>
     <string name="upload_image">사진 업로드</string>
     <string name="upload_video">동영상 업로드</string>
+    <string name="upload">업로드</string>
 </resources>

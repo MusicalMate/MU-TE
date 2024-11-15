@@ -18,6 +18,9 @@ import javax.inject.Inject
 class AddImageViewModel @Inject constructor(private val mainRepository: MainRepository) :
     ViewModel() {
 
+    private val _uploadStatus = MutableStateFlow(UploadStatus.READY)
+    val uploadStatus = _uploadStatus.asStateFlow()
+
     private val _imagePath = MutableStateFlow("")
     val imagePath = _imagePath.asStateFlow()
 
@@ -38,19 +41,22 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
     }
 
     fun uploadFile() {
+        _uploadStatus.value = UploadStatus.IN_PROGRESS
         val file = File(imagePath.value)
         val metaInfo = FileMetaInfo(
             mediaDescription.value,
             mediaTitle.value,
-            "",
+            performanceTime.value,
             "",
             "1"
         )
         viewModelScope.launch {
             mainRepository.uploadImage(file, metaInfo)
                 .catch {
+                    _uploadStatus.value = UploadStatus.FAILURE
                     Log.e("이미지 업로드 에러", it.toString())
                 }.collectLatest {
+                    _uploadStatus.value = UploadStatus.SUCCESS
                     Log.e("이미지 업로드 성공", it)
                 }
         }

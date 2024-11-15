@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.VideoPlayFragment">
+        tools:context=".ui.filePlay.VideoPlayFragment">
 
         <androidx.media3.ui.PlayerView
             android:id="@+id/pv_video_play"
