@@ -8,6 +8,12 @@
         <variable
             name="actorDetailInfo"
             type="com.example.mute.model.ActorDetailInfo" />
+
+        <variable
+            name="viewModel"
+            type="com.example.mute.ui.detail.ActorDetailViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -33,6 +39,28 @@
                     app:title="@{actorDetailInfo.actorName}"
                     app:titleCentered="true" />
             </com.google.android.material.appbar.AppBarLayout>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:onClick="@{()->viewModel.updateFavoriteStatus()}"
+                android:src="@drawable/star_filled"
+                android:visibility="@{actorDetailInfo.star ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:onClick="@{()->viewModel.updateFavoriteStatus()}"
+                android:src="@drawable/star"
+                android:visibility="@{actorDetailInfo.star ? View.GONE : View.VISIBLE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_actor_detail_image"

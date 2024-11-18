@@ -162,7 +162,11 @@
     <fragment
         android:id="@+id/videoPlayFragment"
         android:name="com.example.mute.ui.filePlay.VideoPlayFragment"
-        android:label="VideoPlayFragment" />
+        android:label="VideoPlayFragment" >
+        <argument
+            android:name="contentId"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/addVideoFragment"
         android:name="com.example.mute.ui.add.AddVideoFragment"

@@ -162,7 +162,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="@{viewModel.performanceTitle}"
+                android:text="@={viewModel.performanceTitle}"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_add_image_performance_title"
@@ -246,6 +246,7 @@
                 android:maxLines="1"
                 android:text="@{viewModel.performanceActors}"
                 android:textSize="12sp"
+                android:onClick="@{() -> viewModel.getActors()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_add_image_actors"
                 app:layout_constraintTop_toTopOf="@id/tv_add_image_actors" />

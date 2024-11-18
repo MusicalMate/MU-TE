@@ -38,7 +38,7 @@ class SearchFragment : Fragment() {
                 val text = p0?.text.toString()
                 viewSearch.hide()
                 barSearch.setText(text)
-                //viewModel.searchKeyword(text)
+                viewModel.searchKeyword(text)
                 true
             }
         }

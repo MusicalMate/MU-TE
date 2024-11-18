@@ -1,15 +1,23 @@
 package com.example.mute.ui.filePlay
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.OptIn
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.media3.common.MediaItem
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentVideoPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class VideoPlayFragment : Fragment() {
@@ -17,6 +25,8 @@ class VideoPlayFragment : Fragment() {
     private var _binding: FragmentVideoPlayBinding? = null
     private val binding get() = _binding!!
     private val viewModel: VideoPlayViewModel by viewModels()
+    private val args: VideoPlayFragmentArgs by navArgs()
+    private lateinit var exoPlayer: ExoPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,20 +39,35 @@ class VideoPlayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setPlayer()
+        setObserver()
+        viewModel.getContentDetailInfo(args.contentId)
     }
 
     private fun setPlayer() {
-        val player = ExoPlayer.Builder(requireContext()).build()
-        binding.pvVideoPlay.player = player
-        val firstItem = MediaItem.fromUri("")
-        player.addMediaItem(firstItem)
-        player.prepare()
-        player.play()
+        exoPlayer = ExoPlayer.Builder(requireContext()).build()
+        binding.pvVideoPlay.player = exoPlayer
+    }
+
+    @OptIn(UnstableApi::class)
+    private fun setObserver() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.contentDetailInfo.collectLatest { contentDetailInfo ->
+                val videoItem = MediaItem.fromUri(contentDetailInfo.contentUrl)
+                val mediaSource = ProgressiveMediaSource
+                    .Factory(DefaultDataSource.Factory(requireContext()))
+                    .createMediaSource(videoItem)
+                exoPlayer.setMediaSource(mediaSource)
+                exoPlayer.prepare()
+                exoPlayer.play()
+            }
+        }
     }
 
     override fun onDestroyView() {
         _binding = null
+        exoPlayer.release()
         super.onDestroyView()
     }
 }

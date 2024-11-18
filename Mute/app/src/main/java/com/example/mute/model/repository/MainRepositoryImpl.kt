@@ -1,9 +1,13 @@
 package com.example.mute.model.repository
 
+import android.util.Log
+import com.example.mute.model.Actor
 import com.example.mute.model.ActorDetailInfo
+import com.example.mute.model.ContentDetailInfo
 import com.example.mute.model.DataParseUtil
 import com.example.mute.model.MainApi
 import com.example.mute.model.MusicalDetailInfo
+import com.example.mute.model.UserInfo
 import com.example.mute.model.dto.ActorInfo
 import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.dto.HomeListResponse
@@ -52,6 +56,7 @@ class MainRepositoryImpl @Inject constructor(
 
         val actorDetailInfo = ActorDetailInfo(
             actorPlayListId = response.actorId,
+            star = response.star == "true",
             actorImageUrl = response.actorUrl,
             actorName = response.actorName,
             actorDescription = response.actorDescribe,
@@ -76,6 +81,7 @@ class MainRepositoryImpl @Inject constructor(
 
         val musicalDetailInfo = MusicalDetailInfo(
             musicalPlayListId = response.musicalId,
+            star = response.star == "true",
             musicalImageUrl = response.musicalUrl,
             musicalTitle = response.musicalTitle,
             musicalTime = response.musicalTime,
@@ -95,6 +101,10 @@ class MainRepositoryImpl @Inject constructor(
         emit(musicalDetailInfo)
     }
 
+    override fun getMusicalActorList(musicalTitle: String): Flow<List<Actor>> = flow {
+        emit(mainApi.getMusicalActors(musicalTitle).actors)
+    }
+
     override fun uploadImage(imageFile: File, fileMeta: FileMetaInfo): Flow<String> = flow {
         val fileMetaInfoList = listOf(
             FileMetaInfo(description = fileMeta.description),
@@ -106,8 +116,16 @@ class MainRepositoryImpl @Inject constructor(
         val response = mainApi.postImageInfo(fileMetaInfoList)
 
         val url = response.s3url
-        val requestBody = imageFile.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+
+        Log.e("이미지 업로드 response", response.toString())
+        Log.e("이미지 업로드 이미지타입", imageFile.extension.lowercase())
+
+        val requestBody =
+            imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+        //val requestBody = imageFile.asRequestBody("application/octet-stream".toMediaTypeOrNull())
         val uploadResponse = mainApi.uploadFile(url, requestBody)
+
+        Log.e("이미지 업로드 결과", uploadResponse.toString())
 
         if (uploadResponse.isSuccessful) {
             val result = mainApi.postUploadImageResponse(
@@ -116,6 +134,8 @@ class MainRepositoryImpl @Inject constructor(
                     response.imageId
                 )
             )
+
+            Log.e("이미지 업로드 result", result.toString())
             emit("success")
         } else {
             mainApi.postUploadImageResponse(
@@ -138,17 +158,24 @@ class MainRepositoryImpl @Inject constructor(
         )
         val response = mainApi.postVideoInfo(fileMetaInfoList)
 
+        Log.e("이미지 업로드 response", response.toString())
+        Log.e("이미지 업로드 이미지타입", videoFile.extension.lowercase())
+
         val url = response.s3url
-        val requestBody = videoFile.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+        val requestBody = videoFile.asRequestBody("video/*".toMediaTypeOrNull())
         val uploadResponse = mainApi.uploadFile(url, requestBody)
 
+        Log.e("이미지 업로드 결과", uploadResponse.toString())
+
         if (uploadResponse.isSuccessful) {
-            mainApi.postUploadVideoResponse(
+            val result = mainApi.postUploadVideoResponse(
                 PostVideoUploadResponse(
                     "success",
                     response.videoId
                 )
             )
+
+            Log.e("이미지 업로드 result", result.toString())
             emit("success")
         } else {
             mainApi.postUploadVideoResponse(
@@ -159,5 +186,72 @@ class MainRepositoryImpl @Inject constructor(
             )
             emit("fail")
         }
+    }
+
+    override fun getStreamingImage(imageId: String): Flow<ContentDetailInfo> = flow {
+        val response = mainApi.postStreamingImage(imageId.toLong())
+        val contentDetailInfo = ContentDetailInfo(
+            actors = response.actors,
+            contentUrl = response.presignedUrl[0],
+            description = response.description,
+            contentTime = response.imageTime,
+            contentTitle = response.imageTitle,
+            performanceTitle = response.musicalTitle
+        )
+        emit(contentDetailInfo)
+    }
+
+    override fun getStreamingVideo(videoId: String): Flow<ContentDetailInfo> = flow {
+        val response = mainApi.postStreamingVideo(videoId.toLong())
+        val contentDetailInfo = ContentDetailInfo(
+            actors = response.actors,
+            contentUrl = response.presignedUrls[0],
+            description = response.description,
+            contentTime = response.videoTime,
+            contentTitle = response.videoTitle,
+            performanceTitle = response.musicalTitle
+        )
+        emit(contentDetailInfo)
+    }
+
+    override fun updateActorFavorite(actorPlayListId: Long): Flow<Boolean> = flow {
+        val response = mainApi.postActorFavoriteStatus(actorPlayListId)
+        Log.e("mute_update_actor", response.toString())
+
+        if (response.star == "true") emit(true)
+        else emit(false)
+    }
+
+    override fun updateMusicalFavorite(musicalPlayListId: Long): Flow<Boolean> = flow {
+        val response = mainApi.postMusicalFavoriteStatus(musicalPlayListId)
+        if (response.star == "true") emit(true)
+        else emit(false)
+    }
+
+    override fun searchKeyword(keyword: String): Flow<String> = flow {
+        val response = mainApi.postSearchKeyword(keyword)
+
+        Log.e("mute_search_keyword", response.toString())
+
+    }
+
+    override fun getMyPageInfo(): Flow<UserInfo> = flow {
+        val response = mainApi.postMyPageInfo()
+        val userInfo = UserInfo(
+            name = response.name,
+            email = response.email,
+            profile = response.profile,
+            imageList = DataParseUtil.parseImageStringsToList(
+                response.uploadedImageList.imageIds.map { it.toString() },
+                response.uploadedImageList.imageCoverUrls,
+                response.uploadedImageList.imageTitles
+            ),
+            videoList = DataParseUtil.parseVideoStringsToList(
+                response.uploadedVideoList.videoIds.map { it.toString() },
+                response.uploadedVideoList.videoCoverUrls,
+                response.uploadedVideoList.videoTitles
+            )
+        )
+        emit(userInfo)
     }
 }

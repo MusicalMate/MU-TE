@@ -39,6 +39,7 @@ class ActorDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         initAdapter()
         setObserver()
@@ -50,8 +51,11 @@ class ActorDetailFragment : Fragment() {
         val photoClickListener = ContentItemClickListener {
             // TODO: 사진 요청
         }
-        val videoClickListener = ContentItemClickListener {
-            // TODO: 동영상 재생 화면으로 이동
+        val videoClickListener = ContentItemClickListener { contentInfo ->
+            val action = ActorDetailFragmentDirections.actionActorDetailFragmentToVideoPlayFragment(
+                contentInfo.contentId
+            )
+            findNavController().navigate(action)
         }
 
         detailPhotoAdapter = DetailAdapter(photoClickListener)

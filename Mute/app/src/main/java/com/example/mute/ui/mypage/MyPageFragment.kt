@@ -7,21 +7,33 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.mute.R
+import com.example.mute.databinding.FragmentMyPageBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MyPageFragment : Fragment() {
 
+    private var _binding: FragmentMyPageBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: MyPageViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
+    ): View {
+        _binding = FragmentMyPageBinding.inflate(layoutInflater, container, false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getUserInfo()
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

@@ -7,7 +7,6 @@ import com.example.mute.model.MusicalDetailInfo
 import com.example.mute.model.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
@@ -18,7 +17,7 @@ class MusicalDetailViewModel @Inject constructor(private val mainRepository: Mai
     ViewModel() {
 
     private val _musicalDetailInfo = MutableStateFlow(MusicalDetailInfo())
-    val musicalDetailInfo: StateFlow<MusicalDetailInfo> = _musicalDetailInfo.asStateFlow()
+    val musicalDetailInfo = _musicalDetailInfo.asStateFlow()
 
     fun getMusicalInfo(musicalPlayListId: String) {
         viewModelScope.launch {
@@ -27,6 +26,20 @@ class MusicalDetailViewModel @Inject constructor(private val mainRepository: Mai
                     Log.d("mute_musical_detail_info", "getMusicalInfo error ${it.message}")
                 }.collect { musicalDetailInfo ->
                     _musicalDetailInfo.value = musicalDetailInfo
+                }
+        }
+    }
+
+    fun updateFavoriteStatus() {
+        viewModelScope.launch {
+            mainRepository.updateMusicalFavorite(musicalDetailInfo.value.musicalPlayListId)
+                .catch {
+                    Log.d(
+                        "mute_musical_update_favorite",
+                        "updateFavoriteStatus error ${it.message}"
+                    )
+                }.collect { isFavorite ->
+                    _musicalDetailInfo.value = musicalDetailInfo.value.copy(star = isFavorite)
                 }
         }
     }

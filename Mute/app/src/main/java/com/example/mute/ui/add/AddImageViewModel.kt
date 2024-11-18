@@ -26,9 +26,7 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
 
     val mediaTitle = MutableStateFlow("")
     val mediaDescription = MutableStateFlow("")
-
-    private val _performanceTitle = MutableStateFlow("")
-    val performanceTitle = _performanceTitle.asStateFlow()
+    val performanceTitle = MutableStateFlow("")
 
     private val _performanceTime = MutableStateFlow("")
     val performanceTime = _performanceTime.asStateFlow()
@@ -38,6 +36,18 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
 
     fun setImage(absolutePath: String) {
         _imagePath.value = absolutePath
+    }
+
+    fun getActors() {
+        Log.e("mute_get_actors", "공연 제목 ${performanceTitle.value}")
+        viewModelScope.launch {
+            mainRepository.getMusicalActorList(performanceTitle.value)
+                .catch {
+                    Log.e("mute_get_actors", "getActors 에러 ${it.message}")
+                }.collect {
+                    Log.e("mute_get_actors", "getActors 결과 $it")
+                }
+        }
     }
 
     fun uploadFile() {
@@ -55,9 +65,12 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
                 .catch {
                     _uploadStatus.value = UploadStatus.FAILURE
                     Log.e("이미지 업로드 에러", it.toString())
-                }.collectLatest {
-                    _uploadStatus.value = UploadStatus.SUCCESS
-                    Log.e("이미지 업로드 성공", it)
+                }.collectLatest { message ->
+                    if (message == "fail") {
+                        _uploadStatus.value = UploadStatus.FAILURE
+                    } else {
+                        _uploadStatus.value = UploadStatus.SUCCESS
+                    }
                 }
         }
     }

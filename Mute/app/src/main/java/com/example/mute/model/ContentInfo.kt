@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ContentInfo(
-    val contentCoverKey: String,
-    val contentId: String,
-    val contentTitle: String,
+    val contentCoverKey: String = "",
+    val contentId: String = "-1",
+    val contentTitle: String = "",
     val contentType: ContentType
 ) : Parcelable

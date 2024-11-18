@@ -2,6 +2,7 @@ package com.example.mute.model
 
 data class MusicalDetailInfo(
     val musicalPlayListId: Long = -1,
+    val star: Boolean = false,
     val musicalImageUrl: String = "",
     val musicalTitle: String = "",
     val musicalTime: String = "",

@@ -63,7 +63,7 @@ class AddImageFragment : Fragment() {
                     }
 
                     UploadStatus.IN_PROGRESS -> {
-                        Toast.makeText(requireContext(), "압로드 진행 중", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "업로드 진행 중", Toast.LENGTH_SHORT).show()
                     }
 
                     else -> {}

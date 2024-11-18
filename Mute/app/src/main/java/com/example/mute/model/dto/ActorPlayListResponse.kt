@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ActorPlayListResponse(
     @SerializedName("actorId") val actorId: Long,
+    @SerializedName("star") val star: String,
     @SerializedName("actorName") val actorName: String,
     @SerializedName("actorUrl") val actorUrl: String,
     @SerializedName("actorDescribe") val actorDescribe: String,
