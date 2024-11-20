@@ -34,7 +34,7 @@
             android:maxWidth="60dp"
             android:maxLines="1"
             android:text="@{homeItem.name}"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 </layout>

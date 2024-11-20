@@ -11,9 +11,6 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_myListDetailFragment"
-            app:destination="@id/myListDetailFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_actorDetailFragment"
             app:destination="@id/actorDetailFragment" />
         <action
@@ -58,9 +55,6 @@
         <action
             android:id="@+id/action_actorDetailFragment_to_allPhotoFragment"
             app:destination="@id/allPhotoFragment" />
-        <action
-            android:id="@+id/action_actorDetailFragment_to_allLinkFragment"
-            app:destination="@id/allLinkFragment" />
         <argument
             android:name="actor_id"
             app:argType="string" />
@@ -78,9 +72,6 @@
         <action
             android:id="@+id/action_musicalDetailFragment_to_allPhotoFragment"
             app:destination="@id/allPhotoFragment" />
-        <action
-            android:id="@+id/action_musicalDetailFragment_to_allLinkFragment"
-            app:destination="@id/allLinkFragment" />
         <argument
             android:name="musical_id"
             app:argType="string" />
@@ -89,47 +80,41 @@
             app:destination="@id/videoPlayFragment" />
     </fragment>
     <fragment
-        android:id="@+id/myListDetailFragment"
-        android:name="com.example.mute.ui.detail.MyListDetailFragment"
-        android:label="MyListDetailFragment">
-        <action
-            android:id="@+id/action_myListDetailFragment_to_allVideoFragment"
-            app:destination="@id/allVideoFragment" />
-        <action
-            android:id="@+id/action_myListDetailFragment_to_allPhotoFragment"
-            app:destination="@id/allPhotoFragment" />
-        <action
-            android:id="@+id/action_myListDetailFragment_to_allLinkFragment"
-            app:destination="@id/allLinkFragment" />
-        <argument
-            android:name="my_list_name"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_myListDetailFragment_to_videoPlayFragment"
-            app:destination="@id/videoPlayFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/allVideoFragment"
         android:name="com.example.mute.ui.all.AllVideoFragment"
-        android:label="AllVideoFragment" >
+        android:label="AllVideoFragment">
         <argument
             android:name="video_items"
             app:argType="com.example.mute.model.ContentInfo[]" />
         <action
             android:id="@+id/action_allVideoFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
+        <argument
+            android:name="play_list_id"
+            app:argType="long" />
+        <argument
+            android:name="star"
+            app:argType="boolean" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/allLinkFragment"
-        android:name="com.example.mute.ui.all.AllLinkFragment"
-        android:label="AllLinkFragment" />
     <fragment
         android:id="@+id/allPhotoFragment"
         android:name="com.example.mute.ui.all.AllPhotoFragment"
-        android:label="AllPhotoFragment" >
+        android:label="AllPhotoFragment">
         <argument
             android:name="photo_items"
             app:argType="com.example.mute.model.ContentInfo[]" />
+        <argument
+            android:name="play_list_id"
+            app:argType="long" />
+        <argument
+            android:name="star"
+            app:argType="boolean" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addImageFragment"
@@ -143,9 +128,6 @@
         android:id="@+id/homeAllFragment"
         android:name="com.example.mute.ui.home.HomeAllFragment"
         android:label="HomeAllFragment">
-        <action
-            android:id="@+id/action_homeAllFragment_to_myListDetailFragment"
-            app:destination="@id/myListDetailFragment" />
         <action
             android:id="@+id/action_homeAllFragment_to_actorDetailFragment"
             app:destination="@id/actorDetailFragment" />
@@ -162,7 +144,7 @@
     <fragment
         android:id="@+id/videoPlayFragment"
         android:name="com.example.mute.ui.filePlay.VideoPlayFragment"
-        android:label="VideoPlayFragment" >
+        android:label="VideoPlayFragment">
         <argument
             android:name="contentId"
             app:argType="string" />
@@ -171,7 +153,7 @@
         android:id="@+id/addVideoFragment"
         android:name="com.example.mute.ui.add.AddVideoFragment"
         android:label="fragment_add_video"
-        tools:layout="@layout/fragment_add_video" >
+        tools:layout="@layout/fragment_add_video">
         <argument
             android:name="absolute_path"
             app:argType="string" />

@@ -79,7 +79,10 @@ class MusicalDetailFragment : Fragment() {
         binding.tvMusicalDetailVideoAll.setOnClickListener {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllVideoFragment(
-                    viewModel.musicalDetailInfo.value.videoInfo.toTypedArray()
+                    viewModel.musicalDetailInfo.value.videoInfo.toTypedArray(),
+                    star = viewModel.musicalDetailInfo.value.star,
+                    playListId = viewModel.musicalDetailInfo.value.musicalPlayListId,
+                    name = viewModel.musicalDetailInfo.value.musicalTitle
                 )
             findNavController().navigate(action)
         }
@@ -87,7 +90,10 @@ class MusicalDetailFragment : Fragment() {
         binding.tvMusicalDetailPhotoAll.setOnClickListener {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllPhotoFragment(
-                    viewModel.musicalDetailInfo.value.imageInfo.toTypedArray()
+                    photoItems = viewModel.musicalDetailInfo.value.imageInfo.toTypedArray(),
+                    star = viewModel.musicalDetailInfo.value.star,
+                    playListId = viewModel.musicalDetailInfo.value.musicalPlayListId,
+                    name = viewModel.musicalDetailInfo.value.musicalTitle
                 )
             findNavController().navigate(action)
         }

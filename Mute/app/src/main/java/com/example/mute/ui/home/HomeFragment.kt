@@ -46,9 +46,6 @@ class HomeFragment : Fragment() {
     private fun initAdapter() {
         val clickListener = HomeItemClickListener { homeItem ->
             val action = when (homeItem.itemType) {
-                ItemType.MY_LIST -> {
-                    HomeFragmentDirections.actionHomeFragmentToMyListDetailFragment(homeItem.playListId)
-                }
 
                 ItemType.MUSICAL -> {
                     HomeFragmentDirections.actionHomeFragmentToMusicalDetailFragment(homeItem.playListId)
@@ -60,9 +57,6 @@ class HomeFragment : Fragment() {
             }
             findNavController().navigate(action)
         }
-
-        val myListAdapter = HomeAdapter(clickListener)
-        binding.rvHomeMylist.adapter = myListAdapter
 
         musicalAdapter = HomeAdapter(clickListener)
         binding.rvHomeMusical.adapter = musicalAdapter
@@ -94,13 +88,6 @@ class HomeFragment : Fragment() {
 
     private fun setAllClickListener() {
         binding.apply {
-            tvHomeMylistAll.setOnClickListener {
-                val action = HomeFragmentDirections.actionHomeFragmentToHomeAllFragment(
-                    "마이리스트",
-                    viewModel.myList.toTypedArray()
-                )
-                findNavController().navigate(action)
-            }
             tvHomeActorAll.setOnClickListener {
                 val action = HomeFragmentDirections.actionHomeFragmentToHomeAllFragment(
                     "배우",

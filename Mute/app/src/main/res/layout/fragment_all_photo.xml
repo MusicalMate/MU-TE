@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.mute.ui.all.AllPhotoViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -20,13 +23,16 @@
                 android:id="@+id/layout_all_photo_top"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:title="@{viewModel.contentListState.name}"
+                    app:titleCentered="true" />
             </com.google.android.material.appbar.AppBarLayout>
 
             <TextView
@@ -55,16 +61,6 @@
                 app:spanCount="3"
                 tools:itemCount="15"
                 tools:listitem="@layout/item_photo" />
-
-            <ImageView
-                android:id="@+id/iv_all_photo_add"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginHorizontal="24dp"
-                android:contentDescription="@string/add"
-                app:layout_constraintBottom_toBottomOf="@id/tv_all_photo_photo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_all_photo_photo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

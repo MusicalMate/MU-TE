@@ -73,10 +73,6 @@ class LoginActivity : AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-
-        binding.ivLoginNaver.setOnClickListener {
-
-        }
     }
 
     private fun moveToMainActivity() {

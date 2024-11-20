@@ -29,6 +29,7 @@ class HomeAllFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.tbHomeAll.title = args.itemType
         initAdapter()
     }
@@ -36,10 +37,6 @@ class HomeAllFragment : Fragment() {
     private fun initAdapter() {
         val clickListener = HomeItemClickListener { homeItem ->
             val action = when (homeItem.itemType) {
-                ItemType.MY_LIST -> {
-                    HomeAllFragmentDirections.actionHomeAllFragmentToMyListDetailFragment(homeItem.playListId)
-                }
-
                 ItemType.MUSICAL -> {
                     HomeAllFragmentDirections.actionHomeAllFragmentToMusicalDetailFragment(homeItem.playListId)
                 }

@@ -77,14 +77,20 @@ class ActorDetailFragment : Fragment() {
     private fun setListener() {
         binding.tvActorDetailVideoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllVideoFragment(
-                viewModel.actorDetailInfo.value.videoInfo.toTypedArray()
+                videoItems = viewModel.actorDetailInfo.value.videoInfo.toTypedArray(),
+                star = viewModel.actorDetailInfo.value.star,
+                playListId = viewModel.actorDetailInfo.value.actorPlayListId,
+                name = viewModel.actorDetailInfo.value.actorName
             )
             findNavController().navigate(action)
         }
 
         binding.tvActorDetailPhotoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllPhotoFragment(
-                viewModel.actorDetailInfo.value.imageInfo.toTypedArray()
+                photoItems = viewModel.actorDetailInfo.value.imageInfo.toTypedArray(),
+                star = viewModel.actorDetailInfo.value.star,
+                playListId = viewModel.actorDetailInfo.value.actorPlayListId,
+                name = viewModel.actorDetailInfo.value.actorName
             )
             findNavController().navigate(action)
         }

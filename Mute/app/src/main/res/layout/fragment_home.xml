@@ -8,80 +8,42 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@null">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/layout_home_top"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/app_name"
-                app:titleCentered="true"
-                app:titleTextColor="@color/primary1" />
+                android:gravity="center"
+                android:paddingVertical="20dp"
+                android:text="@string/app_name"
+                android:textColor="@color/primary1"
+                android:textSize="28sp"
+                android:textStyle="bold" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/tv_home_mylist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_home_musical"
+            style="@style/HomeTitle"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
-            android:text="@string/mylist"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:text="@string/musical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_home_top" />
 
         <TextView
-            android:id="@+id/tv_home_mylist_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="@string/all"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@id/tv_home_mylist"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_home_mylist" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_home_mylist"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_mylist"
-            tools:itemCount="10"
-            tools:listitem="@layout/item_home" />
-
-        <TextView
-            android:id="@+id/tv_home_musical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/musical"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_home_mylist" />
-
-        <TextView
             android:id="@+id/tv_home_musical_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SeeAll"
             android:layout_marginEnd="32dp"
-            android:text="@string/all"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_home_musical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_home_musical" />
@@ -102,23 +64,17 @@
 
         <TextView
             android:id="@+id/tv_home_actor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/HomeTitle"
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:text="@string/actor"
-            android:textSize="20sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rv_home_musical" />
 
         <TextView
             android:id="@+id/tv_home_actor_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/SeeAll"
             android:layout_marginEnd="32dp"
-            android:text="@string/all"
-            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_home_actor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_home_actor" />

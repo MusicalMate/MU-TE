@@ -5,4 +5,6 @@
     <color name="primary1">#FF3576DB</color>
     <color name="primary2">#FF189D4A</color>
     <color name="primary3">#FF5C363A</color>
+    <color name="app_background">#FFFFFFFF</color>
+    <color name="app_text">#FF000000</color>
 </resources>
