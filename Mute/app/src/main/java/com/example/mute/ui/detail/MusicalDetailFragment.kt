@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentMusicalDetailBinding
 import com.example.mute.ui.ContentItemClickListener
+import com.example.mute.ui.DetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -79,8 +80,7 @@ class MusicalDetailFragment : Fragment() {
         binding.tvMusicalDetailVideoAll.setOnClickListener {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllVideoFragment(
-                    viewModel.musicalDetailInfo.value.videoInfo.toTypedArray(),
-                    star = viewModel.musicalDetailInfo.value.star,
+                    videoItems = viewModel.musicalDetailInfo.value.videoInfo.toTypedArray(),
                     playListId = viewModel.musicalDetailInfo.value.musicalPlayListId,
                     name = viewModel.musicalDetailInfo.value.musicalTitle
                 )
@@ -91,7 +91,6 @@ class MusicalDetailFragment : Fragment() {
             val action =
                 MusicalDetailFragmentDirections.actionMusicalDetailFragmentToAllPhotoFragment(
                     photoItems = viewModel.musicalDetailInfo.value.imageInfo.toTypedArray(),
-                    star = viewModel.musicalDetailInfo.value.star,
                     playListId = viewModel.musicalDetailInfo.value.musicalPlayListId,
                     name = viewModel.musicalDetailInfo.value.musicalTitle
                 )

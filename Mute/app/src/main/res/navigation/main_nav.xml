@@ -38,7 +38,23 @@
         android:id="@+id/searchFragment"
         android:name="com.example.mute.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_actorDetailFragment"
+            app:destination="@id/actorDetailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_musicalDetailFragment"
+            app:destination="@id/musicalDetailFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_allVideoFragment"
+            app:destination="@id/allVideoFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_allPhotoFragment"
+            app:destination="@id/allPhotoFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageFragment"
@@ -93,9 +109,6 @@
             android:name="play_list_id"
             app:argType="long" />
         <argument
-            android:name="star"
-            app:argType="boolean" />
-        <argument
             android:name="name"
             app:argType="string" />
     </fragment>
@@ -109,9 +122,6 @@
         <argument
             android:name="play_list_id"
             app:argType="long" />
-        <argument
-            android:name="star"
-            app:argType="boolean" />
         <argument
             android:name="name"
             app:argType="string" />

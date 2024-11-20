@@ -7,6 +7,7 @@ import com.example.mute.model.ContentDetailInfo
 import com.example.mute.model.DataParseUtil
 import com.example.mute.model.MainApi
 import com.example.mute.model.MusicalDetailInfo
+import com.example.mute.model.SearchResult
 import com.example.mute.model.UserInfo
 import com.example.mute.model.dto.ActorInfo
 import com.example.mute.model.dto.FileMetaInfo
@@ -215,7 +216,7 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun updateActorFavorite(actorPlayListId: Long): Flow<Boolean> = flow {
-        val response = mainApi.postActorFavoriteStatus(actorPlayListId)
+        val response = mainApi.postActorFavoriteState(actorPlayListId)
         Log.e("mute_update_actor", response.toString())
 
         if (response.star == "true") emit(true)
@@ -223,16 +224,50 @@ class MainRepositoryImpl @Inject constructor(
     }
 
     override fun updateMusicalFavorite(musicalPlayListId: Long): Flow<Boolean> = flow {
-        val response = mainApi.postMusicalFavoriteStatus(musicalPlayListId)
+        val response = mainApi.postMusicalFavoriteState(musicalPlayListId)
         if (response.star == "true") emit(true)
         else emit(false)
     }
 
-    override fun searchKeyword(keyword: String): Flow<String> = flow {
+    override fun searchKeyword(keyword: String): Flow<SearchResult> = flow {
         val response = mainApi.postSearchKeyword(keyword)
+        val searchResult = if (response.type == "actor") {
+            SearchResult(
+                type = response.type,
+                playListId = response.actorId ?: -1,
+                name = response.actorName ?: "",
+                url = response.actorUrl ?: "",
+                videoInfo = DataParseUtil.parseVideoStringsToList(
+                    response.videoIds,
+                    response.videoCoverUrls,
+                    response.videoTitles
+                ),
+                imageInfo = DataParseUtil.parseImageStringsToList(
+                    response.imageIds,
+                    response.imageCoverUrls,
+                    response.imageTitles
+                )
+            )
+        } else {
+            SearchResult(
+                type = response.type,
+                playListId = response.musicalId ?: -1,
+                name = response.musicalTitle ?: "",
+                url = response.musicalUrl ?: "",
+                videoInfo = DataParseUtil.parseVideoStringsToList(
+                    response.videoIds,
+                    response.videoCoverUrls,
+                    response.videoTitles
+                ),
+                imageInfo = DataParseUtil.parseImageStringsToList(
+                    response.imageIds,
+                    response.imageCoverUrls,
+                    response.imageTitles
+                )
+            )
+        }
 
-        Log.e("mute_search_keyword", response.toString())
-
+        emit(searchResult)
     }
 
     override fun getMyPageInfo(): Flow<UserInfo> = flow {

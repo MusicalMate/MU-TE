@@ -30,7 +30,7 @@ class MusicalDetailViewModel @Inject constructor(private val mainRepository: Mai
         }
     }
 
-    fun updateFavoriteStatus() {
+    fun updateFavoriteState() {
         viewModelScope.launch {
             mainRepository.updateMusicalFavorite(musicalDetailInfo.value.musicalPlayListId)
                 .catch {

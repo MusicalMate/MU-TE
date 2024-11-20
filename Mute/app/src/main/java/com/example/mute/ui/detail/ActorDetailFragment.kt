@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentActorDetailBinding
 import com.example.mute.ui.ContentItemClickListener
+import com.example.mute.ui.DetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -78,7 +79,6 @@ class ActorDetailFragment : Fragment() {
         binding.tvActorDetailVideoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllVideoFragment(
                 videoItems = viewModel.actorDetailInfo.value.videoInfo.toTypedArray(),
-                star = viewModel.actorDetailInfo.value.star,
                 playListId = viewModel.actorDetailInfo.value.actorPlayListId,
                 name = viewModel.actorDetailInfo.value.actorName
             )
@@ -88,7 +88,6 @@ class ActorDetailFragment : Fragment() {
         binding.tvActorDetailPhotoAll.setOnClickListener {
             val action = ActorDetailFragmentDirections.actionActorDetailFragmentToAllPhotoFragment(
                 photoItems = viewModel.actorDetailInfo.value.imageInfo.toTypedArray(),
-                star = viewModel.actorDetailInfo.value.star,
                 playListId = viewModel.actorDetailInfo.value.actorPlayListId,
                 name = viewModel.actorDetailInfo.value.actorName
             )

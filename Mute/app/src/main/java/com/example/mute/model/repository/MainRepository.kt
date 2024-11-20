@@ -4,10 +4,10 @@ import com.example.mute.model.Actor
 import com.example.mute.model.ActorDetailInfo
 import com.example.mute.model.ContentDetailInfo
 import com.example.mute.model.MusicalDetailInfo
+import com.example.mute.model.SearchResult
 import com.example.mute.model.UserInfo
 import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.dto.HomeListResponse
-import com.example.mute.model.dto.PostMyPageResponse
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -33,7 +33,7 @@ interface MainRepository {
 
     fun updateMusicalFavorite(musicalPlayListId: Long): Flow<Boolean>
 
-    fun searchKeyword(keyword: String): Flow<String>
+    fun searchKeyword(keyword: String): Flow<SearchResult>
 
-    fun getMyPageInfo() : Flow<UserInfo>
+    fun getMyPageInfo(): Flow<UserInfo>
 }

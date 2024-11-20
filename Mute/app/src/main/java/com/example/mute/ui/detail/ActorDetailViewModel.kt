@@ -30,7 +30,7 @@ class ActorDetailViewModel @Inject constructor(private val mainRepository: MainR
         }
     }
 
-    fun updateFavoriteStatus() {
+    fun updateFavoriteState() {
         viewModelScope.launch {
             mainRepository.updateActorFavorite(actorDetailInfo.value.actorPlayListId)
                 .catch {

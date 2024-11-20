@@ -12,10 +12,9 @@ class AllVideoViewModel : ViewModel() {
 
     fun setViewModelState(
         contentList: List<ContentInfo>,
-        star: Boolean,
         playList: Long,
         name: String
     ) {
-        _contentListState.value = ContentListState(contentList, star, playList, name)
+        _contentListState.value = ContentListState(contentList, playList, name)
     }
 }

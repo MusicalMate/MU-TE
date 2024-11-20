@@ -1,10 +1,9 @@
-package com.example.mute.ui.detail
+package com.example.mute.ui
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.mute.model.ContentInfo
-import com.example.mute.ui.ContentItemClickListener
 
 class DetailAdapter(private val onClickListener: ContentItemClickListener) :
     ListAdapter<ContentInfo, DetailViewHolder>(diffUtil) {

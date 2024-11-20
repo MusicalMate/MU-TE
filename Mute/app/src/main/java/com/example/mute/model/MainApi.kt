@@ -1,7 +1,7 @@
 package com.example.mute.model
 
 import com.example.mute.model.dto.ActorPlayListResponse
-import com.example.mute.model.dto.FavoriteStatusResponse
+import com.example.mute.model.dto.FavoriteStateResponse
 import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.dto.MusicalPlayListResponse
 import com.example.mute.model.dto.MusicalActors
@@ -58,10 +58,10 @@ interface MainApi {
     suspend fun postStreamingVideo(@Query(value = "videoId") type: Long): StreamingVideoResponse
 
     @POST("/api/star/actor")
-    suspend fun postActorFavoriteStatus(@Query(value="actorPlaylistId") type: Long): FavoriteStatusResponse
+    suspend fun postActorFavoriteState(@Query(value="actorPlaylistId") type: Long): FavoriteStateResponse
 
     @POST("/api/star/musical")
-    suspend fun postMusicalFavoriteStatus(@Query(value="musicalPlaylistId") type: Long): FavoriteStatusResponse
+    suspend fun postMusicalFavoriteState(@Query(value="musicalPlaylistId") type: Long): FavoriteStateResponse
 
     @POST("/api/search")
     suspend fun postSearchKeyword(@Query(value="param") type: String) : PostSearchResponse

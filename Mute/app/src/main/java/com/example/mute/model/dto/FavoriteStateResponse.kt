@@ -2,6 +2,6 @@ package com.example.mute.model.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class FavoriteStatusResponse(
+data class FavoriteStateResponse(
     @SerializedName("star") val star: String
 )

@@ -42,7 +42,7 @@ class AllPhotoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.viewModel = viewModel
-        viewModel.setViewModelState(args.photoItems.toList(), args.star, args.playListId, args.name)
+        viewModel.setViewModelState(args.photoItems.toList(), args.playListId, args.name)
         initAdapter()
         setObserver()
     }
