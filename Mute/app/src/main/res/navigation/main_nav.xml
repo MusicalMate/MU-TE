@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_searchFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
     </fragment>
 
     <fragment
@@ -85,6 +88,9 @@
         <action
             android:id="@+id/action_actorDetailFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
+        <action
+            android:id="@+id/action_actorDetailFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/musicalDetailFragment"
@@ -102,6 +108,9 @@
         <action
             android:id="@+id/action_musicalDetailFragment_to_videoPlayFragment"
             app:destination="@id/videoPlayFragment" />
+        <action
+            android:id="@+id/action_musicalDetailFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/allVideoFragment"
@@ -133,6 +142,9 @@
         <argument
             android:name="name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_allPhotoFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/addImageFragment"
@@ -173,7 +185,7 @@
         android:name="com.example.mute.ui.filePlay.VideoPlayFragment"
         android:label="VideoPlayFragment">
         <argument
-            android:name="contentId"
+            android:name="content_id"
             app:argType="string" />
     </fragment>
     <fragment
@@ -220,6 +232,14 @@
             app:argType="string" />
         <argument
             android:name="contentType"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/imageDetailFragment"
+        android:name="com.example.mute.ui.filePlay.ImageDetailFragment"
+        android:label="ImageDetailFragment" >
+        <argument
+            android:name="content_id"
             app:argType="string" />
     </fragment>
 </navigation>

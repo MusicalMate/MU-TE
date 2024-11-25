@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentAllPhotoBinding
 import com.example.mute.model.ContentType
@@ -49,8 +50,8 @@ class AllPhotoFragment : Fragment() {
 
     private fun initAdapter() {
         val clickListener = ContentItemClickListener { contentItem ->
-            Log.d("contentItemClick - Photo", contentItem.contentTitle)
-            // TODO - 데이터 요청
+            val action = AllVideoFragmentDirections.actionAllVideoFragmentToVideoPlayFragment(contentItem.contentId)
+            findNavController().navigate(action)
         }
 
         allPhotoAdapter = ContentAdapter(ContentType.PHOTO, clickListener)

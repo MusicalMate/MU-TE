@@ -48,9 +48,9 @@ class AllVideoFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        val clickListener = ContentItemClickListener { contentInfo ->
+        val clickListener = ContentItemClickListener { contentItem ->
             val action =
-                AllVideoFragmentDirections.actionAllVideoFragmentToVideoPlayFragment(contentInfo.contentId)
+                AllVideoFragmentDirections.actionAllVideoFragmentToVideoPlayFragment(contentItem.contentId)
             findNavController().navigate(action)
         }
 

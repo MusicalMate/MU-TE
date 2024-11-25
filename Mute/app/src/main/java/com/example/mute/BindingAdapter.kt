@@ -37,3 +37,8 @@ fun View.setSearchResultVisibility(status: SearchStatus) {
         else -> View.GONE
     }
 }
+
+@BindingAdapter("ListToString")
+fun TextView.setListToString(strings: List<String>){
+    text = strings.joinToString(", ")
+}

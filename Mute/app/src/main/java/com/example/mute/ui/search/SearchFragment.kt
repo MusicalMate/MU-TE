@@ -64,8 +64,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        val photoClickListener = ContentItemClickListener {
-            // TODO: 사진 요청
+        val photoClickListener = ContentItemClickListener { contentInfo ->
+            val action = SearchFragmentDirections.actionSearchFragmentToImageDetailFragment(
+                contentInfo.contentId
+            )
+            findNavController().navigate(action)
         }
         val videoClickListener = ContentItemClickListener { contentInfo ->
             val action = SearchFragmentDirections.actionSearchFragmentToVideoPlayFragment(
@@ -84,7 +87,7 @@ class SearchFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.searchStatus.collectLatest { searchStatus ->
-                    if(searchStatus == SearchStatus.ERROR){
+                    if (searchStatus == SearchStatus.ERROR) {
                         Toast.makeText(requireContext(), "검색 결과가 없습니다", Toast.LENGTH_SHORT).show()
                     }
                     binding.searchStatus = searchStatus

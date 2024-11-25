@@ -49,8 +49,12 @@ class MusicalDetailFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        val photoClickListener = ContentItemClickListener {
-            // TODO: 사진 요청
+        val photoClickListener = ContentItemClickListener { contentInfo ->
+            val action =
+                MusicalDetailFragmentDirections.actionMusicalDetailFragmentToImageDetailFragment(
+                    contentInfo.contentId
+                )
+            findNavController().navigate(action)
         }
         val videoClickListener = ContentItemClickListener { contentInfo ->
             val action =
