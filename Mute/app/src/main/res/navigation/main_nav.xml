@@ -28,17 +28,25 @@
         tools:layout="@layout/fragment_add_file">
         <action
             android:id="@+id/action_addFileFragment_to_addImageFragment"
-            app:destination="@id/addImageFragment" />
+            app:destination="@id/addImageFragment">
+            <argument
+                android:name="absolute_path"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_addFileFragment_to_addVideoFragment"
-            app:destination="@id/addVideoFragment" />
+            app:destination="@id/addVideoFragment">
+            <argument
+                android:name="absolute_path"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.mute.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_actorDetailFragment"
             app:destination="@id/actorDetailFragment" />
@@ -132,7 +140,16 @@
         android:label="AddImageFragment">
         <argument
             android:name="absolute_path"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="selectedActor"
+            android:defaultValue="@null"
+            app:argType="com.example.mute.model.Actor"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addImageFragment_to_addActorFragment"
+            app:destination="@id/addActorFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeAllFragment"
@@ -166,6 +183,43 @@
         tools:layout="@layout/fragment_add_video">
         <argument
             android:name="absolute_path"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="selectedActor"
+            android:defaultValue="@null"
+            app:argType="com.example.mute.model.Actor"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addVideoFragment_to_addActorFragment"
+            app:destination="@id/addActorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addActorFragment"
+        android:name="com.example.mute.ui.add.AddActorFragment"
+        android:label="AddActorFragment">
+        <action
+            android:id="@+id/action_addActorFragment_to_addImageFragment"
+            app:destination="@id/addImageFragment"
+            app:popUpTo="@id/addImageFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_addActorFragment_to_addVideoFragment"
+            app:destination="@id/addVideoFragment"
+            app:popUpTo="@id/addVideoFragment"
+            app:popUpToInclusive="true"/>
+        <argument
+            android:name="musicalActors"
+            app:argType="com.example.mute.model.Actor[]" />
+        <argument
+            android:name="actorId"
+            android:defaultValue="-1"
+            app:argType="string" />
+        <argument
+            android:name="musicalTitle"
+            app:argType="string" />
+        <argument
+            android:name="contentType"
             app:argType="string" />
     </fragment>
 </navigation>

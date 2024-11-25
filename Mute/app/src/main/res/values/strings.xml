@@ -25,4 +25,7 @@
     <string name="upload_image">사진 업로드</string>
     <string name="upload_video">동영상 업로드</string>
     <string name="upload">업로드</string>
+    <string name="select">선택</string>
+    <string name="select_actor">배우를 선택해주세요</string>
+    <string name="change">변경</string>
 </resources>

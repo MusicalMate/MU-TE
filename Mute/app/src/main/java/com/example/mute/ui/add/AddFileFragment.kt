@@ -129,7 +129,6 @@ class AddFileFragment : Fragment() {
     private fun openGalleryImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
-        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
 
         activityResultLauncher.launch(intent)
@@ -138,7 +137,6 @@ class AddFileFragment : Fragment() {
     private fun openGalleryVideo() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "video/*")
-        //intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         intent.action = Intent.ACTION_GET_CONTENT
 
         activityResultLauncher.launch(intent)

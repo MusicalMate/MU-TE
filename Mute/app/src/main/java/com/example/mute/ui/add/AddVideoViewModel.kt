@@ -3,6 +3,7 @@ package com.example.mute.ui.add
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.mute.model.Actor
 import com.example.mute.model.dto.FileMetaInfo
 import com.example.mute.model.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,43 +22,82 @@ class AddVideoViewModel @Inject constructor(private val mainRepository: MainRepo
     private val _uploadStatus = MutableStateFlow(UploadStatus.READY)
     val uploadStatus = _uploadStatus.asStateFlow()
 
-    private var videoPath = ""
+    private val _fileInputStatus = MutableStateFlow(FileInputStatus.EMPTY)
+    val fileInputStatus = _fileInputStatus.asStateFlow()
+
+    private val _videoPath = MutableStateFlow("")
+    val videoPath = _videoPath.asStateFlow()
 
     val mediaTitle = MutableStateFlow("")
     val mediaDescription = MutableStateFlow("")
     val performanceTitle = MutableStateFlow("")
 
-    private val _performanceTime = MutableStateFlow("")
+    private val _performanceTime = MutableStateFlow("2024/10/29 20:00")
     val performanceTime = _performanceTime.asStateFlow()
 
-    private val _performanceActors = MutableStateFlow("")
-    val performanceActors = _performanceActors.asStateFlow()
+    private val _musicalActors = MutableStateFlow<List<Actor>?>(null)
+    val musicalActors = _musicalActors.asStateFlow()
+
+    private val _selectedActor = MutableStateFlow<Actor?>(null)
+    val selectedActor = _selectedActor.asStateFlow()
 
     fun setVideo(absolutePath: String) {
-        videoPath = absolutePath
+        clearAll()
+        _videoPath.value = absolutePath
+    }
+
+    fun setSelectedActor(actor: Actor) {
+        _selectedActor.value = actor
+    }
+
+    fun clearAll() {
+        _uploadStatus.value = UploadStatus.READY
+        _fileInputStatus.value = FileInputStatus.EMPTY
+        _videoPath.value = ""
+        mediaTitle.value = ""
+        mediaDescription.value = ""
+        performanceTitle.value = ""
+        _performanceTime.value = "2024/10/29 20:00"
+        _musicalActors.value = null
+        _selectedActor.value = null
     }
 
     fun getActors() {
-        Log.e("mute_get_actors", "공연 제목 ${performanceTitle.value}")
         viewModelScope.launch {
-            mainRepository.getMusicalActorList(performanceTitle.value)
+            mainRepository.getMusicalActorList(performanceTitle.value.replace(" ", ""))
                 .catch {
                     Log.e("mute_get_actors", "getActors 에러 ${it.message}")
-                }.collect {
-                    Log.e("mute_get_actors", "getActors 결과 $it")
+                    _musicalActors.value = emptyList()
+                }.collect { actorList ->
+                    _musicalActors.value = actorList
                 }
         }
     }
 
-    fun uploadFile() {
+    fun validateAndUpload() {
+        _fileInputStatus.value = checkFileInputState()
+        if (fileInputStatus.value == FileInputStatus.COMPLETE) uploadFile()
+    }
+
+    private fun checkFileInputState(): FileInputStatus {
+        return when {
+            mediaTitle.value.isEmpty() -> FileInputStatus.FILE_TITLE_NOT_ENTERED
+            performanceTitle.value.isEmpty() -> FileInputStatus.MUSICAL_TITLE_NOT_ENTERED
+            performanceTime.value.isEmpty() -> FileInputStatus.PERFORMANCE_TIME_NOT_SELECTED
+            selectedActor.value == null -> FileInputStatus.ACTOR_NOT_SELECTED
+            else -> FileInputStatus.COMPLETE
+        }
+    }
+
+    private fun uploadFile() {
         _uploadStatus.value = UploadStatus.IN_PROGRESS
-        val file = File(videoPath)
+        val file = File(videoPath.value)
         val metaInfo = FileMetaInfo(
             mediaDescription.value,
             mediaTitle.value,
-            performanceTitle.value,
-            "",
-            "1"
+            performanceTitle.value.replace(" ", ""),
+            performanceTime.value,
+            selectedActor.value!!.actorId
         )
         viewModelScope.launch {
             mainRepository.uploadVideo(file, metaInfo)
@@ -69,6 +109,7 @@ class AddVideoViewModel @Inject constructor(private val mainRepository: MainRepo
                         _uploadStatus.value = UploadStatus.FAILURE
                     } else {
                         _uploadStatus.value = UploadStatus.SUCCESS
+                        clearAll()
                     }
                 }
         }
