@@ -31,9 +31,7 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
     val mediaTitle = MutableStateFlow("")
     val mediaDescription = MutableStateFlow("")
     val performanceTitle = MutableStateFlow("")
-
-    private val _performanceTime = MutableStateFlow("2024/10/29 20:00")
-    val performanceTime = _performanceTime.asStateFlow()
+    val performanceTime = MutableStateFlow("")
 
     private val _musicalActors = MutableStateFlow<List<Actor>?>(null)
     val musicalActors = _musicalActors.asStateFlow()
@@ -57,7 +55,7 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
         mediaTitle.value = ""
         mediaDescription.value = ""
         performanceTitle.value = ""
-        _performanceTime.value = "2024/10/29 20:00"
+        performanceTime.value = ""
         _musicalActors.value = null
         _selectedActor.value = null
     }
@@ -96,7 +94,7 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
             mediaDescription.value,
             mediaTitle.value,
             performanceTitle.value.replace(" ", ""),
-            performanceTime.value,
+            performanceTime.value.replace("-", " "),
             selectedActor.value!!.actorId
         )
         viewModelScope.launch {

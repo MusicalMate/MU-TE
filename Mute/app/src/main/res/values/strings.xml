@@ -32,4 +32,5 @@
     <string name="my_video">내 동영상</string>
     <string name="my_image">내 이미지</string>
     <string name="delete_file">삭제</string>
+    <string name="date_time_hint">YYYY/MM/DD-hh:mm</string>
 </resources>
