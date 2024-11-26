@@ -1,14 +1,14 @@
 package com.example.mute.ui.filePlay
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.mute.R
 import com.example.mute.databinding.FragmentImageDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -54,6 +54,10 @@ class ImageDetailFragment : Fragment() {
 
         binding.ivImageDetail.setOnClickListener {
             binding.layoutImageDetailInfo.visibility = View.VISIBLE
+        }
+
+        binding.ivImageDetailBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

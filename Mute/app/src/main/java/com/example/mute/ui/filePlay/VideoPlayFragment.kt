@@ -13,6 +13,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.mute.databinding.FragmentVideoPlayBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +43,7 @@ class VideoPlayFragment : Fragment() {
 
         setPlayer()
         setObserver()
+        setListener()
         viewModel.getContentDetailInfo(args.contentId)
     }
 
@@ -54,6 +56,7 @@ class VideoPlayFragment : Fragment() {
     private fun setObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.contentDetailInfo.collectLatest { contentDetailInfo ->
+                binding.contentDetailInfo = contentDetailInfo
                 val videoItem = MediaItem.fromUri(contentDetailInfo.contentUrl)
                 val mediaSource = ProgressiveMediaSource
                     .Factory(DefaultDataSource.Factory(requireContext()))
@@ -61,7 +64,22 @@ class VideoPlayFragment : Fragment() {
                 exoPlayer.setMediaSource(mediaSource)
                 exoPlayer.prepare()
                 exoPlayer.play()
+                binding.pvVideoPlayExoController.player = exoPlayer
             }
+        }
+    }
+
+    private fun setListener() {
+        binding.layoutVideoPlayTop.setOnClickListener { view ->
+            view.visibility = View.GONE
+        }
+
+        binding.pvVideoPlay.setOnClickListener {
+            binding.layoutVideoPlayTop.visibility = View.VISIBLE
+        }
+
+        binding.ivVideoPlayBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

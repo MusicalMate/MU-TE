@@ -8,4 +8,5 @@
     <color name="app_background">#FF000000</color>
     <color name="app_text">#FFFFFFFF</color>
     <color name="selected">#88000000</color>
+    <color name="media_detail_background">#CC000000</color>
 </resources>
