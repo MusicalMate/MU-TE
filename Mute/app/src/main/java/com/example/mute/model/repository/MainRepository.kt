@@ -36,4 +36,8 @@ interface MainRepository {
     fun searchKeyword(keyword: String): Flow<SearchResult>
 
     fun getMyPageInfo(): Flow<UserInfo>
+
+    fun deleteMyImage(contentId: String) : Flow<String>
+
+    fun deleteMyVideo(contentId: String) : Flow<String>
 }

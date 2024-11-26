@@ -118,25 +118,19 @@ class MainRepositoryImpl @Inject constructor(
 
         val url = response.s3url
 
-        Log.e("이미지 업로드 response", response.toString())
-        Log.e("이미지 업로드 이미지타입", imageFile.extension.lowercase())
-
         val requestBody =
             imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-        //val requestBody = imageFile.asRequestBody("application/octet-stream".toMediaTypeOrNull())
         val uploadResponse = mainApi.uploadFile(url, requestBody)
 
-        Log.e("이미지 업로드 결과", uploadResponse.toString())
 
         if (uploadResponse.isSuccessful) {
-            val result = mainApi.postUploadImageResponse(
+            mainApi.postUploadImageResponse(
                 PostImageUploadResponse(
                     "success",
                     response.imageId
                 )
             )
 
-            Log.e("이미지 업로드 result", result.toString())
             emit("success")
         } else {
             mainApi.postUploadImageResponse(
@@ -159,24 +153,18 @@ class MainRepositoryImpl @Inject constructor(
         )
         val response = mainApi.postVideoInfo(fileMetaInfoList)
 
-        Log.e("이미지 업로드 response", response.toString())
-        Log.e("이미지 업로드 이미지타입", videoFile.extension.lowercase())
-
         val url = response.s3url
         val requestBody = videoFile.asRequestBody("video/*".toMediaTypeOrNull())
         val uploadResponse = mainApi.uploadFile(url, requestBody)
 
-        Log.e("이미지 업로드 결과", uploadResponse.toString())
-
         if (uploadResponse.isSuccessful) {
-            val result = mainApi.postUploadVideoResponse(
+            mainApi.postUploadVideoResponse(
                 PostVideoUploadResponse(
                     "success",
                     response.videoId
                 )
             )
 
-            Log.e("이미지 업로드 result", result.toString())
             emit("success")
         } else {
             mainApi.postUploadVideoResponse(
@@ -217,7 +205,6 @@ class MainRepositoryImpl @Inject constructor(
 
     override fun updateActorFavorite(actorPlayListId: Long): Flow<Boolean> = flow {
         val response = mainApi.postActorFavoriteState(actorPlayListId)
-        Log.e("mute_update_actor", response.toString())
 
         if (response.star == "true") emit(true)
         else emit(false)
@@ -288,5 +275,15 @@ class MainRepositoryImpl @Inject constructor(
             )
         )
         emit(userInfo)
+    }
+
+    override fun deleteMyImage(contentId: String): Flow<String> = flow {
+        mainApi.postDeleteImage(contentId)
+        emit("success")
+    }
+
+    override fun deleteMyVideo(contentId: String): Flow<String> = flow {
+        mainApi.postDeleteVideo(contentId)
+        emit("success")
     }
 }

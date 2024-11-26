@@ -28,4 +28,8 @@
     <string name="select">선택</string>
     <string name="select_actor">배우를 선택해주세요</string>
     <string name="change">변경</string>
+    <string name="my_page">마이페이지</string>
+    <string name="my_video">내 동영상</string>
+    <string name="my_image">내 이미지</string>
+    <string name="delete_file">삭제</string>
 </resources>

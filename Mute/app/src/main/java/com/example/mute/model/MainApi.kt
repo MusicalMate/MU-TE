@@ -3,8 +3,8 @@ package com.example.mute.model
 import com.example.mute.model.dto.ActorPlayListResponse
 import com.example.mute.model.dto.FavoriteStateResponse
 import com.example.mute.model.dto.FileMetaInfo
-import com.example.mute.model.dto.MusicalPlayListResponse
 import com.example.mute.model.dto.MusicalActors
+import com.example.mute.model.dto.MusicalPlayListResponse
 import com.example.mute.model.dto.PostImageResponse
 import com.example.mute.model.dto.PostImageUploadResponse
 import com.example.mute.model.dto.PostMyPageResponse
@@ -58,14 +58,20 @@ interface MainApi {
     suspend fun postStreamingVideo(@Query(value = "videoId") type: Long): StreamingVideoResponse
 
     @POST("/api/star/actor")
-    suspend fun postActorFavoriteState(@Query(value="actorPlaylistId") type: Long): FavoriteStateResponse
+    suspend fun postActorFavoriteState(@Query(value = "actorPlaylistId") type: Long): FavoriteStateResponse
 
     @POST("/api/star/musical")
-    suspend fun postMusicalFavoriteState(@Query(value="musicalPlaylistId") type: Long): FavoriteStateResponse
+    suspend fun postMusicalFavoriteState(@Query(value = "musicalPlaylistId") type: Long): FavoriteStateResponse
 
     @POST("/api/search")
-    suspend fun postSearchKeyword(@Query(value="param") type: String) : PostSearchResponse
+    suspend fun postSearchKeyword(@Query(value = "param") type: String): PostSearchResponse
 
     @POST("/api/mypage")
-    suspend fun postMyPageInfo() : PostMyPageResponse
+    suspend fun postMyPageInfo(): PostMyPageResponse
+
+    @POST("/api/delete/image")
+    suspend fun postDeleteImage(@Query(value = "imageId") type: String): ResponseBody
+
+    @POST("/api/delete/video")
+    suspend fun postDeleteVideo(@Query(value = "videoId") type: String): ResponseBody
 }

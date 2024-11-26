@@ -71,7 +71,14 @@
         android:id="@+id/myPageFragment"
         android:name="com.example.mute.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
-        tools:layout="@layout/fragment_my_page" />
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageVideoFragment"
+            app:destination="@id/myPageVideoFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_myPageImageFragment"
+            app:destination="@id/myPageImageFragment" />
+    </fragment>
     <fragment
         android:id="@+id/actorDetailFragment"
         android:name="com.example.mute.ui.detail.ActorDetailFragment"
@@ -241,5 +248,21 @@
         <argument
             android:name="content_id"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageVideoFragment"
+        android:name="com.example.mute.ui.mypage.MyPageVideoFragment"
+        android:label="MyPageVideoFragment" >
+        <action
+            android:id="@+id/action_myPageVideoFragment_to_videoPlayFragment"
+            app:destination="@id/videoPlayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myPageImageFragment"
+        android:name="com.example.mute.ui.mypage.MyPageImageFragment"
+        android:label="MyPageImageFragment" >
+        <action
+            android:id="@+id/action_myPageImageFragment_to_imageDetailFragment"
+            app:destination="@id/imageDetailFragment" />
     </fragment>
 </navigation>
