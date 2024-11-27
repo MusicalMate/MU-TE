@@ -50,7 +50,7 @@ class AllPhotoFragment : Fragment() {
 
     private fun initAdapter() {
         val clickListener = ContentItemClickListener { contentItem ->
-            val action = AllVideoFragmentDirections.actionAllVideoFragmentToVideoPlayFragment(contentItem.contentId)
+            val action = AllPhotoFragmentDirections.actionAllPhotoFragmentToImageDetailFragment(contentItem.contentId)
             findNavController().navigate(action)
         }
 

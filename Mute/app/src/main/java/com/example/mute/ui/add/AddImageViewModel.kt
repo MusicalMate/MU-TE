@@ -81,10 +81,15 @@ class AddImageViewModel @Inject constructor(private val mainRepository: MainRepo
         return when {
             mediaTitle.value.isEmpty() -> FileInputStatus.FILE_TITLE_NOT_ENTERED
             performanceTitle.value.isEmpty() -> FileInputStatus.MUSICAL_TITLE_NOT_ENTERED
-            performanceTime.value.isEmpty() -> FileInputStatus.PERFORMANCE_TIME_NOT_SELECTED
+            !isValidTimeFormat() -> FileInputStatus.PERFORMANCE_TIME_FORMAT_ERROR
             selectedActor.value == null -> FileInputStatus.ACTOR_NOT_SELECTED
             else -> FileInputStatus.COMPLETE
         }
+    }
+
+    private fun isValidTimeFormat() : Boolean {
+        val regex = Regex("^\\d{4}/\\d{2}/\\d{2}-\\d{2}:\\d{2}$")
+        return regex.matches(performanceTime.value)
     }
 
     private fun uploadFile() {

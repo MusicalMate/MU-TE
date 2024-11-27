@@ -97,7 +97,7 @@ class AddVideoFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.fileInputStatus.collectLatest { fileInputStatus ->
                 when (fileInputStatus) {
-                    FileInputStatus.MUSICAL_TITLE_NOT_ENTERED, FileInputStatus.FILE_TITLE_NOT_ENTERED, FileInputStatus.PERFORMANCE_TIME_NOT_SELECTED -> {
+                    FileInputStatus.MUSICAL_TITLE_NOT_ENTERED, FileInputStatus.FILE_TITLE_NOT_ENTERED, FileInputStatus.PERFORMANCE_TIME_FORMAT_ERROR -> {
                         Toast.makeText(
                             requireContext(),
                             fileInputStatus.description,
